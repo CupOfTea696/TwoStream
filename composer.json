@@ -1,0 +1,28 @@
+{
+    "name": "cupoftea/twostream",
+    "description": "Two-way WebSocket communication for Laravel 5",
+    "keywords": ["socket", "websocket", "laravel", "communication", "client-server communication"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sven Wittevrongel",
+            "email": "cupoftea696@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+		"cboden/ratchet": "0.3.*",
+		"react/zmq": "0.3.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "CupOfTea\\TwoStream\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "dev"
+        }
+    },
+    "minimum-stability": "dev"
+}
