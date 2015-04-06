@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-		"cboden/ratchet": "0.3.*",
+		"cboden/ratchet": "0.3.*"
     },
     "suggest": {
         "react/zmq": "Allows pushing messages form server to client. v0.3.* recommended."
