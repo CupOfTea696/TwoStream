@@ -2,3 +2,5 @@
 
 # TwoStream
 ### Two-way WebSocket communication for Laravel 5
+
+This package is currently in alpha stage and unusable. Only install if you're interested in contributing.
