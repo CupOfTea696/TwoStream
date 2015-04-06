@@ -30,6 +30,10 @@ class TwoStreamServiceProvider extends ServiceProvider {
      */
     public function boot(){
         $this->publishes([
+            __DIR__.'/../../app/Ws/Kernel.php' => app_path('Ws/Kernel.php'),
+        ], 'required');
+        
+        $this->publishes([
             __DIR__.'/../../config/twostream.php' => config_path('twostream.php'),
         ], 'config');
     }
