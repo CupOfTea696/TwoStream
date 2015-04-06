@@ -56,7 +56,7 @@ class Server extends Command{
     
     protected $pull;
     
-    public function __construct($app){
+    public function __construct(App $app){
         $this->Dispatcher = $app->make('Dispatcher');
         $this->Session = Session::getFacadeRoot()->driver();
         
