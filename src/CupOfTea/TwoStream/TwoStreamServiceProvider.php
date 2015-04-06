@@ -44,7 +44,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register(){
-        foreach ($commands as $cmdName => $cmd) {
+        foreach($this->commands as $cmdName => $cmd){
             $this->app[$cmdName] = $this->app->share(function($app){
                 return new $cmd($app);
             });
