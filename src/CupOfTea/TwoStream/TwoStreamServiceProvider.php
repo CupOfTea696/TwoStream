@@ -20,7 +20,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
     protected $commands = [
-        'CupOfTea\TwoStream\Server',
+        'command.twostream.listen' => 'Server',
     ];
     
     /**
@@ -43,9 +43,14 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register()
-	{
-        $this->commands($this->commands);
+	public function register(){
+        foreach ($commands as $cmdName => $cmd) {
+            $this->app[$cmdName] = $this->app->share(function($app){
+                return new $cmd($app);
+            });
+        }
+        
+        $this->commands(array_keys($this->commands));
         
         $this->mergeConfigFrom(
             __DIR__.'/../../config/twostream.php', 'twostream'
