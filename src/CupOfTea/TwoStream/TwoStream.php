@@ -14,7 +14,7 @@ class TwoStream implements ProviderContract, MessageComponentInterface{
      *
      */
     const PACKAGE = 'CupOfTea/TwoStream';
-    const VERSION = '0.0.1-alpha';
+    const VERSION = '0.0.1-alpha-patch.1';
     
 	/**
 	 * This package's configuration
