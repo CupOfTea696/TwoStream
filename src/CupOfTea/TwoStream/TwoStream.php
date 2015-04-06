@@ -9,6 +9,10 @@ use CupOfTea\TwoStream\Contracts\Provider as ProviderContract;
 
 class TwoStream implements ProviderContract, MessageComponentInterface{
     
+    /**
+     * Package Info
+     *
+     */
     const PACKAGE = 'CupOfTea/TwoStream';
     const VERSION = '0.0.1-alpha';
     
@@ -21,7 +25,7 @@ class TwoStream implements ProviderContract, MessageComponentInterface{
     
     /**
 	 * Create a new provider instance.
-	 * 
+	 *
 	 * @param  string  $cfg
 	 * @return void
 	 */
