@@ -15,6 +15,15 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	protected $defer = true;
     
     /**
+	 * Available commands in this package
+	 *
+	 * @var array
+	 */
+    protected $commands = [
+        'CupOfTea\TwoStream\Server',
+    ];
+    
+    /**
      * Bootstrap the application events.
      *
      * @return void
@@ -32,6 +41,8 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+        $this->commands($this->commands);
+        
         $this->mergeConfigFrom(
             __DIR__.'/../../config/twostream.php', 'twostream'
         );
@@ -50,7 +61,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
 			return new TwoStream($config);
 		});
 	}
-
+    
 	/**
 	 * Get the services provided by the provider.
 	 *
