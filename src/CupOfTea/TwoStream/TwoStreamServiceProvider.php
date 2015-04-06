@@ -1,8 +1,11 @@
 <?php namespace CupOfTea\TwoStream;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
 
 class TwoStreamServiceProvider extends ServiceProvider {
+    
+    use AppNamespaceDetector;
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -32,6 +35,13 @@ class TwoStreamServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom(
             __DIR__.'/../../config/twostream.php', 'twostream'
         );
+        
+        $this->app->singleton(
+            'CupOfTea\TwoStream\Contracts\Ws\Kernel',
+            $this->getAppNamespace() . 'Ws\Kernel'
+        );
+        
+        $kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
         
 		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app)
 		{
