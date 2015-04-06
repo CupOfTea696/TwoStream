@@ -47,12 +47,12 @@ class TwoStreamServiceProvider extends ServiceProvider {
             __DIR__.'/../../config/twostream.php', 'twostream'
         );
         
-        $this->app->singleton(
-            'CupOfTea\TwoStream\Contracts\Ws\Kernel',
-            $this->getAppNamespace() . 'Ws\Kernel'
-        );
-        
-        $kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
+//        $this->app->singleton(
+//            'CupOfTea\TwoStream\Contracts\Ws\Kernel',
+//            $this->getAppNamespace() . 'Ws\Kernel'
+//        );
+//
+//        $kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
         
 		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app)
 		{
