@@ -9,7 +9,7 @@ use Ratchet\Http\HttpServer;
 use Ratchet\Wamp\WampServer;
 use Ratchet\WebSocket\WsServer;
 use Ratchet\Server\FlashPolicy;
-use Rachet\Session\SessionProvider;
+use Ratchet\Session\SessionProvider;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Foundation\Application as Laravel;
@@ -58,15 +58,15 @@ class Server extends Command{
     protected $pull;
     
     public function __construct(Laravel $app){
-        $this->Dispatcher = $app->make('Dispatcher');
-        $this->Session = Session::getFacadeRoot()->driver();
+        $this->Dispatcher = new Dispatcher();
+        $this->Session = Session::getFacadeRoot()->driver()->getHandler();
         
-        parent::construct();
+        parent::__construct();
     }
     
     public function fire(){
+		$this->info(' > TwoStream listening on port ' . $this->option('port'));
         $this->create()->run();
-		$this->info('TwoStream listening on port ' . $this->option('port'));
     }
     
     protected function create(){
@@ -92,6 +92,7 @@ class Server extends Command{
             ), $this->ws
         );
         
+        
         if($this->option('flash'))
             $this->allowFlash();
         
@@ -101,12 +102,12 @@ class Server extends Command{
 	/**
 	 * Enable the option to push messages from
 	 * the Server to the client
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function enablePush(){
         if(!class_exists('\React\ZMQ\Context')){
-            $this->error('react/zmq dependency is required if push is enabled');
+            $this->error('   > react/zmq dependency is required if push is enabled. Stopping server');
             die();
         }
         
@@ -116,14 +117,14 @@ class Server extends Command{
 		$this->pull->bind('tcp://127.0.0.1:' . $this->option('push-port'));
 		$this->pull->on('message', array($this->latchet, 'serverPublish')); // TODO
         
-		$this->info('Push enabled');
+        $this->info('   > Push enabled');
 	}
     
     /**
 	 * Allow Flash sockets to connect to our server.
 	 * For this we have to listen on flash.port (843) and return
 	 * the flashpolicy
-	 * 
+	 *
 	 * @return void
 	 */
 	protected function allowFlash(){
@@ -135,7 +136,7 @@ class Server extends Command{
         
 		$webServer = new IoServer($policy, $flashSock);
         
-		$this->info('Flash connection allowed');
+        $this->info('   > Flash connections allowed');
 	}
     
     /**
@@ -145,11 +146,11 @@ class Server extends Command{
 	 */
 	protected function getOptions(){
 		return [
-			['port', 'p', InputOption::OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
-            ['push', null, InputOption::VALUE_NONE, 'Enable push messages from the server to the client', config('twostream.push.enabled')],
-			['push-port', null, InputOption::OPTIONAL, 'Port the push server should listen on', config('twostream.push.port')],
-            ['flash', null, InputOption::VALUE_NONE, 'Allow legacy browsers to connect with the websocket polyfill', config('twostream.flash.allowed')],
-			['flash-port', null, InputOption::OPTIONAL, 'Port the push server should listen on', config('twostream.flash.port')],
+			['port', 'p', InputOption::VALUE_OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
+            ['push', null, InputOption::VALUE_OPTIONAL, 'Enable push messages from the server to the client', config('twostream.push.enabled')],
+			['push-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.push.port')],
+            ['flash', null, InputOption::VALUE_OPTIONAL, 'Allow legacy browsers to connect with the websocket polyfill', config('twostream.flash.allowed')],
+			['flash-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.flash.port')],
         ];
 	}
     
