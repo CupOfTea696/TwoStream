@@ -12,7 +12,6 @@ use Ratchet\Server\FlashPolicy;
 use Ratchet\Session\SessionProvider;
 
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Foundation\Application as Laravel;
 
 use React\ZMQ\Context as ZMQContext;
 use React\Socket\Server as ReactServer;
@@ -57,7 +56,7 @@ class Server extends Command{
     
     protected $pull;
     
-    public function __construct(Laravel $app){
+    public function __construct(){
         $this->Dispatcher = new Dispatcher();
         $this->Session = Session::getFacadeRoot()->driver()->getHandler();
         

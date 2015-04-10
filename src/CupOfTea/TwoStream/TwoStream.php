@@ -7,7 +7,7 @@ use ZMQContext;
 
 use CupOfTea\TwoStream\Contracts\Provider as ProviderContract;
 
-class TwoStream implements ProviderContract, MessageComponentInterface{
+class TwoStream implements ProviderContract{
     
     /**
      * Package Info

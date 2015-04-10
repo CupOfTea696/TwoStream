@@ -20,6 +20,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
     protected $commands = [
+        'command.twostream.install',
         'command.twostream.listen',
     ];
     
@@ -44,8 +45,12 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register(){
+        $this->app['command.twostream.install'] = $this->app->share(function($app){
+            return new Install($this->getAppNamespace());
+        });
+        
         $this->app['command.twostream.listen'] = $this->app->share(function($app){
-            return new Server($app);
+            return new Server();
         });
         
         $this->commands($this->commands);
@@ -54,15 +59,9 @@ class TwoStreamServiceProvider extends ServiceProvider {
             __DIR__.'/../../config/twostream.php', 'twostream'
         );
         
-//        $this->app->singleton(
-//            'CupOfTea\TwoStream\Contracts\Ws\Kernel',
-//            $this->getAppNamespace() . 'Ws\Kernel'
-//        );
-//
-//        $kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
-        
 		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app){
             $config = $this->app['config']['twostream'];
+            $kernel = $this->kernel();
             
 			return new TwoStream($config);
 		});
@@ -84,5 +83,14 @@ class TwoStreamServiceProvider extends ServiceProvider {
             'CupOfTea\TwoStream\Contracts\Dispatcher',
         ];
 	}
+    
+    protected function kernel(){
+        $this->app->singleton(
+            'CupOfTea\TwoStream\Contracts\Ws\Kernel',
+            $this->getAppNamespace() . 'Ws\Kernel'
+        );
+        
+        return $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
+    }
 
 }
