@@ -20,7 +20,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
     protected $commands = [
-        'command.twostream.listen' => 'Server',
+        'command.twostream.listen',
     ];
     
     /**
@@ -44,13 +44,11 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register(){
-        foreach($this->commands as $cmdName => $cmd){
-            $this->app[$cmdName] = $this->app->share(function($app){
-                return new $cmd($app);
-            });
-        }
+        $this->app['command.twostream.listen'] = $this->app->share(function($app){
+            return new Server($app);
+        });
         
-        $this->commands(array_keys($this->commands));
+        $this->commands($this->commands);
         
         $this->mergeConfigFrom(
             __DIR__.'/../../config/twostream.php', 'twostream'
@@ -63,11 +61,14 @@ class TwoStreamServiceProvider extends ServiceProvider {
 //
 //        $kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
         
-		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app)
-		{
+		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app){
             $config = $this->app['config']['twostream'];
             
 			return new TwoStream($config);
+		});
+        
+        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Dispatcher', function($app){
+            return new Dispatcher();
 		});
 	}
     
@@ -78,7 +79,10 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return ['CupOfTea\TwoStream\Contracts\Factory'];
+		return [
+            'CupOfTea\TwoStream\Contracts\Factory',
+            'CupOfTea\TwoStream\Contracts\Dispatcher',
+        ];
 	}
 
 }
