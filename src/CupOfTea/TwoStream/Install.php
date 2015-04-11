@@ -3,8 +3,6 @@
 use App;
 use Storage;
 
-use Illuminate\Console\Command;
-
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -46,14 +44,15 @@ class Install extends Command{
     }
     
     public function install(){
-        $this->info('Publishing required files', 1);
-        $this->call('vendor:publish', ['--provider' => strtolower(TwoStream::PACKAGE), '--tag' => 'required'], 2);
-        
-        $this->info('Applying your app\'s namespace <comment>[' . $this->appNamespace . ']</comment>', 1);
         $disk = Storage::createLocalDriver([
             'driver' => 'local',
 			'root'   => app_path(),
         ]);
+        
+        $this->info('Publishing required files', 1);
+        $this->call('vendor:publish', ['--provider' => strtolower(TwoStream::PACKAGE), '--tag' => 'required'], 2);
+        
+        $this->info('Applying your app\'s namespace <comment>[' . $this->appNamespace . ']</comment>', 1);
         foreach(TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required){
             $required = str_replace(app_path(), '', $required);
             $originalFile = $disk->get($required);
@@ -63,71 +62,17 @@ class Install extends Command{
                 $this->info('Setting namespace for <comment>[/app' . str_replace([app_path(), '.php', '.stub'], '', $required) . ']</comment>', 2);
                 
                 $disk->put($required, $file);
-                $disk->move($required, str_replace('.stub', '.php', $required));
+                if(!$disk->exists(str_replace('.stub', '.php', $required)))
+                    $disk->move($required, str_replace('.stub', '.php', $required));
             }
         }
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    public function call($command, array $arguments = array(), $level = 0){
-		$instance = $this->getApplication()->find($command);
-		$arguments['command'] = $command;
-		$result = $instance->run(new ArrayInput($arguments), $this->nested->level($level));
         
-        return $result;
+        $this->info('Cleaning up...', 1);
+        $files = $disk->allFiles('Ws');
+        foreach ($files as $key => $file) {
+            if(preg_match('/\\.stub$/', $file))
+                $disk->delete($file);
+        }
     }
-    
-    /**
-	 * Write a string as information output.
-	 *
-	 * @param  string  $string
-	 * @return void
-	 */
-	public function info($string, $level = 0)
-	{
-		$this->line("<info>$string</info>", $level);
-	}
-	/**
-	 * Write a string as standard output.
-	 *
-	 * @param  string  $string
-	 * @return void
-	 */
-	public function line($string, $level = 0)
-	{
-		$this->output->writeln('<comment>   ' . (str_repeat('  ', $level)) . '</comment>' . $string);
-	}
-	/**
-	 * Write a string as comment output.
-	 *
-	 * @param  string  $string
-	 * @return void
-	 */
-	public function comment($string, $level = 0)
-	{
-		$this->line("<comment>$string</comment>", $level);
-	}
-	/**
-	 * Write a string as question output.
-	 *
-	 * @param  string  $string
-	 * @return void
-	 */
-	public function question($string, $level = 0)
-	{
-		$this->line("<question>$string</question>", $level);
-	}
-	/**
-	 * Write a string as error output.
-	 *
-	 * @param  string  $string
-	 * @return void
-	 */
-	public function error($string, $level = 0)
-	{
-		$this->line("<error>$string</error>", $level);
-	}
     
 }
