@@ -1,5 +1,7 @@
 <?php namespace CupOfTea\TwoStream;
 
+use Storage;
+
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
 
@@ -31,7 +33,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
      */
     public function boot(){
         $this->publishes([
-            __DIR__.'/../../app/Ws/Kernel.php' => app_path('Ws/Kernel.php'),
+            __DIR__.'/../../app/Ws/Kernel.stub' => app_path('Ws/Kernel.stub'),
         ], 'required');
         
         $this->publishes([
@@ -50,7 +52,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
         });
         
         $this->app['command.twostream.listen'] = $this->app->share(function($app){
-            return new Server();
+            return new Server($this->kernel());
         });
         
         $this->commands($this->commands);
@@ -84,7 +86,24 @@ class TwoStreamServiceProvider extends ServiceProvider {
         ];
 	}
     
+    protected function isInstalled(){
+        $disk = Storage::createLocalDriver([
+            'driver' => 'local',
+			'root'   => app_path(),
+        ]);
+        
+        foreach(TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required){
+            if(!$disk->exists(str_replace('.stub', '.php', $required)))
+                return false;
+        }
+        
+        return true;
+    }
+    
     protected function kernel(){
+        if(!$this->isInstalled())
+            return false;
+        
         $this->app->singleton(
             'CupOfTea\TwoStream\Contracts\Ws\Kernel',
             $this->getAppNamespace() . 'Ws\Kernel'

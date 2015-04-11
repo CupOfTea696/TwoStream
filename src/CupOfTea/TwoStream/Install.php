@@ -50,12 +50,21 @@ class Install extends Command{
         $this->call('vendor:publish', ['--provider' => strtolower(TwoStream::PACKAGE), '--tag' => 'required'], 2);
         
         $this->info('Applying your app\'s namespace <comment>[' . $this->appNamespace . ']</comment>', 1);
-        Storage::createLocalDriver([
+        $disk = Storage::createLocalDriver([
             'driver' => 'local',
 			'root'   => app_path(),
         ]);
         foreach(TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required){
-            $this->info('Setting namespace for <comment>[/app' . str_replace(app_path(), '', $required) . ']</comment>', 2);
+            $required = str_replace(app_path(), '', $required);
+            $originalFile = $disk->get($required);
+            $file = str_replace('{{namespace}}', $this->appNamespace, $originalFile);
+            
+            if($file != $originalFile){
+                $this->info('Setting namespace for <comment>[/app' . str_replace([app_path(), '.php', '.stub'], '', $required) . ']</comment>', 2);
+                
+                $disk->put($required, $file);
+                $disk->move($required, str_replace('.stub', '.php', $required));
+            }
         }
     }
     
