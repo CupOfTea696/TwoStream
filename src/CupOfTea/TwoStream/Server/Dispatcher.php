@@ -1,6 +1,9 @@
-<?php namespace CupOfTea\TwoStream;
+<?php namespace CupOfTea\TwoStream\Server;
 
+use Crypt;
+use Session;
 use Exception;
+
 use Ratchet\Wamp\WampServerInterface as DispatcherContract;
 use Ratchet\ConnectionInterface as Connection;
 
@@ -12,7 +15,7 @@ class Dispatcher implements DispatcherContract{
     
     /**
 	 * Create a new Dispatcher instance.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function __construct($Kernel, $output){
@@ -29,7 +32,12 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible) {
-        $this->output->writeln(json_encode($topic));
+        $topic->broadcast($event);
+        $this->output->writeln(json_encode($connection));
+        $this->output->writeln(json_encode($topic->getId()));
+        $this->output->writeln(json_encode($event));
+        $this->output->writeln(json_encode($exclude));
+        $this->output->writeln(json_encode($eligible));
         return;
         
         $request = false;
@@ -70,20 +78,30 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onOpen(Connection $connection) {
+        $connection->Session = Session::getFacadeRoot()->driver();
+        if($sessionId = $this->getSessionCookie($connection))
+            $connection->Session->setId($sessionId);
         
+        $this->output->writeln("<info>Connection from <comment>[$sessionId]</comment> opened.</info>");
     }
     
     /**
      * @inheritdoc
      */
     public function onClose(Connection $connection) {
-        
+        $this->output->writeln("<info>Connection from <comment>[{$connection->Session->getId()}]</comment> closed.</info>");
     }
     
     /**
      * @inheritdoc
      */
     public function onError(Connection $connection, Exception $e) {
+        $this->output->writeln("<error>Error: {$e->getMessage()}</error>");
+    }
+    
+    protected function getSessionCookie(Connection $connection){
+        $cookie = urldecode($connection->WebSocket->request->getCookie(config('session.cookie')));
         
+        return $cookie ? Crypt::decrypt($cookie) : false;
     }
 }

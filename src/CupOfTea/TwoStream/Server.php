@@ -2,14 +2,12 @@
 
 use App;
 use ZMQ;
-use Session;
 
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\Wamp\WampServer;
 use Ratchet\WebSocket\WsServer;
 use Ratchet\Server\FlashPolicy;
-use Ratchet\Session\SessionProvider;
 
 use React\ZMQ\Context as ZMQContext;
 use React\Socket\Server as ReactServer;
@@ -17,6 +15,9 @@ use React\EventLoop\Factory as EventLoopFactory;
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+
+use CupOfTea\TwoStream\Console\Output;
+use CupOfTea\TwoStream\Server\Dispatcher;
 
 class Server extends Command{
     
@@ -37,14 +38,9 @@ class Server extends Command{
 	 */
 	protected $description = 'Let the WebSocket server listen on specified port for incomming connections';
     
-    protected $Dispatcher;
+	protected $output;
     
-    /**
-	 * This package's Server configuration
-	 *
-	 * @var array
-	 */
-    protected $cfg;
+    protected $Dispatcher;
     
     protected $loop;
     
@@ -55,13 +51,14 @@ class Server extends Command{
     protected $pull;
     
     public function __construct($Kernel){
-        $this->Dispatcher = new Dispatcher($Kernel, $this->output);
-        $this->Session = Session::getFacadeRoot()->driver()->getHandler();
+        $this->output = new Output();
+        $this->Dispatcher = new Dispatcher($Kernel, $this->output->level(3));
         
         parent::__construct();
     }
     
     public function fire(){
+        ini_set('xdebug.var_display_max_depth', 4);
 		$this->line('TwoStream listening on port ' . $this->option('port'));
         $this->create()->run();
     }
@@ -78,12 +75,8 @@ class Server extends Command{
         $this->server = new IoServer(
             new HttpServer(
                 new WsServer(
-                    new SessionProvider(
-                        new WampServer(
-                            $this->Dispatcher
-                        ), $this->Session, [
-                            'key' => $this->cfg['session_name']
-                        ]
+                    new WampServer(
+                        $this->Dispatcher
                     )
                 )
             ), $this->ws

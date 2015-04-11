@@ -7,6 +7,9 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+use CupOfTea\TwoStream\Console\Output;
+use CupOfTea\TwoStream\Console\Command;
+
 class Install extends Command{
     
     /**
@@ -23,6 +26,8 @@ class Install extends Command{
 	 */
 	protected $appNamespace;
     
+	protected $output;
+    
 	/**
 	 * The console command description.
 	 *
@@ -32,7 +37,7 @@ class Install extends Command{
     
     public function __construct($namespace){
         $this->appNamespace = rtrim($namespace, '\\');
-        $this->nested = new NestedOutput();
+        $this->output = new Output();
         
         parent::__construct();
     }

@@ -1,8 +1,8 @@
-<?php namespace CupOfTea\TwoStream;
+<?php namespace CupOfTea\TwoStream\Console;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
 
-class NestedOutput extends ConsoleOutput{
+class Output extends ConsoleOutput{
     protected $lines = [];
     
     protected $prepend = '';

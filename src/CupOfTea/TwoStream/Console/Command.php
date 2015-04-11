@@ -1,4 +1,4 @@
-<?php namespace CupOfTea\TwoStream;
+<?php namespace CupOfTea\TwoStream\Console;
 
 use Illuminate\Console\Command as ConsoleCommand;
 
@@ -12,7 +12,7 @@ abstract class Command extends ConsoleCommand{
     public function call($command, array $arguments = array(), $level = 0){
 		$instance = $this->getApplication()->find($command);
 		$arguments['command'] = $command;
-		$result = $instance->run(new ArrayInput($arguments), $this->nested->level($level));
+		$result = $instance->run(new ArrayInput($arguments), $this->output->level($level));
         
         return $result;
     }
