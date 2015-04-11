@@ -6,13 +6,18 @@ use Ratchet\ConnectionInterface as Connection;
 
 class Dispatcher implements DispatcherContract{
     
+    protected $Kernel;
+    
+    protected $output;
+    
     /**
 	 * Create a new Dispatcher instance.
 	 * 
 	 * @return void
 	 */
-	public function __construct(){
-        
+	public function __construct($Kernel, $output){
+        $this->Kernel = $Kernel;
+        $this->output = $output;
 	}
     
     /**
@@ -24,8 +29,12 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible) {
-        echo json_encode($topic);
-        // Pass through router.
+        $this->output->writeln(json_encode($topic));
+        return;
+        
+        $request = false;
+        
+        $this->Kernel->handle($request);
     }
     
     /**

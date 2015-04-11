@@ -52,7 +52,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
         });
         
         $this->app['command.twostream.listen'] = $this->app->share(function($app){
-            return new Server($this->kernel());
+            return new Server($this->Kernel());
         });
         
         $this->commands($this->commands);
@@ -63,13 +63,9 @@ class TwoStreamServiceProvider extends ServiceProvider {
         
 		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app){
             $config = $this->app['config']['twostream'];
-            $kernel = $this->kernel();
+            $Kernel = $this->Kernel();
             
 			return new TwoStream($config);
-		});
-        
-        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Dispatcher', function($app){
-            return new Dispatcher();
 		});
 	}
     
@@ -82,7 +78,6 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	{
 		return [
             'CupOfTea\TwoStream\Contracts\Factory',
-            'CupOfTea\TwoStream\Contracts\Dispatcher',
         ];
 	}
     
@@ -100,7 +95,7 @@ class TwoStreamServiceProvider extends ServiceProvider {
         return true;
     }
     
-    protected function kernel(){
+    protected function Kernel(){
         if(!$this->isInstalled())
             return false;
         

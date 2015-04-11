@@ -11,8 +11,6 @@ use Ratchet\WebSocket\WsServer;
 use Ratchet\Server\FlashPolicy;
 use Ratchet\Session\SessionProvider;
 
-use Illuminate\Console\Command;
-
 use React\ZMQ\Context as ZMQContext;
 use React\Socket\Server as ReactServer;
 use React\EventLoop\Factory as EventLoopFactory;
@@ -56,15 +54,15 @@ class Server extends Command{
     
     protected $pull;
     
-    public function __construct(){
-        $this->Dispatcher = new Dispatcher();
+    public function __construct($Kernel){
+        $this->Dispatcher = new Dispatcher($Kernel, $this->output);
         $this->Session = Session::getFacadeRoot()->driver()->getHandler();
         
         parent::__construct();
     }
     
     public function fire(){
-		$this->info(' > TwoStream listening on port ' . $this->option('port'));
+		$this->line('TwoStream listening on port ' . $this->option('port'));
         $this->create()->run();
     }
     
@@ -106,7 +104,7 @@ class Server extends Command{
 	 */
 	protected function enablePush(){
         if(!class_exists('\React\ZMQ\Context')){
-            $this->error('   > react/zmq dependency is required if push is enabled. Stopping server');
+            $this->error('react/zmq dependency is required if push is enabled. Stopping server', 1);
             die();
         }
         
@@ -116,7 +114,7 @@ class Server extends Command{
 		$this->pull->bind('tcp://127.0.0.1:' . $this->option('push-port'));
 		$this->pull->on('message', array($this->latchet, 'serverPublish')); // TODO
         
-        $this->info('   > Push enabled');
+        $this->info('Push enabled', 1);
 	}
     
     /**
@@ -135,7 +133,7 @@ class Server extends Command{
         
 		$webServer = new IoServer($policy, $flashSock);
         
-        $this->info('   > Flash connections allowed');
+        $this->info('Flash connections allowed', 1);
 	}
     
     /**
