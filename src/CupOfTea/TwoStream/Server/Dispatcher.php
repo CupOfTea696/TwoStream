@@ -41,7 +41,9 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onCall(Connection $connection, $id, $topic, array $params) {
-        // Pass through router.
+        $request = $this->buildRequest(self::WS_VERB_CALL, $connection, $topic, $params);
+        
+        $response = $this->Kernel->handle($request);
         
         // default reaction if route not set
         $connection->callError($id, $topic, 'RPC not supported.');
@@ -56,7 +58,7 @@ class Dispatcher implements DispatcherContract{
         $this->output->writeln(json_encode($exclude));
         $this->output->writeln(json_encode($eligible));
         
-        $request = $this->buildRequest($connection, $topic, $event, 'PUBLISH');
+        $request = $this->buildRequest(self::WS_VERB_PUBLISH, $connection, $topic, $event);
         
         $response = $this->Kernel->handle($request);
         
@@ -67,14 +69,18 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onSubscribe(Connection $connection, $topic) {
-        // Pass through router.
+        $request = $this->buildRequest(self::WS_VERB_SUBSCRIBE, $connection, $topic);
+        
+        $response = $this->Kernel->handle($request);
     }
     
     /**
      * @inheritdoc
      */
     public function onUnSubscribe(Connection $connection, $topic) {
-        // Pass through router.
+        $request = $this->buildRequest(self::WS_VERB_UNSUBSCRIBE, $connection, $topic);
+        
+        $response = $this->Kernel->handle($request);
     }
     
     /**
@@ -107,7 +113,7 @@ class Dispatcher implements DispatcherContract{
         $this->output->writeln("<error>Error: {$e->getMessage()}</error>");
     }
     
-    protected function buildRequest($connection, $topic, $data, $verb){
+    protected function buildRequest($verb, $connection, $topic, $data = []){
         return Request::createFromBase(
             SymfonyRequest::create(
                 'ws://' . $connection->WebSocket->request->getHost() . ':' . config('twostream.websocket.port') . '/' . trim($topic->getId(), '/'),
