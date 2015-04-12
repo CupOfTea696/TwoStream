@@ -7,7 +7,7 @@ This package is currently in **alpha** stage and not complete. Certain parts wor
 Documentation coming in first beta. For now, the info below will have to do.
 
 ## Completed:
- - ServiceProvider and Facades, add `'CupOfTea\TwoStream\TwoStreamServiceProvider',` your providers, and `'TwoStream' => 'CupOfTea\TwoStream\Facades\TwoStream',` and `'WsRoute'   => 'CupOfTea\TwoStream\Facades\WsRoute',` to your aliases in `config/app.php`
+ - ServiceProvider and Facades, add `'CupOfTea\TwoStream\TwoStreamServiceProvider',` to your providers, and `'TwoStream' => 'CupOfTea\TwoStream\Facades\TwoStream',` and `'WsRoute'   => 'CupOfTea\TwoStream\Facades\WsRoute',` to your aliases in `config/app.php`
  - Installation command; run twostream:install before trying to use anything.
  - WebSocket Server, boot with twostream:listen.
  - Routing, use `WsRoute::call`, `WsRoute::publish`, `WsRoute::subscribe` or `WsRoute::unsubscribe` to define WebSocket routes in `app/Ws/routes.php`. (partially complete)
