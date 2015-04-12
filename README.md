@@ -9,8 +9,8 @@ TwoStream is Laravel 5 only.
 
 ## Completed:
  - ServiceProvider and Facades, add `'CupOfTea\TwoStream\TwoStreamServiceProvider',` to your providers, and `'TwoStream' => 'CupOfTea\TwoStream\Facades\TwoStream',` and `'WsRoute'   => 'CupOfTea\TwoStream\Facades\WsRoute',` to your aliases in `config/app.php`
- - Installation command; run twostream:install before trying to use anything.
- - WebSocket Server, boot with twostream:listen.
+ - Installation command; run `twostream:install` before trying to use anything. (seriously!)
+ - WebSocket Server, boot with `twostream:listen`.
  - Routing, use `WsRoute::call`, `WsRoute::publish`, `WsRoute::subscribe` or `WsRoute::unsubscribe` to define WebSocket routes in `app/Ws/routes.php`. (partially complete)
  
 ## TODO:
