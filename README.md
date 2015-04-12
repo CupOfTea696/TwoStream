@@ -20,6 +20,6 @@ Documentation coming in first beta. For now, the info below will have to do.
  - Push events from server to all or specific user.
  
 ### Acknowledgements
-TwoStream is heavily based on [Latchet][latchet]. Some of the internal workings and public API is entirely different, other parts are near copy-pasted from the original code. The main difference between TwoStream and [Latchet][latchet] (will be) Laravel 5 support and read-only access to Session data. If you are using Laravel 4, please do go and use [Latchet][latchet] since it is pretty good. (Although the creator claims it's not even an alhpa version. Believe me, it is.) If you use Laravel 5 however, feel free to start testing this out and contribute.
+TwoStream is heavily based on [Latchet][latchet]. Some of the internal workings and public API is entirely different, other parts are near copy-pasted from the original code. The main difference between TwoStream and [Latchet][latchet] is (or will be) Laravel 5 support and read-only access to Session data. If you are using Laravel 4, please do go and use [Latchet][latchet] since it is pretty good. (Although the creator claims it's not even an alhpa version. Believe me, it is.) If you use Laravel 5 however, feel free to start testing this out and contribute.
 
 [latchet]: https://github.com/sidneywidmer/Latchet  "Latchet (L4 Package)"
