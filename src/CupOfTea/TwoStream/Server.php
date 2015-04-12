@@ -2,6 +2,7 @@
 
 use App;
 use ZMQ;
+use Storage;
 
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
@@ -19,7 +20,11 @@ use Symfony\Component\Console\Input\InputArgument;
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Server\Dispatcher;
 
+use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
+
 class Server extends Command{
+    
+    use AppNamespaceDetector;
     
     const IP = '0.0.0.0';
     
@@ -38,7 +43,11 @@ class Server extends Command{
 	 */
 	protected $description = 'Let the WebSocket server listen on specified port for incomming connections';
     
-	protected $output;
+	protected $app;
+    
+	protected $out;
+    
+    protected $Kernel;
     
     protected $Dispatcher;
     
@@ -50,29 +59,68 @@ class Server extends Command{
     
     protected $pull;
     
-    public function __construct($Kernel){
-        $this->output = new Output();
-        $this->Dispatcher = new Dispatcher($Kernel, $this->output->level(3));
-        
+    public function __construct($app){
         parent::__construct();
+        
+        $this->app = $app;
+        $this->out = new Output();
     }
     
     public function fire(){
-        ini_set('xdebug.var_display_max_depth', 4);
-		$this->line('TwoStream listening on port ' . $this->option('port'));
-        $this->create()->run();
+        if(!$this->isInstalled())
+            return $this->error('TwoStream is not installed. Please run twostream:install before attempting to run this command.');
+        
+        $this->line('TwoStream Server listening on port <comment>[' . $this->option('port') . ']</comment>');
+        $this->boot();
+        $this->start();
     }
     
-    protected function create(){
-        $this->loop = EventLoopFactory::create();
+    protected function start(){
+        $this->loop->run();
+    }
+    
+    protected function boot(){
+        $this->buildDispatcher();
+        $this->createLoop();
         
         if($this->option('push'))
             $this->enablePush();
         
+        $this->bootWsServer();
+        $this->bootHttpServer();
+        
+        if($this->option('flash'))
+            $this->allowFlash();
+        
+        return $this->loop;
+    }
+    
+    protected function buildKernel(){
+        $this->app->singleton(
+            'CupOfTea\TwoStream\Contracts\Ws\Kernel',
+            $this->getAppNamespace() . 'Ws\Kernel'
+        );
+        
+        return $this->Kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
+    }
+    
+    protected function buildDispatcher(){
+        return $this->Dispatcher = new Dispatcher($this->buildKernel(), $this->out->level(3));
+    }
+    
+    protected function createLoop(){
+        return $this->loop = EventLoopFactory::create();
+    }
+    
+    protected function bootWsServer(){
         $this->ws = new ReactServer($this->loop);
         $this->ws->listen($this->option('port'), self::IP);
         
-        $this->server = new IoServer(
+        return $this->ws;
+    }
+    
+    protected function bootHttpServer(){
+        return $this->server = new IoServer(
             new HttpServer(
                 new WsServer(
                     new WampServer(
@@ -81,12 +129,6 @@ class Server extends Command{
                 )
             ), $this->ws
         );
-        
-        
-        if($this->option('flash'))
-            $this->allowFlash();
-        
-        return $this->loop;
     }
     
 	/**
@@ -97,7 +139,7 @@ class Server extends Command{
 	 */
 	protected function enablePush(){
         if(!class_exists('\React\ZMQ\Context')){
-            $this->error('react/zmq dependency is required if push is enabled. Stopping server', 1);
+            $this->error('React/ZMQ dependency is required to enable push. Stopping server.', 1);
             die();
         }
         
@@ -143,5 +185,19 @@ class Server extends Command{
 			['flash-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.flash.port')],
         ];
 	}
+    
+    protected function isInstalled(){
+        $disk = Storage::createLocalDriver([
+            'driver' => 'local',
+			'root'   => app_path(),
+        ]);
+        
+        foreach(TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required){
+            if(!$disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required)))
+                return false;
+        }
+        
+        return true;
+    }
     
 }
