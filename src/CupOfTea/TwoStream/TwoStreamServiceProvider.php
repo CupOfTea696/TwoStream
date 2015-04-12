@@ -2,12 +2,21 @@
 
 use Storage;
 
-use Illuminate\Support\ServiceProvider;
+use CupOfTea\TwoStream\Routing\WsRouter;
+use CupOfTea\TwoStream\Foundation\Support\Providers\WsRouteServiceProvider;
+
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
 
-class TwoStreamServiceProvider extends ServiceProvider {
+class TwoStreamServiceProvider extends WsRouteServiceProvider {
     
     use AppNamespaceDetector;
+    
+    /**
+	 * This namespace is applied to the controller routes in your routes file.
+	 *
+	 * @var string
+	 */
+	protected $namespace = '{{namespace}}Ws\Controllers';
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -29,9 +38,14 @@ class TwoStreamServiceProvider extends ServiceProvider {
     /**
      * Bootstrap the application events.
      *
+     * @param  \CupOfTea\TwoStream\Routing\WsRouter  $router
      * @return void
      */
-    public function boot(){
+    public function boot(WsRouter $router){
+        $this->namespace = str_replace('{{namespace}}', $this->getAppNamespace(), $this->namespace);
+        
+        parent::boot($router);
+        
         $this->publishes([
             __DIR__.'/../../app/Ws/Kernel.stub' => app_path('Ws/Kernel.stub'),
         ], 'required');
@@ -40,6 +54,18 @@ class TwoStreamServiceProvider extends ServiceProvider {
             __DIR__.'/../../config/twostream.php' => config_path('twostream.php'),
         ], 'config');
     }
+    
+    /**
+	 * Define the routes for the application.
+	 *
+	 * @param  \CupOfTea\TwoStream\Routing\WsRouter  $router
+	 * @return void
+	 */
+	public function map(WsRouter $router){
+		$router->group(['namespace' => $this->namespace], function($router){
+			require app_path('Ws/routes.php');
+		});
+	}
 
 	/**
 	 * Register the service provider.
@@ -51,8 +77,18 @@ class TwoStreamServiceProvider extends ServiceProvider {
             return new Install($this->getAppNamespace());
         });
         
+        if(!$this->isInstalled())
+            return $this->commands(['command.twostream.install']);
+        
+		$this->app->bindShared('CupOfTea\TwoStream\Routing\WsRouter', function($app){
+            return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
+		});
+		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Routing\Registrar', function($app){
+            return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
+		});
+        
         $this->app['command.twostream.listen'] = $this->app->share(function($app){
-            return new Server($this->Kernel());
+            return new Server($app);
         });
         
         $this->commands($this->commands);
@@ -63,7 +99,6 @@ class TwoStreamServiceProvider extends ServiceProvider {
         
 		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app){
             $config = $this->app['config']['twostream'];
-            $Kernel = $this->Kernel();
             
 			return new TwoStream($config);
 		});
@@ -77,7 +112,9 @@ class TwoStreamServiceProvider extends ServiceProvider {
 	public function provides()
 	{
 		return [
+            'CupOfTea\TwoStream\Routing\WsRouter',
             'CupOfTea\TwoStream\Contracts\Factory',
+            'CupOfTea\TwoStream\Contracts\Routing\Registrar',
         ];
 	}
     
@@ -94,17 +131,6 @@ class TwoStreamServiceProvider extends ServiceProvider {
         
         return true;
     }
-    
-    protected function Kernel(){
-        if(!$this->isInstalled())
-            return false;
-        
-        $this->app->singleton(
-            'CupOfTea\TwoStream\Contracts\Ws\Kernel',
-            $this->getAppNamespace() . 'Ws\Kernel'
-        );
-        
-        return $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
-    }
 
 }
+

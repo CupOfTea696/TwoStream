@@ -1,12 +1,15 @@
 <?php namespace CupOfTea\TwoStream\Facades;
+
+use Illuminate\Support\Facades\Facade;
+
 /**
- * @see \Illuminate\Routing\Router
+ * @see \CupOfTea\TwoStream\Routing\WsRouter
  */
-class Route extends Facade {
+class WsRoute extends Facade {
 	/**
 	 * Get the registered name of the component.
 	 *
 	 * @return string
 	 */
-	protected static function getFacadeAccessor() { return 'CupOfTea\TwoStreams\Routing\WsRouter'; }
+	protected static function getFacadeAccessor() { return 'CupOfTea\TwoStream\Routing\WsRouter'; }
 }

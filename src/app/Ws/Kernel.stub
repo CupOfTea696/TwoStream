@@ -1,8 +1,8 @@
 <?php namespace {{namespace}}\Ws;
 
-use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use CupOfTea\TwoStream\Foundation\Ws\Kernel as WsKernel;
 
-class Kernel extends HttpKernel {
+class Kernel extends WsKernel {
 
 	/**
 	 * The application's global HTTP middleware stack.
@@ -15,7 +15,6 @@ class Kernel extends HttpKernel {
 		'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
 		'Illuminate\Session\Middleware\StartSession',
 		'Illuminate\View\Middleware\ShareErrorsFromSession',
-		'App\Http\Middleware\VerifyCsrfToken',
 	];
 
 	/**
@@ -24,9 +23,8 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth' => 'App\Http\Middleware\Authenticate',
-		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-		'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+		'auth' => '{{namespace}}\Http\Middleware\Authenticate',
+		'guest' => '{{namespace}}\Http\Middleware\RedirectIfAuthenticated',
 	];
 
 }

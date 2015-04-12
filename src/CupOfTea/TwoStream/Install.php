@@ -26,7 +26,7 @@ class Install extends Command{
 	 */
 	protected $appNamespace;
     
-	protected $output;
+	protected $out;
     
 	/**
 	 * The console command description.
@@ -36,10 +36,10 @@ class Install extends Command{
 	protected $description = 'Install TwoStream. This is required for TwoStream to work properly.';
     
     public function __construct($namespace){
-        $this->appNamespace = rtrim($namespace, '\\');
-        $this->output = new Output();
-        
         parent::__construct();
+        
+        $this->appNamespace = rtrim($namespace, '\\');
+        $this->out = new Output();
     }
     
     public function fire(){

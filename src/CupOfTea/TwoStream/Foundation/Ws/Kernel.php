@@ -1,12 +1,14 @@
-<?php namespace CupOfTea\TwoStream\Foundation\Ws
+<?php namespace CupOfTea\TwoStream\Foundation\Ws;
 
 use Exception;
-use CupOfTea\TwoStreams\Routing\Router;
+
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Facade;
+use CupOfTea\TwoStream\Routing\WsRouter;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\TerminableMiddleware;
 use CupOfTea\TwoStream\Contracts\Ws\Kernel as KernelContract;
+
 class Kernel implements KernelContract {
 	/**
 	 * The application implementation.
@@ -17,7 +19,7 @@ class Kernel implements KernelContract {
 	/**
 	 * The router instance.
 	 *
-	 * @var \CupOfTea\TwoStreams\Routing\Router
+	 * @var \CupOfTea\TwoStream\Routing\Router
 	 */
 	protected $router;
 	/**
@@ -50,12 +52,12 @@ class Kernel implements KernelContract {
 	 * Create a new HTTP kernel instance.
 	 *
 	 * @param  \Illuminate\Contracts\Foundation\Application  $app
-	 * @param  \Illuminate\Routing\Router  $router
+	 * @param  \CupOfTea\TwoStream\Routing\WsRouter  $router
 	 * @return void
 	 */
-	public function __construct(Application $app, Router $router)
+	public function __construct(Application $app, WsRouter $router)
 	{
-		$this->app = $app;
+        $this->app = $app;
 		$this->router = $router;
 		foreach ($this->routeMiddleware as $key => $middleware)
 		{
@@ -79,7 +81,7 @@ class Kernel implements KernelContract {
 			$this->reportException($e);
 			$response = $this->renderException($request, $e);
 		}
-		$this->app['events']->fire('kernel.handled', [$request, $response]);
+		$this->app['events']->fire('wskernel.handled', [$request, $response]);
 		return $response;
 	}
 	/**

@@ -12,7 +12,7 @@ abstract class Command extends ConsoleCommand{
     public function call($command, array $arguments = array(), $level = 0){
 		$instance = $this->getApplication()->find($command);
 		$arguments['command'] = $command;
-		$result = $instance->run(new ArrayInput($arguments), $this->output->level($level));
+		$result = $instance->run(new ArrayInput($arguments), $this->out->level($level));
         
         return $result;
     }
@@ -35,7 +35,7 @@ abstract class Command extends ConsoleCommand{
 	 */
 	public function line($string, $level = 0)
 	{
-		$this->output->writeln('<comment>   ' . (str_repeat('  ', $level)) . '</comment>' . $string);
+		$this->out->writeln('<comment>   ' . (str_repeat('  ', $level)) . '</comment>' . $string);
 	}
 	/**
 	 * Write a string as comment output.
