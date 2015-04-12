@@ -5,6 +5,7 @@
 
 This package is currently in **alpha** stage and not complete. Certain parts work but are not properly tested.
 Documentation coming in first beta. For now, the info below will have to do.
+TwoStream is Laravel 5 only.
 
 ## Completed:
  - ServiceProvider and Facades, add `'CupOfTea\TwoStream\TwoStreamServiceProvider',` to your providers, and `'TwoStream' => 'CupOfTea\TwoStream\Facades\TwoStream',` and `'WsRoute'   => 'CupOfTea\TwoStream\Facades\WsRoute',` to your aliases in `config/app.php`
