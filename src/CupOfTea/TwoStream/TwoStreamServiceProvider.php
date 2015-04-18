@@ -3,6 +3,7 @@
 use Storage;
 
 use CupOfTea\TwoStream\Routing\WsRouter;
+use CupOfTea\TwoStream\Session\ReadOnly;
 use CupOfTea\TwoStream\Foundation\Support\Providers\WsRouteServiceProvider;
 
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
@@ -80,12 +81,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
         if(!$this->isInstalled())
             return $this->commands(['command.twostream.install']);
         
-		$this->app->bindShared('CupOfTea\TwoStream\Routing\WsRouter', function($app){
-            return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
-		});
-		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Routing\Registrar', function($app){
-            return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
-		});
+		parent::register();
         
         $this->app['command.twostream.listen'] = $this->app->share(function($app){
             return new Server($app);
@@ -102,6 +98,10 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
             
 			return new TwoStream($config);
 		});
+        
+		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Session\ReadOnly', function($app){
+            return new ReadOnly($this->app['config']['session.cookie']);
+		});
 	}
     
 	/**
@@ -111,11 +111,10 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
 	 */
 	public function provides()
 	{
-		return [
-            'CupOfTea\TwoStream\Routing\WsRouter',
+		return array_merge([
             'CupOfTea\TwoStream\Contracts\Factory',
-            'CupOfTea\TwoStream\Contracts\Routing\Registrar',
-        ];
+            'CupOfTea\TwoStream\Contracts\Session\ReadOnly',
+        ], parent::provides());
 	}
     
     protected function isInstalled(){

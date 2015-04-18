@@ -1,5 +1,6 @@
 <?php namespace CupOfTea\TwoStream\Foundation\Ws;
 
+use Session;
 use Exception;
 
 use Illuminate\Pipeline\Pipeline;
@@ -7,6 +8,7 @@ use Illuminate\Support\Facades\Facade;
 use CupOfTea\TwoStream\Routing\WsRouter;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\TerminableMiddleware;
+use CupOfTea\TwoStream\Session\ReadOnlySessionManager;
 use CupOfTea\TwoStream\Contracts\Ws\Kernel as KernelContract;
 
 class Kernel implements KernelContract {
@@ -22,20 +24,6 @@ class Kernel implements KernelContract {
 	 * @var \CupOfTea\TwoStream\Routing\Router
 	 */
 	protected $router;
-	/**
-	 * The bootstrap classes for the application.
-	 *
-	 * @var array
-	 */
-	protected $bootstrappers = [
-		'Illuminate\Foundation\Bootstrap\DetectEnvironment',
-		'Illuminate\Foundation\Bootstrap\LoadConfiguration',
-		'Illuminate\Foundation\Bootstrap\ConfigureLogging',
-		'Illuminate\Foundation\Bootstrap\HandleExceptions',
-		'Illuminate\Foundation\Bootstrap\RegisterFacades',
-		'Illuminate\Foundation\Bootstrap\RegisterProviders',
-		'Illuminate\Foundation\Bootstrap\BootProviders',
-	];
 	/**
 	 * The application's middleware stack.
 	 *
@@ -94,7 +82,9 @@ class Kernel implements KernelContract {
 	{
 		$this->app->instance('request', $request);
 		Facade::clearResolvedInstance('request');
-		$this->bootstrap();
+        
+        // fill ReadOnly Session.
+        
 		return (new Pipeline($this->app))
 		            ->send($request)
 		            ->through($this->middleware)
@@ -163,18 +153,6 @@ class Kernel implements KernelContract {
 		return $this;
 	}
 	/**
-	 * Bootstrap the application for HTTP requests.
-	 *
-	 * @return void
-	 */
-	public function bootstrap()
-	{
-		if ( ! $this->app->hasBeenBootstrapped())
-		{
-			$this->app->bootstrapWith($this->bootstrappers());
-		}
-	}
-	/**
 	 * Get the route dispatcher callback.
 	 *
 	 * @return \Closure
@@ -186,15 +164,6 @@ class Kernel implements KernelContract {
 			$this->app->instance('request', $request);
 			return $this->router->dispatch($request);
 		};
-	}
-	/**
-	 * Get the bootstrap classes for the application.
-	 *
-	 * @return array
-	 */
-	protected function bootstrappers()
-	{
-		return $this->bootstrappers;
 	}
 	/**
 	 * Report the exception to the exception handler.

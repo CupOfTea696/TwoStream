@@ -3,6 +3,7 @@
 use Crypt;
 use Session;
 use Exception;
+use WsSession;
 
 use Illuminate\Http\Request;
 
@@ -92,9 +93,8 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onOpen(Connection $connection) {
-        $connection->Session = Session::getFacadeRoot()->driver();
-        if($sessionId = $this->getSessionCookie($connection))
-            $connection->Session->setId($sessionId);
+        $session = Session::getFacadeRoot()->driver();
+        $connection->Session = WsSession::initialize($session->all(), $this->getSessionCookie($connection));
         
         $this->output->writeln("<info>Connection from <comment>[{$connection->Session->getId()}]</comment> opened.</info>");
     }
@@ -114,12 +114,15 @@ class Dispatcher implements DispatcherContract{
     }
     
     protected function buildRequest($verb, $connection, $topic, $data = []){
+        $cookies = $connection->WebSocket->request->getCookies();
+        array_forget($cookies, config('session.cookie'));
+        
         return Request::createFromBase(
             SymfonyRequest::create(
                 'ws://' . $connection->WebSocket->request->getHost() . ':' . config('twostream.websocket.port') . '/' . trim($topic->getId(), '/'),
                 strtoupper($verb),
                 ['data' => $data,], // params
-                [], // cookies
+                $cookies, // cookies
                 [], // files
                 [], // server
                 null // content
@@ -130,6 +133,6 @@ class Dispatcher implements DispatcherContract{
     protected function getSessionCookie(Connection $connection){
         $cookie = urldecode($connection->WebSocket->request->getCookie(config('session.cookie')));
         
-        return $cookie ? Crypt::decrypt($cookie) : false;
+        return $cookie ? Crypt::decrypt($cookie) : null;
     }
 }

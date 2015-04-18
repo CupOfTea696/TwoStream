@@ -90,7 +90,26 @@ class WsRouteServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app->bindShared('CupOfTea\TwoStream\Routing\WsRouter', function($app){
+            return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
+		});
+        
+		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Routing\Registrar', function($app){
+            return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
+		});
+	}
+    
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return [
+            'CupOfTea\TwoStream\Routing\WsRouter',
+            'CupOfTea\TwoStream\Contracts\Routing\Registrar',
+        ];
 	}
     
 	/**

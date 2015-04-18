@@ -2,13 +2,7 @@
 
 interface Kernel {
 	/**
-	 * Bootstrap the application for HTTP requests.
-	 *
-	 * @return void
-	 */
-	public function bootstrap();
-	/**
-	 * Handle an incoming HTTP request.
+	 * Handle an incoming Ws request.
 	 *
 	 * @param  \Symfony\Component\HttpFoundation\Request  $request
 	 * @return \Symfony\Component\HttpFoundation\Response
