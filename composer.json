@@ -18,7 +18,7 @@
         "react/zmq": "Allows pushing messages form server to client. v0.3.* recommended."
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "CupOfTea\\TwoStream\\": "src/"
         }
     },
