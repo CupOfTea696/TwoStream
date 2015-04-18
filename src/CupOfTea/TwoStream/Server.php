@@ -18,6 +18,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 use CupOfTea\TwoStream\Console\Output;
+use CupOfTea\TwoStream\Console\Command;
 use CupOfTea\TwoStream\Server\Dispatcher;
 
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
