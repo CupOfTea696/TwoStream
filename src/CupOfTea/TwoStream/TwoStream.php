@@ -49,6 +49,8 @@ use CupOfTea\TwoStream\Contracts\Provider as ProviderContract;
 
 class TwoStream implements ProviderContract{
     
+    use Package;
+    
     /**
      * Package Info
      *
