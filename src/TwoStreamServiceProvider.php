@@ -48,11 +48,11 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
         parent::boot($router);
         
         $this->publishes([
-            __DIR__.'/../../app/Ws/Kernel.stub' => app_path('Ws/Kernel.stub'),
+            __DIR__.'/../app/Ws/Kernel.stub' => app_path('Ws/Kernel.stub'),
         ], 'required');
         
         $this->publishes([
-            __DIR__.'/../../config/twostream.php' => config_path('twostream.php'),
+            __DIR__.'/../config/twostream.php' => config_path('twostream.php'),
         ], 'config');
     }
     
@@ -90,7 +90,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
         $this->commands($this->commands);
         
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/twostream.php', 'twostream'
+            __DIR__.'/../config/twostream.php', 'twostream'
         );
         
 		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app){
