@@ -44,6 +44,7 @@ use Route;
 use Request;
 use ZMQContext;
 
+use CupOfTea\Package\Package;
 use CupOfTea\TwoStream\Contracts\Provider as ProviderContract;
 
 class TwoStream implements ProviderContract{
@@ -118,33 +119,4 @@ class TwoStream implements ProviderContract{
 		$this->socket->connect("tcp://localhost:".Config::get('latchet::zmqPort'));
 		return $this->socket;
 	}
-    
-    /**
-     * Package Info
-     *
-     */
-    
-    /**
-     * Package Info
-     *
-     * @return string
-     */
-    public function package($info = false){
-        if($info == 'dot')
-            return strtolower(str_replace('/', '.', self::PACKAGE));
-        
-        if($info == 'v')
-            return self::PACKAGE . '/' . self::VERSION;
-        
-        return self::PACKAGE;
-    }
-    
-    /**
-     * Package Version
-     *
-     * @return string
-     */
-    public function version(){
-        return self::VERSION;
-    }
 }

@@ -10,6 +10,7 @@
         }
     ],
     "require": {
+        "cupoftea/package": "~1.0",
         "php": ">=5.4.0",
 		"cboden/ratchet": "0.3.*"
     },
