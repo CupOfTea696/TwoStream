@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Facade;
  */
 class WsSession extends Facade {
 
-	/**
-	 * Get the registered name of the component.
-	 *
-	 * @return string
-	 */
-	protected static function getFacadeAccessor() { return 'CupOfTea\TwoStream\Contracts\Session\ReadOnly'; }
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor() { return 'CupOfTea\TwoStream\Contracts\Session\ReadOnly'; }
 
 }

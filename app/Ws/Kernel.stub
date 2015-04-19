@@ -4,25 +4,25 @@ use CupOfTea\TwoStream\Foundation\Ws\Kernel as WsKernel;
 
 class Kernel extends WsKernel {
 
-	/**
-	 * The application's global HTTP middleware stack.
-	 *
-	 * @var array
-	 */
-	protected $middleware = [
-		'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-		'Illuminate\Cookie\Middleware\EncryptCookies',
-		'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-	];
+    /**
+     * The application's global HTTP middleware stack.
+     *
+     * @var array
+     */
+    protected $middleware = [
+        'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
+        'Illuminate\Cookie\Middleware\EncryptCookies',
+        'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
+    ];
 
-	/**
-	 * The application's route middleware.
-	 *
-	 * @var array
-	 */
-	protected $routeMiddleware = [
-		'auth' => '{{namespace}}\Http\Middleware\Authenticate',
-		'guest' => '{{namespace}}\Http\Middleware\RedirectIfAuthenticated',
-	];
+    /**
+     * The application's route middleware.
+     *
+     * @var array
+     */
+    protected $routeMiddleware = [
+        'auth' => '{{namespace}}\Http\Middleware\Authenticate',
+        'guest' => '{{namespace}}\Http\Middleware\RedirectIfAuthenticated',
+    ];
 
 }

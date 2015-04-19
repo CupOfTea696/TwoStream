@@ -30,15 +30,15 @@ class Dispatcher implements DispatcherContract{
     protected $sessions = [];
     
     /**
-	 * Create a new Dispatcher instance.
-	 *
-	 * @return void
-	 */
-	public function __construct($Session, $Kernel, $output){
+     * Create a new Dispatcher instance.
+     *
+     * @return void
+     */
+    public function __construct($Session, $Kernel, $output){
         $this->Session = $Session;
         $this->Kernel = $Kernel;
         $this->output = $output->level(2);
-	}
+    }
     
     /**
      * Route Topic events to Controller

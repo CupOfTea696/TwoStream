@@ -13,27 +13,27 @@ use CupOfTea\TwoStream\Console\Command;
 class Install extends Command{
     
     /**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'twostream:install';
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'twostream:install';
     
     /**
-	 * The user's App Namespace.
-	 *
-	 * @var string
-	 */
-	protected $appNamespace;
+     * The user's App Namespace.
+     *
+     * @var string
+     */
+    protected $appNamespace;
     
-	protected $out;
+    protected $out;
     
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Install TwoStream. This is required for TwoStream to work properly.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Install TwoStream. This is required for TwoStream to work properly.';
     
     public function __construct($namespace){
         parent::__construct();
@@ -43,15 +43,15 @@ class Install extends Command{
     }
     
     public function fire(){
-		$this->line('Installing TwoStream...');
+        $this->line('Installing TwoStream...');
         $this->install();
-		$this->line('Installation complete');
+        $this->line('Installation complete');
     }
     
     public function install(){
         $disk = Storage::createLocalDriver([
             'driver' => 'local',
-			'root'   => app_path(),
+            'root'   => app_path(),
         ]);
         
         $this->info('Publishing required files', 1);

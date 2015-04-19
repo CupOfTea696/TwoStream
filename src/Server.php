@@ -33,21 +33,21 @@ class Server extends Command{
     const SOCKET_PULL_ID = 'twostream.pull';
     
     /**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'twostream:listen';
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Let the WebSocket server listen on specified port for incomming connections';
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'twostream:listen';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Let the WebSocket server listen on specified port for incomming connections';
     
-	protected $app;
+    protected $app;
     
-	protected $out;
+    protected $out;
     
     protected $Kernel;
     
@@ -139,65 +139,65 @@ class Server extends Command{
         );
     }
     
-	/**
-	 * Enable the option to push messages from
-	 * the Server to the client
-	 *
-	 * @return void
-	 */
-	protected function enablePush(){
+    /**
+     * Enable the option to push messages from
+     * the Server to the client
+     *
+     * @return void
+     */
+    protected function enablePush(){
         if(!class_exists('\React\ZMQ\Context')){
             $this->error('React/ZMQ dependency is required to enable push. Stopping server.', 1);
             die();
         }
         
-		$context = new ZMQContext($this->loop);
+        $context = new ZMQContext($this->loop);
         
-		$this->pull = $context->getSocket(ZMQ::SOCKET_PULL, self::SOCKET_PULL_ID . '.' . App::environment());
-		$this->pull->bind('tcp://127.0.0.1:' . $this->option('push-port'));
-		$this->pull->on('message', array($this->latchet, 'serverPublish')); // TODO
+        $this->pull = $context->getSocket(ZMQ::SOCKET_PULL, self::SOCKET_PULL_ID . '.' . App::environment());
+        $this->pull->bind('tcp://127.0.0.1:' . $this->option('push-port'));
+        $this->pull->on('message', array($this->latchet, 'serverPublish')); // TODO
         
         $this->info('Push enabled', 1);
-	}
+    }
     
     /**
-	 * Allow Flash sockets to connect to our server.
-	 * For this we have to listen on flash.port (843) and return
-	 * the flashpolicy
-	 *
-	 * @return void
-	 */
-	protected function allowFlash(){
-		$flashSock = new ReactServer($this->loop);
-		$flashSock->listen($this->option('flash-port'), self::IP);
+     * Allow Flash sockets to connect to our server.
+     * For this we have to listen on flash.port (843) and return
+     * the flashpolicy
+     *
+     * @return void
+     */
+    protected function allowFlash(){
+        $flashSock = new ReactServer($this->loop);
+        $flashSock->listen($this->option('flash-port'), self::IP);
         
-		$policy = new FlashPolicy;
-		$policy->addAllowedAccess('*', $this->option('port'));
+        $policy = new FlashPolicy;
+        $policy->addAllowedAccess('*', $this->option('port'));
         
-		$webServer = new IoServer($policy, $flashSock);
+        $webServer = new IoServer($policy, $flashSock);
         
         $this->info('Flash connections allowed', 1);
-	}
+    }
     
     /**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions(){
-		return [
-			['port', 'p', InputOption::VALUE_OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions(){
+        return [
+            ['port', 'p', InputOption::VALUE_OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
             ['push', null, InputOption::VALUE_OPTIONAL, 'Enable push messages from the server to the client', config('twostream.push.enabled')],
-			['push-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.push.port')],
+            ['push-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.push.port')],
             ['flash', null, InputOption::VALUE_OPTIONAL, 'Allow legacy browsers to connect with the websocket polyfill', config('twostream.flash.allowed')],
-			['flash-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.flash.port')],
+            ['flash-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.flash.port')],
         ];
-	}
+    }
     
     protected function isInstalled(){
         $disk = Storage::createLocalDriver([
             'driver' => 'local',
-			'root'   => app_path(),
+            'root'   => app_path(),
         ]);
         
         foreach(TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required){
