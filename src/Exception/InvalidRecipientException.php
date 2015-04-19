@@ -2,9 +2,10 @@
 
 use Exception;
 
-class InvalidRecipientException extends exception
+class InvalidRecipientException extends Exception
 {
-    public function __construct($recipient){
-        parent::__construct('Invalid recipient: ' . $recipient, );
+    public function __construct($recipient, $code = 0, Exception $previous = null)
+    {
+        parent::__construct('Invalid recipient: ' . $recipient, $code, $previous);
     }
 }

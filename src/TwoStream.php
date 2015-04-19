@@ -79,16 +79,16 @@ class TwoStream implements ProviderContract{
      * This function get's fired e.g after a ajax request and not
      * after a websocket request. Because of that we don't have access
      * to all the connections and there for have to connect to the
-     * latchet/ratchet server
+     * twostream/ratchet server
      *
      * @param string $channel
      * @param array $message
      * @return void
      */
     public function push($channel, $message){
-        if(!$this->enablePush){
-            throw new LatchetException("Publish not allowed.");
-        }
+        if(!$this->enablePush)
+            throw new TwoStreamException('Push is disabled');
+        
         $message = array_merge(array('topic' => $channel), $message);
         $this->getSocket()->send(json_encode($message));
     }
