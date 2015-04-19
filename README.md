@@ -19,7 +19,7 @@ TwoStream is Laravel 5 only.
  - Map WsRoute::controller to correct functions, allow missing functions.
  - Handle calls to unmapped routes properly. ~~(currently responds with HTTP 404 HTML I believe)~~
  - Middleware for connections. (or something similar) [@beta]
- - <del>~~Make more data available in Controllers. (e.g. Connection and other Ws data, better Request object.)~~</del>
+ - ~~Make more data available in Controllers. (e.g. Connection and other Ws data, better Request object.)~~
  - Push events from server to all or specific user. (to sessionId = &#10006;, to user &#10006;) (zmq)
  - Complete all DOCBLOCKS [@beta]
  - Upgrade to PSR-2 [@post-release]
