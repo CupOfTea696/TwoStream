@@ -46,7 +46,6 @@ class Dispatcher implements DispatcherContract{
      */
     public function onCall(Connection $connection, $id, $topic, array $params) {
         $request = $this->buildRequest(self::WS_VERB_CALL, $connection, $topic, $params);
-        
         $response = $this->Kernel->handle($request);
         
         // default reaction if route not set
@@ -57,16 +56,10 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible) {
-        $this->output->writeln(json_encode($topic->getId()));
-        $this->output->writeln(json_encode($event));
-        $this->output->writeln(json_encode($exclude));
-        $this->output->writeln(json_encode($eligible));
-        
         $request = $this->buildRequest(self::WS_VERB_PUBLISH, $connection, $topic, $event);
+        $response = $this->Kernel->handle($request);
         
-        $response = $this->handle($connection, $request);
-        
-        $topic->broadcast($response->getContent());
+        $this->send($response, $connection, $topic);
     }
     
     /**
@@ -74,8 +67,9 @@ class Dispatcher implements DispatcherContract{
      */
     public function onSubscribe(Connection $connection, $topic) {
         $request = $this->buildRequest(self::WS_VERB_SUBSCRIBE, $connection, $topic);
+        $response = $this->Kernel->handle($request);
         
-        $response = $this->handle($connection, $request);
+        $this->send($response, $connection, $topic);
     }
     
     /**
@@ -83,14 +77,46 @@ class Dispatcher implements DispatcherContract{
      */
     public function onUnSubscribe(Connection $connection, $topic) {
         $request = $this->buildRequest(self::WS_VERB_UNSUBSCRIBE, $connection, $topic);
+        $response = $this->Kernel->handle($request);
         
-        $response = $this->handle($connection, $request);
+        $this->send($response, $connection, $topic);
     }
     
-    protected function handle(Connection $connection, $request){
-        $this->loadSession($connection);
+    /**
+     * Send Response
+     *
+     */
+    protected function send($response, Connection $connection, $topic){
+        if(!$content = $response->getContent())
+            return;
         
-        return $this->Kernel->handle($request);
+        $content = (array)json_decode($content, true);
+         = array_get($content, 'send_to', config('request.send_to'));
+        $data = array_get($content, 'data', count($content) ? $content : $content[0]);
+        
+        if($recipient == 'all'){
+            $topic->broadcast($data);
+        }elseif($recipient == 'except'){
+            foreach($topic->getIterator() as $client){
+                if($client->Session->getId() != $connection->Session->getId())
+                    $client->event($topic->getId(), $data);
+            }
+        }else{
+            if($recipient == 'requestee')
+                $recipient = $connection->Session->getId();
+            
+            foreach((array)$recipient as $recipient){
+                // TODO: if translateUserToSessionId || 
+                if(WsSession::isValidId($recipient)){
+                    foreach($topic->getIterator() as $client){
+                        if($client->Session->getId() == $recipient)
+                            $client->event($topic->getId(), $data);
+                    }
+                }else{
+                    throw new InvalidRecipientException($recipient);
+                }
+            }
+        }
     }
     
     /**
@@ -138,7 +164,7 @@ class Dispatcher implements DispatcherContract{
             SymfonyRequest::create(
                 'ws://' . $connection->WebSocket->request->getHost() . ':' . config('twostream.websocket.port') . '/' . trim($topic->getId(), '/'),
                 strtoupper($verb),
-                ['data' => $data,], // params
+                ['topic' => $topic, 'data' => $data,], // params
                 $cookies, // cookies
                 [], // files
                 [], // server

@@ -49,6 +49,17 @@ class ReadOnly {
 		return $this->id;
 	}
 
+    /**
+	 * Determine if this is a valid session ID.
+	 *
+	 * @param  string  $id
+	 * @return bool
+	 */
+	public function isValidId($id)
+	{
+		return is_string($id) && preg_match('/^[a-f0-9]{40}$/', $id);
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */
