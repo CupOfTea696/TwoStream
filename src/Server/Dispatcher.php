@@ -8,6 +8,7 @@ use WsSession;
 use Illuminate\Http\Request;
 
 use CupOfTea\TwoStream\Session\ReadOnly;
+use CupOfTea\TwoStream\Exception\InvalidRecipientException;
 
 use Ratchet\ConnectionInterface as Connection;
 use Ratchet\Wamp\WampServerInterface as DispatcherContract;
@@ -122,7 +123,7 @@ class Dispatcher implements DispatcherContract{
         
         if($recipient == 'all'){
             $topic->broadcast($data);
-        }elseif($recipient == 'except'){
+        }elseif($recipient == 'Exceptionsept'){
             foreach($topic->getIterator() as $client){
                 if($client->Session->getId() != $connection->Session->getId())
                     $client->event($topic->getId(), $data);
