@@ -12,7 +12,7 @@ class Output extends ConsoleOutput{
     }
     
     public function level($level = 0){
-        $this->prepend = '<comment>   ' . (str_repeat('  ', $level)) . '</comment>';
+        $this->prepend = '   ' . (str_repeat('  ', $level));
         
         return $this;
     }

@@ -25,7 +25,7 @@ abstract class Command extends ConsoleCommand{
 	 */
 	public function info($string, $level = 0)
 	{
-		$this->line("<info>$string</info>", $level);
+		$this->out->level($level)->writeln("<info>$string</info>");
 	}
 	/**
 	 * Write a string as standard output.
@@ -35,7 +35,8 @@ abstract class Command extends ConsoleCommand{
 	 */
 	public function line($string, $level = 0)
 	{
-		$this->out->writeln('<comment>   ' . (str_repeat('  ', $level)) . '</comment>' . $string);
+        
+		$this->out->level($level)->writeln($string);
 	}
 	/**
 	 * Write a string as comment output.
@@ -45,7 +46,7 @@ abstract class Command extends ConsoleCommand{
 	 */
 	public function comment($string, $level = 0)
 	{
-		$this->line("<comment>$string</comment>", $level);
+		$this->out->level($level)->writeln("<comment>$string</comment>");
 	}
 	/**
 	 * Write a string as question output.
@@ -55,7 +56,7 @@ abstract class Command extends ConsoleCommand{
 	 */
 	public function question($string, $level = 0)
 	{
-		$this->line("<question>$string</question>", $level);
+		$this->out->level($level)->writeln("<question>$string</question>");
 	}
 	/**
 	 * Write a string as error output.
@@ -65,7 +66,7 @@ abstract class Command extends ConsoleCommand{
 	 */
 	public function error($string, $level = 0)
 	{
-		$this->line("<error>$string</error>", $level);
+		$this->out->level($level)->writeln("<error>$string</error>");
 	}
     
 }

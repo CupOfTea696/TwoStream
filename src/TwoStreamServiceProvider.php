@@ -92,6 +92,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
         $this->mergeConfigFrom(
             __DIR__.'/../config/twostream.php', 'twostream'
         );
+        echo var_dump(config('twostream'));
         
 		$this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app){
             $config = $this->app['config']['twostream'];

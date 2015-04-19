@@ -39,6 +39,50 @@ return [
          *
          */
         'recipient' => 'requestee',
+        
+        /**
+         *--------------------------------------------------------------------------
+         * RCP Response Settings
+         *--------------------------------------------------------------------------
+         *
+         * Default responses for Remote Procedure Calls (RPCs)
+         *
+         */
+        'rpc' => [
+            'enabled' => false,
+            
+            /**
+             *--------------------------------------------------------------------------
+             * Success
+             *--------------------------------------------------------------------------
+             *
+             * Default success message.
+             * 
+             * @optional
+             * @default 'Success.'
+             *
+             */
+            'success' => 'Success.',
+            
+            /**
+             *--------------------------------------------------------------------------
+             * Error
+             *--------------------------------------------------------------------------
+             *
+             * Default error message. You can specify a message both for when RPC is
+             * disabled and when the Procedure is not found.
+             * 
+             * @optional
+             *
+             */
+            'error' => [
+                // @default 'This procedure does not exist.'
+                'enabled' => 'This procedure does not exist.',
+                
+                // @default 'RPC not supported.'
+                'disabled' => 'RPC not supported.',
+            ],
+        ],
     ],
     
     

@@ -64,6 +64,8 @@ class Server extends Command{
     public function __construct($app){
         parent::__construct();
         
+        ini_set('xdebug.var_display_max_depth', 9);
+        
         $this->app = $app;
         $this->out = new Output();
     }
@@ -98,7 +100,7 @@ class Server extends Command{
     }
     
     protected function getSession(){
-        return new SessionManager($this->app);
+        return (new SessionManager($this->app))->driver();
     }
     
     protected function buildKernel(){
@@ -111,7 +113,7 @@ class Server extends Command{
     }
     
     protected function buildDispatcher(){
-        return $this->Dispatcher = new Dispatcher($this->getSession(), $this->buildKernel(), $this->out->level(3));
+        return $this->Dispatcher = new Dispatcher($this->getSession(), $this->buildKernel(), clone $this->out);
     }
     
     protected function createLoop(){

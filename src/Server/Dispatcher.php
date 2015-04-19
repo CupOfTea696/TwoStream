@@ -7,6 +7,8 @@ use WsSession;
 
 use Illuminate\Http\Request;
 
+use CupOfTea\TwoStream\Session\ReadOnly;
+
 use Ratchet\ConnectionInterface as Connection;
 use Ratchet\Wamp\WampServerInterface as DispatcherContract;
 
@@ -14,16 +16,18 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class Dispatcher implements DispatcherContract{
     
-    const WS_VERB_CALL          = 'CALL';
-    const WS_VERB_PUBLISH       = 'PUBLISH';
-    const WS_VERB_SUBSCRIBE     = 'SUBSCRIBE';
-    const WS_VERB_UNSUBSCRIBE   = 'UNSUBSCRIBE';
+    const WAMP_VERB_CALL        = 'CALL';
+    const WAMP_VERB_PUBLISH     = 'PUBLISH';
+    const WAMP_VERB_SUBSCRIBE   = 'SUBSCRIBE';
+    const WAMP_VERB_UNSUBSCRIBE = 'UNSUBSCRIBE';
     
     protected $Session;
     
     protected $Kernel;
     
     protected $output;
+    
+    protected $sessions = [];
     
     /**
 	 * Create a new Dispatcher instance.
@@ -33,7 +37,7 @@ class Dispatcher implements DispatcherContract{
 	public function __construct($Session, $Kernel, $output){
         $this->Session = $Session;
         $this->Kernel = $Kernel;
-        $this->output = $output;
+        $this->output = $output->level(2);
 	}
     
     /**
@@ -45,21 +49,30 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onCall(Connection $connection, $id, $topic, array $params) {
-        $request = $this->buildRequest(self::WS_VERB_CALL, $connection, $topic, $params);
-        $response = $this->Kernel->handle($request);
+        $request = $this->buildRequest(self::WAMP_VERB_CALL, $connection, $topic, [], $params);
+        $response = $this->handle($connection, $request);
         
-        echo var_dump($response);
-        
-        // default reaction if route not set
-        $connection->callError($id, $topic, 'RPC not supported.');
+        if($response->getStatusCode() == 404){
+            $msg = config('twostream.rpc.enabled') ? config('twostream.rpc.error.enabled') : config('twostream.rpc.error.disabled');
+            echo var_dump([config('twostream.rpc.enabled'), config('twostream.rpc.error.enabled'), config('twostream.rpc.error.disabled')]);
+            $connection->callError($id, 'wamp.error.no_such_procedure', $msg);
+        }else{
+            $content = (array)json_decode($response->getContent(), true);
+            $error = array_get($content, 'error');
+            
+            if($error)
+                $connection->callError($id, array_get($content, 'error.domain', $topic), array_get($content, 'error.msg', $error));
+            else
+                $connection->callResult($id, $content);
+        }
     }
     
     /**
      * @inheritdoc
      */
     public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible) {
-        $request = $this->buildRequest(self::WS_VERB_PUBLISH, $connection, $topic, $event);
-        $response = $this->Kernel->handle($request);
+        $request = $this->buildRequest(self::WAMP_VERB_PUBLISH, $connection, $topic, $event);
+        $response = $this->handle($connection, $request);
         
         $this->send($response, $connection, $topic);
     }
@@ -68,8 +81,8 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onSubscribe(Connection $connection, $topic) {
-        $request = $this->buildRequest(self::WS_VERB_SUBSCRIBE, $connection, $topic);
-        $response = $this->Kernel->handle($request);
+        $request = $this->buildRequest(self::WAMP_VERB_SUBSCRIBE, $connection, $topic);
+        $response = $this->handle($connection, $request);
         
         $this->send($response, $connection, $topic);
     }
@@ -78,10 +91,20 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onUnSubscribe(Connection $connection, $topic) {
-        $request = $this->buildRequest(self::WS_VERB_UNSUBSCRIBE, $connection, $topic);
-        $response = $this->Kernel->handle($request);
+        $request = $this->buildRequest(self::WAMP_VERB_UNSUBSCRIBE, $connection, $topic);
+        $response = $this->handle($connection, $request);
         
         $this->send($response, $connection, $topic);
+    }
+    
+    /**
+     * Handle Request
+     *
+     */
+    protected function handle(Connection $connection, $request){
+        $this->loadSession($this->getSessionIdFromCookie($connection));
+        
+        return $this->Kernel->handle($request);
     }
     
     /**
@@ -89,12 +112,13 @@ class Dispatcher implements DispatcherContract{
      *
      */
     protected function send($response, Connection $connection, $topic){
-        if(!$content = $response->getContent())
+        if($response->getStatusCode() == 404 || !$content = $response->getContent())
             return;
         
         $content = (array)json_decode($content, true);
-        $recipient = array_get($content, 'recipient', config('request.recipient'));
+        $recipient = array_get($content, 'recipient', config('twostream.request.recipient'));
         $data = array_get($content, 'data', count($content) ? $content : $content[0]);
+        $topic->broadcast($data);
         
         if($recipient == 'all'){
             $topic->broadcast($data);
@@ -130,16 +154,20 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onOpen(Connection $connection) {
-        $this->loadSession($connection);
+        $sessionId = $this->getSessionIdFromCookie($connection);
+        $this->loadSession($this->getSessionIdFromCookie($connection));
         
-        $this->output->writeln("<info>Connection from <comment>[{$connection->Session->getId()}]</comment> opened.</info>");
+        $this->output->writeln("<info>Connection from <comment>[$sessionId]</comment> opened.</info>");
     }
     
     /**
      * @inheritdoc
      */
     public function onClose(Connection $connection) {
-        $this->output->writeln("<info>Connection from <comment>[{$connection->Session->getId()}]</comment> closed.</info>");
+        $sessionId = $this->getSessionIdFromCookie($connection);
+        $this->forgetSession($sessionId);
+        
+        $this->output->writeln("<info>Connection from <comment>[$sessionId]</comment> closed.</info>");
     }
     
     /**
@@ -149,24 +177,39 @@ class Dispatcher implements DispatcherContract{
         $this->output->writeln("<error>Error: {$e->getMessage()}</error>");
     }
     
-    protected function loadSession(Connection $connection){
+    protected function loadSession($sessionId){
+        if(array_get($this->sessions, $sessionId))
+            return WsSession::swap($this->sessions[$sessionId]);
+        
         $session = clone $this->Session;
-        $session->setId($this->getSessionCookie($connection));
+        $session->setId($sessionId);
         $session->start();
         
-        $connection->Session = WsSession::initialize($session->all(), $session->getId());
+        $this->sessions[$sessionId] = (new ReadOnly(config('session.cookie')))->initialize($session->all(), $sessionId);
+        WsSession::swap($this->sessions[$sessionId]);
         unset($session);
     }
     
-    protected function buildRequest($verb, $connection, $topic, $data = []){
+    protected function forgetSession($sessionId){
+        array_forget($this->sessions, $sessionId);
+    }
+    
+    protected function buildRequest($verb, $connection, $topic, $data = [], $params = null){
+        $uri = [
+            'protocol'  => 'ws://',
+            'host'      => $connection->WebSocket->request->getHost(),
+            'port'      => ':' . config('twostream.websocket.port'),
+            'path'      => '/' . trim($topic->getId(), '/') . (isset($params) ? implode('/', $params) : ''),
+        ];
         $cookies = $connection->WebSocket->request->getCookies();
         array_forget($cookies, config('session.cookie')); // Make sure the normal Session Facade does not contain the client's Session.
         
+        
         return Request::createFromBase(
             SymfonyRequest::create(
-                'ws://' . $connection->WebSocket->request->getHost() . ':' . config('twostream.websocket.port') . '/' . trim($topic->getId(), '/'),
+                implode($uri),
                 strtoupper($verb),
-                ['topic' => $topic, 'data' => $data,], // params
+                ['data' => $data], // params
                 $cookies, // cookies
                 [], // files
                 [], // server
@@ -175,7 +218,7 @@ class Dispatcher implements DispatcherContract{
         );
     }
     
-    protected function getSessionCookie(Connection $connection){
+    protected function getSessionIdFromCookie(Connection $connection){
         $cookie = urldecode($connection->WebSocket->request->getCookie(config('session.cookie')));
         
         return $cookie ? Crypt::decrypt($cookie) : null;
