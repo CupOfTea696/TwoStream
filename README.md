@@ -11,13 +11,12 @@ TwoStream is Laravel 5 only.
  - ServiceProvider and Facades, add `'CupOfTea\TwoStream\TwoStreamServiceProvider',` to your providers, and `'TwoStream' => 'CupOfTea\TwoStream\Facades\TwoStream',` and `'WsRoute'   => 'CupOfTea\TwoStream\Facades\WsRoute',` to your aliases in `config/app.php`
  - Installation command; run `twostream:install` before trying to use anything. (seriously!)
  - WebSocket Server, boot with `twostream:listen`.
- - Routing, use `WsRoute::call`, `WsRoute::publish`, `WsRoute::subscribe` or `WsRoute::unsubscribe` to define WebSocket routes in `app/Ws/routes.php`. (partially complete)
+ - Routing, use `WsRoute::call`, `WsRoute::publish`, `WsRoute::subscribe` or `WsRoute::unsubscribe` to define WebSocket routes in `app/Ws/routes.php`. (`WsRoute::controller` coming soon)
  - Read-only Session data available in Ws Controllers via the WsSession Facade, add `'WsSession' => 'CupOfTea\TwoStream\Facades\WsSession',` to your aliases in `config/app.php`
  - Send response to all subscribers, all excluding requestee or requestee.
  
 ## TODO:
  - Map WsRoute::controller to correct functions, allow missing functions.
- - Handle calls to unmapped routes properly. ~~(currently responds with HTTP 404 HTML I believe)~~
  - Middleware for connections. (or something similar) [@beta]
  - ~~Make more data available in Controllers. (e.g. Connection and other Ws data, better Request object.)~~
  - Push events from server to all or specific user. (to sessionId = &#10006;, to user &#10006;) (zmq)
