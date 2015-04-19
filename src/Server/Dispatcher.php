@@ -48,6 +48,8 @@ class Dispatcher implements DispatcherContract{
         $request = $this->buildRequest(self::WS_VERB_CALL, $connection, $topic, $params);
         $response = $this->Kernel->handle($request);
         
+        echo var_dump($response);
+        
         // default reaction if route not set
         $connection->callError($id, $topic, 'RPC not supported.');
     }
@@ -91,7 +93,7 @@ class Dispatcher implements DispatcherContract{
             return;
         
         $content = (array)json_decode($content, true);
-         = array_get($content, 'send_to', config('request.send_to'));
+        $recipient = array_get($content, 'recipient', config('request.recipient'));
         $data = array_get($content, 'data', count($content) ? $content : $content[0]);
         
         if($recipient == 'all'){
@@ -106,7 +108,7 @@ class Dispatcher implements DispatcherContract{
                 $recipient = $connection->Session->getId();
             
             foreach((array)$recipient as $recipient){
-                // TODO: if translateUserToSessionId || 
+                // TODO: if translateUserToSessionId ||
                 if(WsSession::isValidId($recipient)){
                     foreach($topic->getIterator() as $client){
                         if($client->Session->getId() == $recipient)
