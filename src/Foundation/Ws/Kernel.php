@@ -83,8 +83,6 @@ class Kernel implements KernelContract {
 		$this->app->instance('request', $request);
 		Facade::clearResolvedInstance('request');
         
-        // fill ReadOnly Session.
-        
 		return (new Pipeline($this->app))
 		            ->send($request)
 		            ->through($this->middleware)

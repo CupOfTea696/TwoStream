@@ -26,15 +26,15 @@ class ReadOnly {
 	 */
 	public function __construct($name, $id = null)
 	{
-		$this->setId($id);
+		$this->id = $id;
 		$this->name = $name;
 	}
     
     public function initialize($attributes, $id = null){
-        if(!$this->started)
+        if($this->started)
             return $this;
         
-        $this->setId($id);
+        $this->id = $id ?: $this->id;
         $this->attributes = $attributes;
         $this->started = true;
         
@@ -47,39 +47,6 @@ class ReadOnly {
 	public function getId()
 	{
 		return $this->id;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function setId($id)
-	{
-		if ( ! $this->isValidId($id))
-		{
-			$id = $this->generateSessionId();
-		}
-		$this->id = $id;
-	}
-
-	/**
-	 * Determine if this is a valid session ID.
-	 *
-	 * @param  string  $id
-	 * @return bool
-	 */
-	public function isValidId($id)
-	{
-		return is_string($id) && preg_match('/^[a-f0-9]{40}$/', $id);
-	}
-
-    /**
-	 * Get a new, random session ID.
-	 *
-	 * @return string
-	 */
-	protected function generateSessionId()
-	{
-		return sha1(uniqid('', true).str_random(25).microtime(true));
 	}
 
 	/**

@@ -21,6 +21,7 @@ use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
 use CupOfTea\TwoStream\Server\Dispatcher;
 
+use Illuminate\Session\SessionManager;
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
 
 class Server extends Command{
@@ -96,6 +97,10 @@ class Server extends Command{
         return $this->loop;
     }
     
+    protected function getSession(){
+        return new SessionManager($this->app);
+    }
+    
     protected function buildKernel(){
         $this->app->singleton(
             'CupOfTea\TwoStream\Contracts\Ws\Kernel',
@@ -106,7 +111,7 @@ class Server extends Command{
     }
     
     protected function buildDispatcher(){
-        return $this->Dispatcher = new Dispatcher($this->buildKernel(), $this->out->level(3));
+        return $this->Dispatcher = new Dispatcher($this->getSession(), $this->buildKernel(), $this->out->level(3));
     }
     
     protected function createLoop(){

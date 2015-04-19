@@ -19,6 +19,8 @@ class Dispatcher implements DispatcherContract{
     const WS_VERB_SUBSCRIBE     = 'SUBSCRIBE';
     const WS_VERB_UNSUBSCRIBE   = 'UNSUBSCRIBE';
     
+    protected $Session;
+    
     protected $Kernel;
     
     protected $output;
@@ -28,7 +30,8 @@ class Dispatcher implements DispatcherContract{
 	 *
 	 * @return void
 	 */
-	public function __construct($Kernel, $output){
+	public function __construct($Session, $Kernel, $output){
+        $this->Session = $Session;
         $this->Kernel = $Kernel;
         $this->output = $output;
 	}
@@ -61,7 +64,7 @@ class Dispatcher implements DispatcherContract{
         
         $request = $this->buildRequest(self::WS_VERB_PUBLISH, $connection, $topic, $event);
         
-        $response = $this->Kernel->handle($request);
+        $response = $this->handle($connection, $request);
         
         $topic->broadcast($response->getContent());
     }
@@ -72,7 +75,7 @@ class Dispatcher implements DispatcherContract{
     public function onSubscribe(Connection $connection, $topic) {
         $request = $this->buildRequest(self::WS_VERB_SUBSCRIBE, $connection, $topic);
         
-        $response = $this->Kernel->handle($request);
+        $response = $this->handle($connection, $request);
     }
     
     /**
@@ -81,7 +84,13 @@ class Dispatcher implements DispatcherContract{
     public function onUnSubscribe(Connection $connection, $topic) {
         $request = $this->buildRequest(self::WS_VERB_UNSUBSCRIBE, $connection, $topic);
         
-        $response = $this->Kernel->handle($request);
+        $response = $this->handle($connection, $request);
+    }
+    
+    protected function handle(Connection $connection, $request){
+        $this->loadSession($connection);
+        
+        return $this->Kernel->handle($request);
     }
     
     /**
@@ -93,8 +102,7 @@ class Dispatcher implements DispatcherContract{
      * @inheritdoc
      */
     public function onOpen(Connection $connection) {
-        $session = Session::getFacadeRoot()->driver();
-        $connection->Session = WsSession::initialize($session->all(), $this->getSessionCookie($connection));
+        $this->loadSession($connection);
         
         $this->output->writeln("<info>Connection from <comment>[{$connection->Session->getId()}]</comment> opened.</info>");
     }
@@ -113,9 +121,18 @@ class Dispatcher implements DispatcherContract{
         $this->output->writeln("<error>Error: {$e->getMessage()}</error>");
     }
     
+    protected function loadSession(Connection $connection){
+        $session = clone $this->Session;
+        $session->setId($this->getSessionCookie($connection));
+        $session->start();
+        
+        $connection->Session = WsSession::initialize($session->all(), $session->getId());
+        unset($session);
+    }
+    
     protected function buildRequest($verb, $connection, $topic, $data = []){
         $cookies = $connection->WebSocket->request->getCookies();
-        array_forget($cookies, config('session.cookie'));
+        array_forget($cookies, config('session.cookie')); // Make sure the normal Session Facade does not contain the client's Session.
         
         return Request::createFromBase(
             SymfonyRequest::create(
