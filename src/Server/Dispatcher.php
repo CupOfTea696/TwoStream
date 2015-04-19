@@ -53,8 +53,8 @@ class Dispatcher implements DispatcherContract{
         $response = $this->handle($connection, $request);
         
         if($response->getStatusCode() == 404){
-            $msg = config('twostream.rpc.enabled') ? config('twostream.rpc.error.enabled') : config('twostream.rpc.error.disabled');
-            echo var_dump([config('twostream.rpc.enabled'), config('twostream.rpc.error.enabled'), config('twostream.rpc.error.disabled')]);
+            $msg = config('twostream.response.rpc.enabled') ?
+                config('twostream.response.rpc.error.enabled') : config('twostream.response.rpc.error.disabled');
             $connection->callError($id, 'wamp.error.no_such_procedure', $msg);
         }else{
             $content = (array)json_decode($response->getContent(), true);
@@ -199,11 +199,12 @@ class Dispatcher implements DispatcherContract{
             'protocol'  => 'ws://',
             'host'      => $connection->WebSocket->request->getHost(),
             'port'      => ':' . config('twostream.websocket.port'),
-            'path'      => '/' . trim($topic->getId(), '/') . (isset($params) ? implode('/', $params) : ''),
+            'path'      => '/' . trim($topic->getId(), '/') . (isset($params) ? '/' . implode('/', $params) : ''),
         ];
         $cookies = $connection->WebSocket->request->getCookies();
         array_forget($cookies, config('session.cookie')); // Make sure the normal Session Facade does not contain the client's Session.
         
+        echo var_dump(implode($uri));
         
         return Request::createFromBase(
             SymfonyRequest::create(
