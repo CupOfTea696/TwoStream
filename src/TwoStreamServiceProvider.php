@@ -49,6 +49,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
         
         $this->publishes([
             __DIR__.'/../app/Ws/Kernel.stub' => app_path('Ws/Kernel.stub'),
+            __DIR__.'/../app/Ws/Controllers/Controller.stub' => app_path('Ws/Controllers/Controller.stub'),
         ], 'required');
         
         $this->publishes([

@@ -49,6 +49,17 @@ return [
          *
          */
         'rpc' => [
+            /**
+             *--------------------------------------------------------------------------
+             * Enable
+             *--------------------------------------------------------------------------
+             *
+             * Enable Remote Procedure Calls
+             *
+             * @optional
+             * @default false
+             *
+             */
             'enabled' => false,
             
             /**
@@ -57,7 +68,7 @@ return [
              *--------------------------------------------------------------------------
              *
              * Default success message.
-             * 
+             *
              * @optional
              * @default 'Success.'
              *
@@ -71,7 +82,7 @@ return [
              *
              * Default error message. You can specify a message both for when RPC is
              * disabled and when the Procedure is not found.
-             * 
+             *
              * @optional
              *
              */
