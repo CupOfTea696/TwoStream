@@ -8,7 +8,8 @@ use CupOfTea\TwoStream\Foundation\Support\Providers\WsRouteServiceProvider;
 
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
 
-class TwoStreamServiceProvider extends WsRouteServiceProvider {
+class TwoStreamServiceProvider extends WsRouteServiceProvider
+{
     
     use AppNamespaceDetector;
     
@@ -18,7 +19,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
      * @var string
      */
     protected $namespace = '{{namespace}}Ws\Controllers';
-
+    
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -42,7 +43,8 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
      * @param  \CupOfTea\TwoStream\Routing\WsRouter  $router
      * @return void
      */
-    public function boot(WsRouter $router){
+    public function boot(WsRouter $router)
+    {
         $this->namespace = str_replace('{{namespace}}', $this->getAppNamespace(), $this->namespace);
         
         parent::boot($router);
@@ -63,7 +65,8 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
      * @param  \CupOfTea\TwoStream\Routing\WsRouter  $router
      * @return void
      */
-    public function map(WsRouter $router){
+    public function map(WsRouter $router)
+    {
         $router->group(['namespace' => $this->namespace], function($router){
             require app_path('Ws/routes.php');
         });
@@ -74,12 +77,13 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
      *
      * @return void
      */
-    public function register(){
+    public function register()
+    {
         $this->app['command.twostream.install'] = $this->app->share(function($app){
             return new Install($this->getAppNamespace());
         });
         
-        if(!$this->isInstalled())
+        if (!$this->isInstalled())
             return $this->commands(['command.twostream.install']);
         
         parent::register();
@@ -118,19 +122,19 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider {
         ], parent::provides());
     }
     
-    protected function isInstalled(){
+    protected function isInstalled()
+    {
         $disk = Storage::createLocalDriver([
             'driver' => 'local',
             'root'   => app_path(),
         ]);
         
-        foreach(TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required){
-            if(!$disk->exists(str_replace('.stub', '.php', $required)))
+        foreach (TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required) {
+            if (!$disk->exists(str_replace('.stub', '.php', $required)))
                 return false;
         }
         
         return true;
     }
-
+    
 }
-

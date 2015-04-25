@@ -10,7 +10,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
 
-class Install extends Command{
+class Install extends Command
+{
     
     /**
      * The console command name.
@@ -35,20 +36,23 @@ class Install extends Command{
      */
     protected $description = 'Install TwoStream. This is required for TwoStream to work properly.';
     
-    public function __construct($namespace){
+    public function __construct($namespace)
+    {
         parent::__construct();
         
         $this->appNamespace = rtrim($namespace, '\\');
         $this->out = new Output();
     }
     
-    public function fire(){
+    public function fire()
+    {
         $this->line('Installing TwoStream...');
         $this->install();
         $this->line('Installation complete');
     }
     
-    public function install(){
+    public function install()
+    {
         $disk = Storage::createLocalDriver([
             'driver' => 'local',
             'root'   => app_path(),
@@ -58,16 +62,16 @@ class Install extends Command{
         $this->call('vendor:publish', ['--provider' => strtolower(TwoStream::PACKAGE), '--tag' => 'required'], 2);
         
         $this->info('Applying your app\'s namespace <comment>[' . $this->appNamespace . ']</comment>', 1);
-        foreach(TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required){
+        foreach (TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required) {
             $required = str_replace(app_path(), '', $required);
             $originalFile = $disk->get($required);
             $file = str_replace('{{namespace}}', $this->appNamespace, $originalFile);
             
-            if($file != $originalFile){
+            if ($file != $originalFile) {
                 $this->info('Setting namespace for <comment>[/app' . str_replace([app_path(), '.php', '.stub'], '', $required) . ']</comment>', 2);
                 
                 $disk->put($required, $file);
-                if(!$disk->exists(str_replace('.stub', '.php', $required)))
+                if (!$disk->exists(str_replace('.stub', '.php', $required)))
                     $disk->move($required, str_replace('.stub', '.php', $required));
             }
         }
@@ -75,7 +79,7 @@ class Install extends Command{
         $this->info('Cleaning up...', 1);
         $files = $disk->allFiles('Ws');
         foreach ($files as $key => $file) {
-            if(preg_match('/\\.stub$/', $file))
+            if (preg_match('/\\.stub$/', $file))
                 $disk->delete($file);
         }
     }

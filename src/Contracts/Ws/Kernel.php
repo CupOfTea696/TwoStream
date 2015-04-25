@@ -1,6 +1,7 @@
 <?php namespace CupOfTea\TwoStream\Contracts\Ws;
 
 interface Kernel {
+    
     /**
      * Handle an incoming Ws request.
      *
@@ -8,6 +9,7 @@ interface Kernel {
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle($request);
+    
     /**
      * Perform any final actions for the request lifecycle.
      *
@@ -16,6 +18,7 @@ interface Kernel {
      * @return void
      */
     public function terminate($request, $response);
+    
     /**
      * Get the Laravel application instance.
      *

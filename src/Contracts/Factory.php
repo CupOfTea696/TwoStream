@@ -1,6 +1,7 @@
 <?php namespace CupOfTea\TwoStream\Contracts;
 
-interface Factory {
+interface Factory
+{
     
     /**
      * Get an TwoStream provider implementation.

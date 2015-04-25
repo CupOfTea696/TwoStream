@@ -1,21 +1,22 @@
 <?php namespace CupOfTea\TwoStream\Session;
 
-class ReadOnly {
-
+class ReadOnly
+{
+    
     /**
      * The session attributes.
      *
      * @var array
      */
     protected $attributes = array();
-
+    
     /**
      * Session store started status.
      *
      * @var bool
      */
     protected $started = false;
-
+    
     /**
      * Create a new session instance.
      *
@@ -30,7 +31,8 @@ class ReadOnly {
         $this->name = $name;
     }
     
-    public function initialize($attributes, $id = null){
+    public function initialize($attributes, $id = null)
+    {
         if($this->started)
             return $this;
         
@@ -40,7 +42,7 @@ class ReadOnly {
         
         return $this;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -48,7 +50,7 @@ class ReadOnly {
     {
         return $this->id;
     }
-
+    
     /**
      * Determine if this is a valid session ID.
      *
@@ -59,7 +61,7 @@ class ReadOnly {
     {
         return is_string($id) && preg_match('/^[a-f0-9]{40}$/', $id);
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -67,7 +69,7 @@ class ReadOnly {
     {
         return $this->name;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -75,7 +77,7 @@ class ReadOnly {
     {
         return ! is_null($this->get($name));
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -83,7 +85,7 @@ class ReadOnly {
     {
         return array_get($this->attributes, $name, $default);
     }
-
+    
     /**
      * Determine if the session contains old input.
      *
@@ -93,10 +95,10 @@ class ReadOnly {
     public function hasOldInput($key = null)
     {
         $old = $this->getOldInput($key);
-
+        
         return is_null($key) ? count($old) > 0 : ! is_null($old);
     }
-
+    
     /**
      * Get the requested item from the flashed input array.
      *
@@ -107,13 +109,13 @@ class ReadOnly {
     public function getOldInput($key = null, $default = null)
     {
         $input = $this->get('_old_input', array());
-
+        
         // Input that is flashed to the session can be easily retrieved by the
         // developer, making repopulating old forms and the like much more
         // convenient, since the request's previous input is available.
         return array_get($input, $key, $default);
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -121,7 +123,7 @@ class ReadOnly {
     {
         return $this->attributes;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -129,7 +131,7 @@ class ReadOnly {
     {
         return true;
     }
-
+    
     /**
      * Get the CSRF token value.
      *
@@ -139,7 +141,7 @@ class ReadOnly {
     {
         return $this->get('_token');
     }
-
+    
     /**
      * Get the CSRF token value.
      *
@@ -149,7 +151,7 @@ class ReadOnly {
     {
         return $this->token();
     }
-
+    
     /**
      * Get the previous URL from the session.
      *
@@ -159,5 +161,5 @@ class ReadOnly {
     {
         return $this->get('_previous.url');
     }
-
+    
 }

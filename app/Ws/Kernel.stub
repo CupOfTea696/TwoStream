@@ -2,8 +2,8 @@
 
 use CupOfTea\TwoStream\Foundation\Ws\Kernel as WsKernel;
 
-class Kernel extends WsKernel {
-
+class Kernel extends WsKernel
+{
     /**
      * The application's global Ws middleware stack.
      *
@@ -14,7 +14,7 @@ class Kernel extends WsKernel {
         'Illuminate\Cookie\Middleware\EncryptCookies',
         'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
     ];
-
+    
     /**
      * The application's route middleware.
      *
@@ -24,5 +24,5 @@ class Kernel extends WsKernel {
         'auth' => '{{namespace}}\Http\Middleware\Authenticate',
         'guest' => '{{namespace}}\Http\Middleware\RedirectIfAuthenticated',
     ];
-
+    
 }

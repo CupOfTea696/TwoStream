@@ -15,7 +15,8 @@ use Ratchet\Wamp\WampServerInterface as DispatcherContract;
 
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
-class Dispatcher implements DispatcherContract{
+class Dispatcher implements DispatcherContract
+{
     
     const WAMP_VERB_CALL        = 'CALL';
     const WAMP_VERB_PUBLISH     = 'PUBLISH';
@@ -35,7 +36,8 @@ class Dispatcher implements DispatcherContract{
      *
      * @return void
      */
-    public function __construct($Session, $Kernel, $output){
+    public function __construct($Session, $Kernel, $output)
+    {
         $this->Session = $Session;
         $this->Kernel = $Kernel;
         $this->output = $output->level(2);
@@ -49,15 +51,16 @@ class Dispatcher implements DispatcherContract{
     /**
      * @inheritdoc
      */
-    public function onCall(Connection $connection, $id, $topic, array $params) {
+    public function onCall(Connection $connection, $id, $topic, array $params)
+    {
         $request = $this->buildRequest(self::WAMP_VERB_CALL, $connection, $topic, [], $params);
         $response = $this->handle($connection, $request);
         
-        if($response->getStatusCode() == 404){
+        if ($response->getStatusCode() == 404) {
             $msg = config('twostream.response.rpc.enabled') ?
                 config('twostream.response.rpc.error.enabled') : config('twostream.response.rpc.error.disabled');
             $connection->callError($id, 'wamp.error.no_such_procedure', $msg);
-        }else{
+        } else {
             $content = (array)json_decode($response->getContent(), true);
             $error = array_get($content, 'error');
             
@@ -71,7 +74,8 @@ class Dispatcher implements DispatcherContract{
     /**
      * @inheritdoc
      */
-    public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible) {
+    public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible)
+    {
         $request = $this->buildRequest(self::WAMP_VERB_PUBLISH, $connection, $topic, $event);
         $response = $this->handle($connection, $request);
         
@@ -81,7 +85,8 @@ class Dispatcher implements DispatcherContract{
     /**
      * @inheritdoc
      */
-    public function onSubscribe(Connection $connection, $topic) {
+    public function onSubscribe(Connection $connection, $topic)
+    {
         $request = $this->buildRequest(self::WAMP_VERB_SUBSCRIBE, $connection, $topic);
         $response = $this->handle($connection, $request);
         
@@ -91,7 +96,8 @@ class Dispatcher implements DispatcherContract{
     /**
      * @inheritdoc
      */
-    public function onUnSubscribe(Connection $connection, $topic) {
+    public function onUnSubscribe(Connection $connection, $topic)
+    {
         $request = $this->buildRequest(self::WAMP_VERB_UNSUBSCRIBE, $connection, $topic);
         $response = $this->handle($connection, $request);
         
@@ -102,7 +108,8 @@ class Dispatcher implements DispatcherContract{
      * Handle Request
      *
      */
-    protected function handle(Connection $connection, $request){
+    protected function handle(Connection $connection, $request)
+    {
         $this->loadSession($this->getSessionIdFromCookie($connection));
         
         return $this->Kernel->handle($request);
@@ -112,8 +119,9 @@ class Dispatcher implements DispatcherContract{
      * Send Response
      *
      */
-    protected function send($response, Connection $connection, $topic){
-        if($response->getStatusCode() == 404 || !$content = $response->getContent())
+    protected function send($response, Connection $connection, $topic)
+    {
+        if ($response->getStatusCode() == 404 || !$content = $response->getContent())
             return;
         
         $content = (array)json_decode($content, true);
@@ -121,25 +129,25 @@ class Dispatcher implements DispatcherContract{
         $data = array_get($content, 'data', count($content) ? $content : $content[0]);
         $topic->broadcast($data);
         
-        if($recipient == 'all'){
+        if ($recipient == 'all') {
             $topic->broadcast($data);
-        }elseif($recipient == 'Exceptionsept'){
-            foreach($topic->getIterator() as $client){
+        } elseif ($recipient == 'Exceptionsept') {
+            foreach($topic->getIterator() as $client) {
                 if($client->Session->getId() != $connection->Session->getId())
                     $client->event($topic->getId(), $data);
             }
-        }else{
+        } else {
             if($recipient == 'requestee')
                 $recipient = $connection->Session->getId();
             
             foreach((array)$recipient as $recipient){
                 // TODO: if translateUserToSessionId ||
-                if(WsSession::isValidId($recipient)){
+                if (WsSession::isValidId($recipient)) {
                     foreach($topic->getIterator() as $client){
                         if($client->Session->getId() == $recipient)
                             $client->event($topic->getId(), $data);
                     }
-                }else{
+                } else {
                     throw new InvalidRecipientException($recipient);
                 }
             }
@@ -154,7 +162,8 @@ class Dispatcher implements DispatcherContract{
     /**
      * @inheritdoc
      */
-    public function onOpen(Connection $connection) {
+    public function onOpen(Connection $connection)
+    {
         $sessionId = $this->getSessionIdFromCookie($connection);
         $this->loadSession($this->getSessionIdFromCookie($connection));
         
@@ -164,7 +173,8 @@ class Dispatcher implements DispatcherContract{
     /**
      * @inheritdoc
      */
-    public function onClose(Connection $connection) {
+    public function onClose(Connection $connection)
+    {
         $sessionId = $this->getSessionIdFromCookie($connection);
         $this->forgetSession($sessionId);
         
@@ -174,12 +184,14 @@ class Dispatcher implements DispatcherContract{
     /**
      * @inheritdoc
      */
-    public function onError(Connection $connection, Exception $e) {
+    public function onError(Connection $connection, Exception $e) 
+    {
         $this->output->writeln("<error>Error: {$e->getMessage()}</error>");
     }
     
-    protected function loadSession($sessionId){
-        if(array_get($this->sessions, $sessionId))
+    protected function loadSession($sessionId)
+    {
+        if (array_get($this->sessions, $sessionId))
             return WsSession::swap($this->sessions[$sessionId]);
         
         $session = clone $this->Session;
@@ -195,7 +207,8 @@ class Dispatcher implements DispatcherContract{
         array_forget($this->sessions, $sessionId);
     }
     
-    protected function buildRequest($verb, $connection, $topic, $data = [], $params = null){
+    protected function buildRequest($verb, $connection, $topic, $data = [], $params = null)
+    {
         $uri = [
             'protocol'  => 'ws://',
             'host'      => $connection->WebSocket->request->getHost(),
@@ -204,8 +217,6 @@ class Dispatcher implements DispatcherContract{
         ];
         $cookies = $connection->WebSocket->request->getCookies();
         array_forget($cookies, config('session.cookie')); // Make sure the normal Session Facade does not contain the client's Session.
-        
-        echo var_dump(implode($uri));
         
         return Request::createFromBase(
             SymfonyRequest::create(
@@ -220,7 +231,8 @@ class Dispatcher implements DispatcherContract{
         );
     }
     
-    protected function getSessionIdFromCookie(Connection $connection){
+    protected function getSessionIdFromCookie(Connection $connection)
+    {
         $cookie = urldecode($connection->WebSocket->request->getCookie(config('session.cookie')));
         
         return $cookie ? Crypt::decrypt($cookie) : null;

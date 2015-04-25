@@ -1,7 +1,8 @@
 <?php namespace CupOfTea\TwoStream\Contracts\Session;
 
-interface ReadOnly {
-
+interface ReadOnly
+{
+    
     /**
      * {@inheritdoc}
      */
@@ -9,7 +10,7 @@ interface ReadOnly {
     {
         return $this->id;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -17,7 +18,7 @@ interface ReadOnly {
     {
         return $this->name;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -25,7 +26,7 @@ interface ReadOnly {
     {
         return ! is_null($this->get($name));
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -33,7 +34,7 @@ interface ReadOnly {
     {
         return array_get($this->attributes, $name, $default);
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -41,7 +42,7 @@ interface ReadOnly {
     {
         return $this->attributes;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -49,5 +50,5 @@ interface ReadOnly {
     {
         return true;
     }
-
+    
 }

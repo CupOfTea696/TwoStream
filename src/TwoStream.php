@@ -47,13 +47,15 @@ use ZMQContext;
 use CupOfTea\Package\Package;
 use CupOfTea\TwoStream\Contracts\Provider as ProviderContract;
 
-class TwoStream implements ProviderContract{
+class TwoStream implements ProviderContract
+{
     
     use Package;
     
     /**
      * Package Info
-     *
+     * 
+     * @const string
      */
     const PACKAGE = 'CupOfTea/TwoStream';
     const VERSION = '0.0.14-alpha';
@@ -64,48 +66,40 @@ class TwoStream implements ProviderContract{
      * @var array
      */
     protected $cfg;
+    
     /**
      * Create a new provider instance.
      *
      * @param  string  $cfg
      * @return void
      */
-    public function __construct($cfg){
+    public function __construct($cfg)
+    {
         $this->cfg = $cfg;
     }
     
     /**
-     * Push a message to a client
-     * This function get's fired e.g after a ajax request and not
-     * after a websocket request. Because of that we don't have access
-     * to all the connections and there for have to connect to the
-     * twostream/ratchet server
-     *
-     * @param string $channel
-     * @param array $message
-     * @return void
+     * {@inheritdoc}
      */
-    public function push($channel, $message){
-        if(!$this->enablePush)
+    public function push($channel, $message)
+    {
+        if (!$this->enablePush)
             throw new TwoStreamException('Push is disabled');
         
         $message = array_merge(array('topic' => $channel), $message);
         $this->getSocket()->send(json_encode($message));
     }
+    
     /**
      * get zmqSocket to push messages
      *
      * @return ZMQSocket instance
      */
-    protected function getSocket(){
-        //we don't have to connect the socket
-        //for every new message sent
-        if(isset($this->socket))
-        {
+    protected function getSocket()
+    {
+        if(isset($this->socket)) {
             return $this->socket;
-        }
-        else
-        {
+        } else {
             return $this->connectZmq();
         }
     }
@@ -121,4 +115,5 @@ class TwoStream implements ProviderContract{
         $this->socket->connect("tcp://localhost:".Config::get('latchet::zmqPort'));
         return $this->socket;
     }
+    
 }

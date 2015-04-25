@@ -2,7 +2,8 @@
 
 use Closure;
 
-interface Registrar {
+interface Registrar
+{
     
     /**
      * Register a new CALL route with the router.

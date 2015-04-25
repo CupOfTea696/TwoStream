@@ -4,7 +4,8 @@ use Illuminate\Support\ServiceProvider;
 
 use CupOfTea\TwoStream\Routing\WsRouter;
 
-class WsRouteServiceProvider extends ServiceProvider {
+class WsRouteServiceProvider extends ServiceProvider
+{
     
     /**
      * The controller namespace for the application.
@@ -22,12 +23,9 @@ class WsRouteServiceProvider extends ServiceProvider {
     public function boot(WsRouter $router)
     {
         $this->setRootControllerNamespace();
-        if ($this->app->routesAreCached())
-        {
+        if ($this->app->routesAreCached()) {
             $this->loadCachedRoutes();
-        }
-        else
-        {
+        } else {
             $this->loadRoutes();
         }
     }
@@ -90,11 +88,13 @@ class WsRouteServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->bindShared('CupOfTea\TwoStream\Routing\WsRouter', function($app){
+        $this->app->bindShared('CupOfTea\TwoStream\Routing\WsRouter', function($app)
+        {
             return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
         });
         
-        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Routing\Registrar', function($app){
+        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Routing\Registrar', function($app)
+        {
             return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
         });
     }

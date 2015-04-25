@@ -24,7 +24,8 @@ use CupOfTea\TwoStream\Server\Dispatcher;
 use Illuminate\Session\SessionManager;
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
 
-class Server extends Command{
+class Server extends Command
+{
     
     use AppNamespaceDetector;
     
@@ -38,6 +39,7 @@ class Server extends Command{
      * @var string
      */
     protected $name = 'twostream:listen';
+    
     /**
      * The console command description.
      *
@@ -61,17 +63,20 @@ class Server extends Command{
     
     protected $pull;
     
-    public function __construct($app){
+    public function __construct($app)
+    {
         parent::__construct();
         
+        // TODO: Remove after beta
         ini_set('xdebug.var_display_max_depth', 9);
         
         $this->app = $app;
         $this->out = new Output();
     }
     
-    public function fire(){
-        if(!$this->isInstalled())
+    public function fire()
+    {
+        if (!$this->isInstalled())
             return $this->error('TwoStream is not installed. Please run twostream:install before attempting to run this command.');
         
         $this->line('TwoStream Server listening on port <comment>[' . $this->option('port') . ']</comment>');
@@ -79,31 +84,35 @@ class Server extends Command{
         $this->start();
     }
     
-    protected function start(){
+    protected function start()
+    {
         $this->loop->run();
     }
     
-    protected function boot(){
+    protected function boot()
+    {
         $this->buildDispatcher();
         $this->createLoop();
         
-        if($this->option('push'))
+        if ($this->option('push'))
             $this->enablePush();
         
         $this->bootWsServer();
         $this->bootHttpServer();
         
-        if($this->option('flash'))
+        if ($this->option('flash'))
             $this->allowFlash();
         
         return $this->loop;
     }
     
-    protected function getSession(){
+    protected function getSession()
+    {
         return (new SessionManager($this->app))->driver();
     }
     
-    protected function buildKernel(){
+    protected function buildKernel()
+    {
         $this->app->singleton(
             'CupOfTea\TwoStream\Contracts\Ws\Kernel',
             $this->getAppNamespace() . 'Ws\Kernel'
@@ -112,22 +121,26 @@ class Server extends Command{
         return $this->Kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
     }
     
-    protected function buildDispatcher(){
+    protected function buildDispatcher()
+    {
         return $this->Dispatcher = new Dispatcher($this->getSession(), $this->buildKernel(), clone $this->out);
     }
     
-    protected function createLoop(){
+    protected function createLoop()
+    {
         return $this->loop = EventLoopFactory::create();
     }
     
-    protected function bootWsServer(){
+    protected function bootWsServer()
+    {
         $this->ws = new ReactServer($this->loop);
         $this->ws->listen($this->option('port'), self::IP);
         
         return $this->ws;
     }
     
-    protected function bootHttpServer(){
+    protected function bootHttpServer()
+    {
         return $this->server = new IoServer(
             new HttpServer(
                 new WsServer(
@@ -145,8 +158,9 @@ class Server extends Command{
      *
      * @return void
      */
-    protected function enablePush(){
-        if(!class_exists('\React\ZMQ\Context')){
+    protected function enablePush()
+    {
+        if (!class_exists('\React\ZMQ\Context')) {
             $this->error('React/ZMQ dependency is required to enable push. Stopping server.', 1);
             die();
         }
@@ -167,7 +181,8 @@ class Server extends Command{
      *
      * @return void
      */
-    protected function allowFlash(){
+    protected function allowFlash()
+    {
         $flashSock = new ReactServer($this->loop);
         $flashSock->listen($this->option('flash-port'), self::IP);
         
@@ -184,7 +199,8 @@ class Server extends Command{
      *
      * @return array
      */
-    protected function getOptions(){
+    protected function getOptions()
+    {
         return [
             ['port', 'p', InputOption::VALUE_OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
             ['push', null, InputOption::VALUE_OPTIONAL, 'Enable push messages from the server to the client', config('twostream.push.enabled')],
@@ -194,14 +210,15 @@ class Server extends Command{
         ];
     }
     
-    protected function isInstalled(){
+    protected function isInstalled()
+    {
         $disk = Storage::createLocalDriver([
             'driver' => 'local',
             'root'   => app_path(),
         ]);
         
-        foreach(TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required){
-            if(!$disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required)))
+        foreach (TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required) {
+            if (!$disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required)))
                 return false;
         }
         

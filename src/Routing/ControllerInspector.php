@@ -2,7 +2,8 @@
 
 use Illuminate\Routing\ControllerInspector as LaravelControllerInspector;
 
-class ControllerInspector extends LaravelControllerInspector{
+class ControllerInspector extends LaravelControllerInspector
+{
     
     /**
      * {@inheritdoc}
