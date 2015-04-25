@@ -56,7 +56,7 @@ class TwoStream implements ProviderContract{
      *
      */
     const PACKAGE = 'CupOfTea/TwoStream';
-    const VERSION = '0.0.13-alpha';
+    const VERSION = '0.0.14-alpha';
     
     /**
      * This package's configuration
