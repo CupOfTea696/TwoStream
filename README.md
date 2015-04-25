@@ -1,9 +1,9 @@
 [![Latest Stable Version](https://poser.pugx.org/cupoftea/twostream/version.svg)](https://packagist.org/packages/cupoftea/twostream) [![Total Downloads](https://poser.pugx.org/cupoftea/twostream/downloads.svg)](https://packagist.org/packages/cupoftea/twostream) [![Latest Unstable Version](https://poser.pugx.org/cupoftea/twostream/v/unstable.svg)](https://packagist.org/packages/cupoftea/twostream) [![License](https://poser.pugx.org/cupoftea/twostream/license.svg)](https://packagist.org/packages/cupoftea/twostream)
 
 # TwoStream
-### Two-way WebSocket communication for Laravel 5
+### Two-way communication between Laravel and your Client
 
-This package is currently in **alpha** stage and not complete. Certain parts work but are not properly tested.
+TwoStream is a WebSocket server for Laravel 5, built upon [Ratchet](http://socketo.me). This package is currently in **alpha** stage and not complete. Certain parts work but are not properly tested.
 Documentation coming in first beta. For now, the info below will have to do.
 TwoStream is Laravel 5 only.
 
