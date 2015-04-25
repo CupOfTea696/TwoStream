@@ -27,6 +27,11 @@ class Install extends Command
      */
     protected $appNamespace;
     
+    /**
+     * Console Output
+     *
+     * @var \CupOfTea\TwoStream\Console\Output
+     */
     protected $out;
     
     /**
@@ -36,6 +41,12 @@ class Install extends Command
      */
     protected $description = 'Install TwoStream. This is required for TwoStream to work properly.';
     
+    /**
+     * Create a new install command instance.
+     *
+     * @param  string $namespace
+     * @return void
+     */
     public function __construct($namespace)
     {
         parent::__construct();
@@ -44,6 +55,11 @@ class Install extends Command
         $this->out = new Output();
     }
     
+    /**
+     * Fire the command
+     * 
+     * @return void
+     */
     public function fire()
     {
         $this->line('Installing TwoStream...');
@@ -51,6 +67,11 @@ class Install extends Command
         $this->line('Installation complete');
     }
     
+    /**
+     * Install the TwoStream package
+     * 
+     * @return void
+     */
     public function install()
     {
         $disk = Storage::createLocalDriver([

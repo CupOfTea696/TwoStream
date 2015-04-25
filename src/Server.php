@@ -29,8 +29,18 @@ class Server extends Command
     
     use AppNamespaceDetector;
     
+    /**
+     * Listen IP
+     *
+     * @const string
+     */
     const IP = '0.0.0.0';
     
+    /**
+     * Socket Pull ID
+     *
+     * @const string
+     */
     const SOCKET_PULL_ID = 'twostream.pull';
     
     /**
@@ -63,6 +73,12 @@ class Server extends Command
     
     protected $pull;
     
+    /**
+     * Create a new server command instance.
+     *
+     * @param  \Illuminate\Foundation\Application $app
+     * @return void
+     */
     public function __construct($app)
     {
         parent::__construct();
@@ -74,6 +90,11 @@ class Server extends Command
         $this->out = new Output();
     }
     
+    /**
+     * Fire the command
+     *
+     * @return void
+     */
     public function fire()
     {
         if (!$this->isInstalled())
@@ -84,11 +105,21 @@ class Server extends Command
         $this->start();
     }
     
+    /**
+     * Start the WAMP Server
+     *
+     * @return void
+     */
     protected function start()
     {
         $this->loop->run();
     }
     
+    /**
+     * Build the WAMP Server
+     *
+     * @return \React\EventLoop\LibEventLoop
+     */
     protected function boot()
     {
         $this->buildDispatcher();
@@ -106,11 +137,21 @@ class Server extends Command
         return $this->loop;
     }
     
+    /**
+     * Get the Session Driver
+     *
+     * @return \Illuminate\Session\SessionInterface
+     */
     protected function getSession()
     {
         return (new SessionManager($this->app))->driver();
     }
     
+    /**
+     * Build the Server's Kernel
+     *
+     * @return \CupOfTea\TwoStream\Foundation\Ws\Kernel
+     */
     protected function buildKernel()
     {
         $this->app->singleton(
@@ -121,16 +162,31 @@ class Server extends Command
         return $this->Kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
     }
     
+    /**
+     * Build the Server's Dispatcher
+     *
+     * @return \CupOfTea\TwoStream\Server\Dispatcher
+     */
     protected function buildDispatcher()
     {
         return $this->Dispatcher = new Dispatcher($this->getSession(), $this->buildKernel(), clone $this->out);
     }
     
+    /**
+     * Create the Server's EventLoop
+     *
+     * @return \React\EventLoop\LibEventLoop
+     */
     protected function createLoop()
     {
         return $this->loop = EventLoopFactory::create();
     }
     
+    /**
+     * Build the WebSocket Server
+     *
+     * @return React\Socket\Server
+     */
     protected function bootWsServer()
     {
         $this->ws = new ReactServer($this->loop);
@@ -139,6 +195,11 @@ class Server extends Command
         return $this->ws;
     }
     
+    /**
+     * Build the Http Server
+     *
+     * @return React\Socket\Server
+     */
     protected function bootHttpServer()
     {
         return $this->server = new IoServer(
@@ -210,6 +271,11 @@ class Server extends Command
         ];
     }
     
+    /**
+     * Check if the TwoStream Package is installed 
+     *
+     * @return bool
+     */
     protected function isInstalled()
     {
         $disk = Storage::createLocalDriver([

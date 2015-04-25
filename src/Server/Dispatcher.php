@@ -107,6 +107,9 @@ class Dispatcher implements DispatcherContract
     /**
      * Handle Request
      *
+     * @param \Ratchet\ConnectionInterface $connection
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
     protected function handle(Connection $connection, $request)
     {
@@ -118,6 +121,10 @@ class Dispatcher implements DispatcherContract
     /**
      * Send Response
      *
+     * @param \Illuminate\Http\Response $response
+     * @param \Ratchet\ConnectionInterface $conntection
+     * @param \Ratchet\Wamp\Topic $topic
+     * @return void
      */
     protected function send($response, Connection $connection, $topic)
     {
@@ -184,11 +191,17 @@ class Dispatcher implements DispatcherContract
     /**
      * @inheritdoc
      */
-    public function onError(Connection $connection, Exception $e) 
+    public function onError(Connection $connection, Exception $e)
     {
         $this->output->writeln("<error>Error: {$e->getMessage()}</error>");
     }
     
+    /**
+     * Load the Session data and store it into a Read-Only Session
+     *
+     * @param string $sessionId
+     * @return void
+     */
     protected function loadSession($sessionId)
     {
         if (array_get($this->sessions, $sessionId))
@@ -203,11 +216,26 @@ class Dispatcher implements DispatcherContract
         unset($session);
     }
     
+    /**
+     * Remove Session from stored sessions
+     *
+     * @param string $sessionId
+     * @return void
+     */
     protected function forgetSession($sessionId){
         array_forget($this->sessions, $sessionId);
     }
     
-    protected function buildRequest($verb, $connection, $topic, $data = [], $params = null)
+    /**
+     * Build an \Illuminate\Http\Request object
+     *
+     * @param string $verb
+     * @param \Ratchet\ConnectionInterface $connection
+     * @param \Rathcet\Wamp\Topic $topic
+     * @param array $data
+     * @return \Illuminate\Http\Request
+     */
+    protected function buildRequest($verb, Connection $connection, $topic, $data = [], $params = null)
     {
         $uri = [
             'protocol'  => 'ws://',
@@ -231,6 +259,12 @@ class Dispatcher implements DispatcherContract
         );
     }
     
+    /**
+     * Get the Session ID from the Cookie
+     *
+     * @param \Ratchet\ConnectionInterface $connection
+     * @return string
+     */
     protected function getSessionIdFromCookie(Connection $connection)
     {
         $cookie = urldecode($connection->WebSocket->request->getCookie(config('session.cookie')));

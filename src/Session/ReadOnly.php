@@ -20,8 +20,7 @@ class ReadOnly
     /**
      * Create a new session instance.
      *
-     * @param  string $name
-     * @param  \SessionHandlerInterface $handler
+     * @param  string $nam
      * @param  string|null $id
      * @return void
      */
@@ -31,6 +30,13 @@ class ReadOnly
         $this->name = $name;
     }
     
+    /**
+     * Store the Session data in the ReadOnly Session and lock it
+     *
+     * @param  array $attributes
+     * @param  string|null $id
+     * @return void
+     */
     public function initialize($attributes, $id = null)
     {
         if($this->started)

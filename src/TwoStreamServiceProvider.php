@@ -122,6 +122,11 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         ], parent::provides());
     }
     
+    /**
+     * Check if the TwoStream Package is installed
+     *
+     * @return bool
+     */
     protected function isInstalled()
     {
         $disk = Storage::createLocalDriver([

@@ -103,6 +103,7 @@ class TwoStream implements ProviderContract
             return $this->connectZmq();
         }
     }
+    
     /**
      * Connect to socket
      *

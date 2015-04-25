@@ -218,6 +218,7 @@ class WsRouter implements RegistrarContract
     public function controller($uri, $controller, $names = [])
     {
         $prepended = $controller;
+        
         // First, we will check to see if a controller prefix has been registered in
         // the route group. If it has, we will need to prefix it before trying to
         // reflect into the class instance and pull out the method for routing.
@@ -226,6 +227,7 @@ class WsRouter implements RegistrarContract
         }
         $routable = (new ControllerInspector)
                             ->getRoutable($prepended, $uri);
+        
         // When a controller is routed using this method, we use Reflection to parse
         // out all of the routable methods for the controller, then register each
         // route explicitly for the developers, so reverse routing is possible.
@@ -249,6 +251,7 @@ class WsRouter implements RegistrarContract
     protected function registerInspected($route, $controller, $method, &$names)
     {
         $action = ['uses' => $controller.'@'.$method];
+        
         // If a given controller method has been named, we will assign the name to the
         // controller action array, which provides for a short-cut to method naming
         // so you don't have to define an individual route for these controllers.
@@ -279,6 +282,7 @@ class WsRouter implements RegistrarContract
     public function group(array $attributes, Closure $callback)
     {
         $this->updateGroupStack($attributes);
+        
         // Once we have updated the group stack, we will execute the user Closure and
         // merge in the groups attributes when the route is created. After we have
         // run the callback, we will pop the attributes off of this group stack.
@@ -405,6 +409,7 @@ class WsRouter implements RegistrarContract
         $route = $this->newRoute(
             $methods, $this->prefix($uri), $action
         );
+        
         // If we have groups that need to be merged, we will merge them now after this
         // route has already been created and is ready to go. After we're done with
         // the merge we will be ready to return the route back out to the caller.
@@ -486,12 +491,14 @@ class WsRouter implements RegistrarContract
     protected function convertToControllerAction($action)
     {
         if (is_string($action)) $action = ['uses' => $action];
+        
         // Here we'll merge any group "uses" statement if necessary so that the action
         // has the proper clause for this property. Then we can simply set the name
         // of the controller on the action and return the action array for usage.
         if (!empty($this->groupStack)) {
             $action['uses'] = $this->prependGroupUses($action['uses']);
         }
+        
         // Here we will set this controller name on the action array just so we always
         // have a copy of it for reference if we need it. This can be used while we
         // search for a controller name or do some other type of fetch operation.
@@ -520,6 +527,7 @@ class WsRouter implements RegistrarContract
     public function dispatch(Request $request)
     {
         $this->currentRequest = $request;
+        
         // If no response was returned from the before filter, we will call the proper
         // route instance to get the response. If no route is found a response will
         // still get returned based on why no routes were found for this request.
@@ -527,6 +535,7 @@ class WsRouter implements RegistrarContract
         if (is_null($response)) {
             $response = $this->dispatchToRoute($request);
         }
+        
         // Once this route has run and the response has been prepared, we will run the
         // after filter to do any last work on the response or for this application
         // before we will return the response back to the consuming code for use.
@@ -551,6 +560,7 @@ class WsRouter implements RegistrarContract
             return $route;
         });
         $this->events->fire('router.matched', [$route, $request]);
+        
         // Once we have successfully matched the incoming request to a given route we
         // can call the before filters on that route. This works similar to global
         // filters in that if a response is returned we will not call the route.
@@ -561,6 +571,7 @@ class WsRouter implements RegistrarContract
             );
         }
         $response = $this->prepareResponse($request, $response);
+        
         // After we have a prepared response from the route or filter we will call to
         // the "after" filters to do any last minute processing on this request or
         // response object before the response is returned back to the consumer.
@@ -783,12 +794,14 @@ class WsRouter implements RegistrarContract
         $this->bind($key, function($value) use ($class, $callback)
         {
             if (is_null($value)) return;
+            
             // For model binders, we will attempt to retrieve the models using the first
             // method on the model instance. If we cannot retrieve the models we'll
             // throw a not found exception otherwise we will return the instance.
             if ($model = (new $class)->find($value)) {
                 return $model;
             }
+            
             // If a callback was supplied to the method we will call that to determine
             // what we should do when the model is not found. This just gives these
             // developer a little greater flexibility to decide what will happen.
