@@ -11,8 +11,8 @@
     ],
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/CupOfTea696/Ratchet"
+            "type": "git",
+            "url": "git://github.com/CupOfTea696/Ratchet.git"
         }
     ],
     "require": {
