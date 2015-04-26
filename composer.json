@@ -12,7 +12,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "http:/github.com/CupOfTea696/Ratchet"
+            "url": "https://github.com/CupOfTea696/Ratchet"
         }
     ],
     "require": {
