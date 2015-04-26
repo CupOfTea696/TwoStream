@@ -103,7 +103,6 @@ class Server extends Command
         $this->line('TwoStream Server listening on port <comment>[' . $this->option('port') . ']</comment>');
         $this->boot();
         
-        echo var_dump($this->server);
         $this->start();
     }
     

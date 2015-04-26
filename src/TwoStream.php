@@ -108,7 +108,6 @@ class TwoStream implements ProviderContract
     protected function connectZmq()
     {
         $context = new ZMQContext();
-        echo var_dump((self::SOCKET_PULL_ID . '.' . App::environment()));
         $this->socket = $context->getSocket(ZMQ::SOCKET_PUSH, self::SOCKET_PULL_ID . '.' . App::environment());
         $this->socket->connect('tcp://localhost:' . config('twostream.push.port'));
         return $this->socket;
