@@ -9,10 +9,17 @@
             "email": "cupoftea696@gmail.com"
         }
     ],
+    "repositories":
+    [
+        {
+            "type": "vcs",
+            "url": "https://github.com/CupOfTea696/Ratchet"
+        }
+    ],
     "require": {
         "cupoftea/package": "~1.0",
         "php": ">=5.4.0",
-        "cboden/ratchet": "0.3.*"
+        "cboden/ratchet": "dev-master"
     },
     "suggest": {
         "react/zmq": "Allows pushing messages form server to client. v0.3.* recommended."
