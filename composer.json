@@ -19,7 +19,7 @@
     "require": {
         "cupoftea/package": "~1.0",
         "php": ">=5.4.0",
-        "cboden/ratchet": "dev-master"
+        "cboden/ratchet": "dev-master as 0.3.x-dev"
     },
     "suggest": {
         "react/zmq": "Allows pushing messages form server to client. v0.3.* recommended."
