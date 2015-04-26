@@ -14,11 +14,12 @@ TwoStream is Laravel 5 only.
  - Routing, use `WsRoute::call`, `WsRoute::publish`, `WsRoute::subscribe`, `WsRoute::unsubscribe` or `WsRoute::controller` to define WebSocket routes in `app/Ws/routes.php`. For implicit controllers, use the verbs `call`, `publish`, `subscribe` or `unsubscribe` and define your functions according to the [Laravel Docs](http://laravel.com/docs/5.0/controllers#implicit-controllers).
  - Read-only Session data available in Ws Controllers via the WsSession Facade, add `'WsSession' => 'CupOfTea\TwoStream\Facades\WsSession',` to your aliases in `config/app.php`
  - Send response to all subscribers, all excluding requestee or requestee.
+ - Push events from server to all or specific user (using sessionId)
  
 ## TODO:
- - Push events from server to all or specific user. (to sessionId = &#10006;, to user &#10006;) (zmq)
- - Middleware for connections. (or something similar) [@beta]
- - Online Documentation [@beta]
+ - Push events from server to all or specific user. (to sessionId = &#10003;, to username/user object &#10006;) (zmq)
+ - Middleware for connections. (or something similar)
+ - Online Documentation
  
 ### Acknowledgements
 TwoStream is heavily based on [Latchet][latchet]. Some of the internal workings and public API is entirely different, other parts are near copy-pasted from the original code. The main difference between TwoStream and [Latchet][latchet] is (or will be) Laravel 5 support and read-only access to Session data. If you are using Laravel 4, please do go and use [Latchet][latchet] since it is pretty good. (Although the creator claims it's not even an alhpa version. Believe me, it is.) If you use Laravel 5 however, feel free to start testing this out and contribute.
