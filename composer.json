@@ -1,6 +1,6 @@
 {
     "name": "cupoftea/twostream",
-    "description": "Two-way WebSocket communication for Laravel 5",
+    "description": "Two-way communication between Laravel and your Client using WebSockets",
     "keywords": ["socket", "websocket", "laravel", "communication", "client-server communication"],
     "license": "MIT",
     "authors": [
