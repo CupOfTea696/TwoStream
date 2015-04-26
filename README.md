@@ -4,7 +4,11 @@
 ### Two-way communication between Laravel and your Client
 
 TwoStream is a WebSocket server for Laravel 5, built upon [Ratchet](http://socketo.me). This package is currently in **beta** stage and not complete. The most important functionality has been built but could use some more testing.
-I am currently working on the Documentation, so that's coming soon. I'll try and get a decent API explorer up ASAP. For now, the info below will have to do.
+
+I am currently working on the Documentation, so that's coming soon. For now, the info below will have to do.
+
+[API Explorer](http://cupoftea696.github.io/TwoStream/docs/api/)
+
 TwoStream is Laravel 5 only.
 
 ## Completed:
