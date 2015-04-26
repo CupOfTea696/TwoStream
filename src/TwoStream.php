@@ -60,7 +60,7 @@ class TwoStream implements ProviderContract
      * @const string
      */
     const PACKAGE = 'CupOfTea/TwoStream';
-    const VERSION = '0.0.20-alpha';
+    const VERSION = '0.0.21-alpha';
     
     /**
      * Socket Pull ID
