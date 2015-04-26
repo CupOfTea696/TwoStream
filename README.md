@@ -11,6 +11,21 @@ I am currently working on the Documentation, so that's coming soon. For now, the
 
 TwoStream is [Laravel 5][l5] only.
 
+## Notice:
+TwoStream currently depends on a slightly modified version of Ratchet, which I hope will be added in the 4.x release. However, for the time being to get this dependency you need to add the repository and requirement below in your `composer.json`
+
+```
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/CupOfTea696/Ratchet"
+        }
+    ],
+	"require": {
+        "cboden/ratchet": "dev-master",
+	},
+```
+
 ## Completed:
  - ServiceProvider and Facades, add `'CupOfTea\TwoStream\TwoStreamServiceProvider',` to your providers, and `'TwoStream' => 'CupOfTea\TwoStream\Facades\TwoStream',` and `'WsRoute'   => 'CupOfTea\TwoStream\Facades\WsRoute',` to your aliases in `config/app.php`
  - Installation command; run `twostream:install` before trying to use anything. (seriously!)
