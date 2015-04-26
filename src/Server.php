@@ -264,11 +264,11 @@ class Server extends Command
     protected function getOptions()
     {
         return [
-            ['port', 'p', InputOption::VALUE_OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
-            ['push', null, InputOption::VALUE_OPTIONAL, 'Enable push messages from the server to the client', config('twostream.push.enabled')],
-            ['push-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.push.port')],
-            ['flash', null, InputOption::VALUE_OPTIONAL, 'Allow legacy browsers to connect with the websocket polyfill', config('twostream.flash.allowed')],
-            ['flash-port', null, InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.flash.port')],
+            ['port', 'g', InputOption::VALUE_OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
+            ['push', 'p', InputOption::VALUE_OPTIONAL, 'Enable push messages from the server to the client', config('twostream.push.enabled')],
+            ['push-port', 'P', InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.push.port')],
+            ['flash', 'f', InputOption::VALUE_OPTIONAL, 'Allow legacy browsers to connect with the websocket polyfill', config('twostream.flash.allowed')],
+            ['flash-port', 'F', InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.flash.port')],
         ];
     }
     
