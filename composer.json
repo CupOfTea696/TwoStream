@@ -11,14 +11,14 @@
     ],
     "repositories": [
         {
-            "type": "git",
-            "url": "git://github.com/CupOfTea696/Ratchet.git"
+            "type": "vcs",
+            "url": "http:/github.com/CupOfTea696/Ratchet"
         }
     ],
     "require": {
         "cupoftea/package": "~1.1.3",
         "php": ">=5.4.0",
-        "cboden/ratchet": "dev-master#0924a917b15c4d1cf0f2cc25b4be115ce61dd1af as v0.4.0"
+        "cboden/ratchet": "dev-master"
     },
     "suggest": {
         "react/zmq": "Allows pushing messages form server to client. v0.3.* recommended."
