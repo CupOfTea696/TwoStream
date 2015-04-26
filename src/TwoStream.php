@@ -39,12 +39,14 @@
  *                                        ```..````                                       *
  **                                                                                      **/
 
+use App;
 use ZMQ;
 use Route;
 use Request;
 use ZMQContext;
 
 use CupOfTea\Package\Package;
+use CupOfTea\TwoStream\Exception\TwoStreamException;
 use CupOfTea\TwoStream\Contracts\Provider as ProviderContract;
 
 class TwoStream implements ProviderContract
@@ -54,50 +56,44 @@ class TwoStream implements ProviderContract
     
     /**
      * Package Info
-     * 
+     *
      * @const string
      */
     const PACKAGE = 'CupOfTea/TwoStream';
     const VERSION = '0.0.14-alpha';
     
     /**
-     * This package's configuration
+     * Socket Pull ID
      *
-     * @var array
+     * @const string
      */
-    protected $cfg;
-    
-    /**
-     * Create a new provider instance.
-     *
-     * @param  string  $cfg
-     * @return void
-     */
-    public function __construct($cfg)
-    {
-        $this->cfg = $cfg;
-    }
+    const SOCKET_PULL_ID = 'twostream.pull';
     
     /**
      * {@inheritdoc}
      */
-    public function push($channel, $message)
+    public function push($topic, $data, $recipient = null)
     {
-        if (!$this->enablePush)
-            throw new TwoStreamException('Push is disabled');
+        if (!config('twostream.push.enabled'))
+            throw new TwoStreamException('Push is disabled, please enable it in the twostream configuration before using');
         
-        $message = array_merge(array('topic' => $channel), $message);
-        $this->getSocket()->send(json_encode($message));
+        $this->getSocket()->send(
+            json_encode([
+                'topic' => $topic,
+                'data' => $data,
+                'recipient' => $recipient,
+            ])
+        );
     }
     
     /**
-     * get zmqSocket to push messages
+     * Get ZMQSocket to push messages
      *
-     * @return ZMQSocket instance
+     * @return \ZMQSocket
      */
     protected function getSocket()
     {
-        if(isset($this->socket)) {
+        if (isset($this->socket)) {
             return $this->socket;
         } else {
             return $this->connectZmq();
@@ -107,13 +103,14 @@ class TwoStream implements ProviderContract
     /**
      * Connect to socket
      *
-     * @return ZMQSocket instance
+     * @return \ZMQSocket
      */
     protected function connectZmq()
     {
         $context = new ZMQContext();
-        $this->socket = $context->getSocket(ZMQ::SOCKET_PUSH, Config::get('latchet::socketPushId', sprintf('latchet.push.%s', App::environment())));
-        $this->socket->connect("tcp://localhost:".Config::get('latchet::zmqPort'));
+        echo var_dump((self::SOCKET_PULL_ID . '.' . App::environment()));
+        $this->socket = $context->getSocket(ZMQ::SOCKET_PUSH, self::SOCKET_PULL_ID . '.' . App::environment());
+        $this->socket->connect('tcp://localhost:' . config('twostream.push.port'));
         return $this->socket;
     }
     

@@ -11,12 +11,15 @@ use CupOfTea\TwoStream\Session\ReadOnly;
 use CupOfTea\TwoStream\Exception\InvalidRecipientException;
 
 use Ratchet\ConnectionInterface as Connection;
+use Ratchet\Wamp\TopicAccessTrait as TopicAccess;
 use Ratchet\Wamp\WampServerInterface as DispatcherContract;
 
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class Dispatcher implements DispatcherContract
 {
+    
+    use TopicAccess;
     
     const WAMP_VERB_CALL        = 'CALL';
     const WAMP_VERB_PUBLISH     = 'PUBLISH';
@@ -30,6 +33,8 @@ class Dispatcher implements DispatcherContract
     protected $output;
     
     protected $sessions = [];
+    
+    protected $topics = [];
     
     /**
      * Create a new Dispatcher instance.
@@ -105,6 +110,20 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
+     * Handle Push messages
+     *
+     * @param string $message
+     * @return void
+     */
+    public function push($message){
+        $message = json_decode($message, true);
+        $topic = $message['topic'];
+        $data = $message['data'];
+        $recipient = array_get($message, 'recipient', 'all');
+        
+    }
+    
+    /**
      * Handle Request
      *
      * @param \Ratchet\ConnectionInterface $connection
@@ -131,27 +150,27 @@ class Dispatcher implements DispatcherContract
         if ($response->getStatusCode() == 404 || !$content = $response->getContent())
             return;
         
-        $content = (array)json_decode($content, true);
+        $content = (array) json_decode($content, true);
         $recipient = array_get($content, 'recipient', config('twostream.request.recipient'));
         $data = array_get($content, 'data', count($content) ? $content : $content[0]);
         $topic->broadcast($data);
         
         if ($recipient == 'all') {
             $topic->broadcast($data);
-        } elseif ($recipient == 'Exceptionsept') {
+        } elseif ($recipient == 'except') {
             foreach($topic->getIterator() as $client) {
                 if($client->Session->getId() != $connection->Session->getId())
                     $client->event($topic->getId(), $data);
             }
         } else {
-            if($recipient == 'requestee')
+            if ($recipient == 'requestee')
                 $recipient = $connection->Session->getId();
             
-            foreach((array)$recipient as $recipient){
+            foreach ((array) $recipient as $recipient) {
                 // TODO: if translateUserToSessionId ||
                 if (WsSession::isValidId($recipient)) {
-                    foreach($topic->getIterator() as $client){
-                        if($client->Session->getId() == $recipient)
+                    foreach ($topic->getIterator() as $client) {
+                        if ($client->Session->getId() == $recipient)
                             $client->event($topic->getId(), $data);
                     }
                 } else {

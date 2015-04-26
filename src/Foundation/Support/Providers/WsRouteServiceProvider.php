@@ -1,7 +1,6 @@
 <?php namespace CupOfTea\TwoStream\Foundation\Support\Providers;
 
-use Illuminate\Support\ServiceProvider;
-
+use CupOfTea\Package\ServiceProvider;
 use CupOfTea\TwoStream\Routing\WsRouter;
 
 class WsRouteServiceProvider extends ServiceProvider

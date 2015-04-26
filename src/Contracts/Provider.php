@@ -6,10 +6,11 @@ interface Provider
     /**
      * Push a message to a client
      *
-     * @param string $channel
-     * @param array $message
+     * @param string $topic
+     * @param string|array $data
+     * @param string|array $recipient
      * @return void
      */
-    public function push($channel, $message);
+    public function push($topic, $data, $recipient);
     
 }

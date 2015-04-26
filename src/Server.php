@@ -102,6 +102,8 @@ class Server extends Command
         
         $this->line('TwoStream Server listening on port <comment>[' . $this->option('port') . ']</comment>');
         $this->boot();
+        
+        echo var_dump($this->server);
         $this->start();
     }
     
@@ -230,7 +232,7 @@ class Server extends Command
         
         $this->pull = $context->getSocket(ZMQ::SOCKET_PULL, self::SOCKET_PULL_ID . '.' . App::environment());
         $this->pull->bind('tcp://127.0.0.1:' . $this->option('push-port'));
-        $this->pull->on('message', array($this->latchet, 'serverPublish')); // TODO
+        $this->pull->on('message', [$this->Dispatcher, 'push']); // TODO
         
         $this->info('Push enabled', 1);
     }
@@ -272,7 +274,7 @@ class Server extends Command
     }
     
     /**
-     * Check if the TwoStream Package is installed 
+     * Check if the TwoStream Package is installed
      *
      * @return bool
      */
