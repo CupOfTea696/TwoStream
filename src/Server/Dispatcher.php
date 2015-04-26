@@ -34,8 +34,6 @@ class Dispatcher implements DispatcherContract
     
     protected $sessions = [];
     
-    protected $topics = [];
-    
     /**
      * Create a new Dispatcher instance.
      *
