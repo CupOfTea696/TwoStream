@@ -3,13 +3,13 @@
 # TwoStream
 ### Two-way communication between Laravel and your Client
 
-TwoStream is a WebSocket server for Laravel 5, built upon [Ratchet](http://socketo.me). This package is currently in **beta** stage and not complete. The most important functionality has been built but could use some more testing.
+TwoStream is a WebSocket server for [Laravel 5][l5], built upon [Ratchet](http://socketo.me). This package is currently in **beta** stage and not complete. The most important functionality has been built but could use some more testing.
 
 I am currently working on the Documentation, so that's coming soon. For now, the info below will have to do.
 
 [API Explorer](http://cupoftea696.github.io/TwoStream/docs/api/)
 
-TwoStream is Laravel 5 only.
+TwoStream is [Laravel 5][l5] only.
 
 ## Completed:
  - ServiceProvider and Facades, add `'CupOfTea\TwoStream\TwoStreamServiceProvider',` to your providers, and `'TwoStream' => 'CupOfTea\TwoStream\Facades\TwoStream',` and `'WsRoute'   => 'CupOfTea\TwoStream\Facades\WsRoute',` to your aliases in `config/app.php`
@@ -26,6 +26,7 @@ TwoStream is Laravel 5 only.
  - Online Documentation
  
 ### Acknowledgements
-TwoStream is heavily based on [Latchet][latchet]. Some of the internal workings and public API is entirely different, other parts are near copy-pasted from the original code. The main difference between TwoStream and [Latchet][latchet] is (or will be) Laravel 5 support and read-only access to Session data. If you are using Laravel 4, please do go and use [Latchet][latchet] since it is pretty good. (Although the creator claims it's not even an alhpa version. Believe me, it is.) If you use Laravel 5 however, feel free to start testing this out and contribute.
+TwoStream is heavily based on [Latchet][latchet]. Some of the internal workings and public API is entirely different, other parts are near copy-pasted from the original code. The main difference between TwoStream and [Latchet][latchet] is [Laravel 5][l5] support and read-only access to Session data. If you are using Laravel 4, please do go and use [Latchet][latchet] since it is pretty good. (Although the creator claims it's not even an alpha version. Believe me, it is.) If you use [Laravel 5][l5] however, feel free to start testing this out and contribute.
 
+[l5]: https://github.com/laravel/framework/ "Laravel 5"
 [latchet]: https://github.com/sidneywidmer/Latchet  "Latchet (L4 Package)"
