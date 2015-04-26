@@ -13,7 +13,7 @@
         {
             "type": "package",
             "package": {
-                "version": "dev-master",
+                "version": "master",
                 "name": "cboden/ratchet",
                 "source": {
                     "url": "https://github.com/CupOfTea696/Ratchet.git",
