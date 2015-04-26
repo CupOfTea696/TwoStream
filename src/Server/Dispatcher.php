@@ -115,10 +115,36 @@ class Dispatcher implements DispatcherContract
      */
     public function push($message){
         $message = json_decode($message, true);
-        $topic = $message['topic'];
+        $topic = array_get($this->getTopics(), $message['topic']);
         $data = $message['data'];
         $recipient = array_get($message, 'recipient', 'all');
         
+        // Temporary until https://github.com/laravel/framework/pull/8568#issue-71096349 is merged into Laravel 5
+        if ($recipient === null)
+            $recipient = 'all';
+        
+        if (!$topic)
+            return;
+        
+        if ($recipient == 'all') {
+            $topic->broadcast($data);
+        } else {
+            foreach ((array) $recipient as $recipient) {
+                // TODO: if translateUserToSessionId ||
+                if (WsSession::isValidId($recipient)) {
+                    echo var_dump($this->getTopics());
+                    
+                    foreach ($topic->getIterator() as $client) {
+                        echo var_dump([$client->session, $recipient]);
+                        
+                        if ($client->session == $recipient)
+                            $client->event($topic->getId(), $data);
+                    }
+                } else {
+                    throw new InvalidRecipientException($recipient);
+                }
+            }
+        }
     }
     
     /**
@@ -130,7 +156,7 @@ class Dispatcher implements DispatcherContract
      */
     protected function handle(Connection $connection, $request)
     {
-        $this->loadSession($this->getSessionIdFromCookie($connection));
+        $this->loadSession($connection);
         
         return $this->Kernel->handle($request);
     }
@@ -157,18 +183,18 @@ class Dispatcher implements DispatcherContract
             $topic->broadcast($data);
         } elseif ($recipient == 'except') {
             foreach($topic->getIterator() as $client) {
-                if($client->Session->getId() != $connection->Session->getId())
+                if($client->session != $connection->session)
                     $client->event($topic->getId(), $data);
             }
         } else {
             if ($recipient == 'requestee')
-                $recipient = $connection->Session->getId();
+                $recipient = $connection->session;
             
             foreach ((array) $recipient as $recipient) {
                 // TODO: if translateUserToSessionId ||
                 if (WsSession::isValidId($recipient)) {
                     foreach ($topic->getIterator() as $client) {
-                        if ($client->Session->getId() == $recipient)
+                        if ($client->session == $recipient)
                             $client->event($topic->getId(), $data);
                     }
                 } else {
@@ -189,9 +215,9 @@ class Dispatcher implements DispatcherContract
     public function onOpen(Connection $connection)
     {
         $sessionId = $this->getSessionIdFromCookie($connection);
-        $this->loadSession($this->getSessionIdFromCookie($connection));
+        $this->loadSession($connection);
         
-        $this->output->writeln("<info>Connection from <comment>[$sessionId]</comment> opened.</info>");
+        $this->output->writeln("<info>Connection from <comment>[{$connection->session}]</comment> opened.</info>");
     }
     
     /**
@@ -219,8 +245,10 @@ class Dispatcher implements DispatcherContract
      * @param string $sessionId
      * @return void
      */
-    protected function loadSession($sessionId)
+    protected function loadSession(Connection $connection)
     {
+        $sessionId = $connection->session = $this->getSessionIdFromCookie($connection);
+        
         if (array_get($this->sessions, $sessionId))
             return WsSession::swap($this->sessions[$sessionId]);
         
