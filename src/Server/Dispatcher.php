@@ -117,11 +117,7 @@ class Dispatcher implements DispatcherContract
         $message = json_decode($message, true);
         $topic = array_get($this->getTopics(), $message['topic']);
         $data = $message['data'];
-        $recipient = array_get($message, 'recipient', 'all');
-        
-        // Temporary until https://github.com/laravel/framework/pull/8568#issue-71096349 is merged into Laravel 5
-        if ($recipient === null)
-            $recipient = 'all';
+        $recipient = array_get($message, 'recipient');
         
         if (!$topic)
             return;

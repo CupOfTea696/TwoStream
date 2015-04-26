@@ -72,7 +72,7 @@ class TwoStream implements ProviderContract
     /**
      * {@inheritdoc}
      */
-    public function push($topic, $data, $recipient = null)
+    public function push($topic, $data, $recipient = 'all')
     {
         if (!config('twostream.push.enabled'))
             throw new TwoStreamException('Push is disabled, please enable it in the twostream configuration before using');

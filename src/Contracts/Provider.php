@@ -11,6 +11,6 @@ interface Provider
      * @param string|array $recipient
      * @return void
      */
-    public function push($topic, $data, $recipient);
+    public function push($topic, $data, $recipient = 'all');
     
 }
