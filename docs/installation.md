@@ -2,7 +2,7 @@
 
 ## Install Composer
 
-To install TwoStream, you will first need to install [Composer][composer] if you haven't already. 
+To install TwoStream, you will first need to install [Composer][composer] if you haven't already.
 
 ## Install TwoStream
 
