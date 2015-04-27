@@ -8,7 +8,7 @@ project:
     navigation:
       - name: API
         link: "http://twostream.cupoftea.io/docs/api/"
-url: "http://twostream.cupoftea.io" # the base hostname & protocol for your site
+url: "http://twostream.cupoftea.io"
 twitter_username: CupOfTea696
 github_username:  CupOfTea696
 
