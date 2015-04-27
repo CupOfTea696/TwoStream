@@ -13,7 +13,5 @@ twitter_username: CupOfTea696
 github_username:  CupOfTea696
 
 # Build settings
-exclude:
-  - docs/api
 markdown: redcarpet
 highlighter: pygments
