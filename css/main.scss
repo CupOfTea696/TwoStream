@@ -3,6 +3,8 @@
 ---
 @charset "utf-8";
 
+$spacing-unit:     30px;
+
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
         "normalize",
