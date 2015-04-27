@@ -11,6 +11,7 @@ To install TwoStream, you will first need to install [Composer][composer] if you
 Before you start, you will have to add the repository and requirements below to your composer.json, because TwoStream currently depends on a slightly modified version of Ratchet, which I hope will be added in the 4.x release.
 
 ```php
+<?php
     "repositories": [
         {
             "type": "vcs",
@@ -34,6 +35,7 @@ $ composer update
 You will need to add the following service providers to your `config/app.php`:
 
 ```php
+<?php
 	'providers' => [
         
 		/*
@@ -53,6 +55,7 @@ You will need to add the following service providers to your `config/app.php`:
 Though this step is optional, I do recommend adding the following Facade's in you `config/app.php` as well, because it makes TwoStream a lot easier to use and I will not supply documentation for use without the Facades. You can leave out the WsSession Facade if you do not need to access Session variables within your WebSocket Server.
 
 ```php
+<?php
     'aliases' => [
         
 		'App'       => 'Illuminate\Support\Facades\App',
