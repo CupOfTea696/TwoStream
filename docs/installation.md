@@ -1,8 +1,3 @@
--e ---
-layout: default
----
-
-
 # Installation
 
 ## Install Composer

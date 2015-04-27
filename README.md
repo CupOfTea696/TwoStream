@@ -1,8 +1,3 @@
--e ---
-layout: default
----
-
-
 [![Latest Stable Version](https://poser.pugx.org/cupoftea/twostream/version.svg)](https://packagist.org/packages/cupoftea/twostream) [![Total Downloads](https://poser.pugx.org/cupoftea/twostream/d/total.svg)](https://packagist.org/packages/cupoftea/twostream) [![Latest Unstable Version](https://poser.pugx.org/cupoftea/twostream/v/unstable.svg)](https://packagist.org/packages/cupoftea/twostream) [![License](https://poser.pugx.org/cupoftea/twostream/license.svg)](https://packagist.org/packages/cupoftea/twostream)
 
 # TwoStream <sup>{{ Beta }}</sup>
