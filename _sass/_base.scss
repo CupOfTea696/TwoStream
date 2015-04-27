@@ -59,10 +59,19 @@ a {
       margin-left: 0; } }
 
 .page-header {
-  color: #fff;
+  color: #FFF;
   text-align: center;
   background-color: mix($lightAccentColor, $darkAccentColor);
-  background-image: linear-gradient(120deg, $lightAccentColor, $darkAccentColor); }
+  background-image: linear-gradient(120deg, $lightAccentColor, $darkAccentColor);
+}
+
+.page-header a{
+        color: inherit;
+        
+        &:hover{
+            color: inherit;
+        }
+    }
 
 @media screen and (min-width: 64em) {
   .page-header {
