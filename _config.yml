@@ -16,4 +16,4 @@ github_username:  CupOfTea696
 exclude:
   - docs/api
 markdown: redcarpet
-pygments: true
+highlighter: pygments
