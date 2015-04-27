@@ -4,7 +4,7 @@
 
 To publish the TwoSTream configuration file in your Application, run the following command
 
-```
+```bash
 $ php artisan vendor:publish --provider="cupoftea/twostream" --tag="cfg"
 ```
 

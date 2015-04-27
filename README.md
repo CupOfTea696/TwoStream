@@ -14,7 +14,7 @@ TwoStream is [Laravel 5][l5] only.
 ## Notice:
 TwoStream currently depends on a slightly modified version of Ratchet, which I hope will be added in the 4.x release. However, for the time being to get this dependency you need to add the repository and requirement below in your `composer.json`
 
-```
+```php
     "repositories": [
         {
             "type": "vcs",
