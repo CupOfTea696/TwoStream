@@ -43,7 +43,7 @@ return [
         
         /**
          *--------------------------------------------------------------------------
-         * RCP Response Settings
+         * RPC Response Settings
          *--------------------------------------------------------------------------
          *
          * Default responses for Remote Procedure Calls (RPCs)
