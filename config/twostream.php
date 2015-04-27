@@ -153,9 +153,9 @@ return [
          * ZeroMQ Socket Default Port
          *--------------------------------------------------------------------------
          *
-         * Port for the ZeroMQ connection. This is used so we can connect to
-         * all Socket connections and broadcast messages
-         * from e.g an Ajax Request.
+         * Port for the ZeroMQ connection. This is used to we can
+         * connect to all Socket connections and broadcast
+         * messages from the back-end.
          *
          * @optional
          * @default 5555
