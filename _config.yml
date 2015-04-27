@@ -1,0 +1,19 @@
+# Site settings
+
+project:
+    name: "TwoStream <sup>{{ Beta }}</sup>"
+    tagline: Two-way communication between Laravel and the Client
+    github: "https://github.com/CupOfTea696/TwoStream/"
+    package: "cupoftea/twostream"
+    navigation:
+      - name: API
+        link: "http://twostream.cupoftea.io/docs/api/"
+url: "http://twostream.cupoftea.io" # the base hostname & protocol for your site
+twitter_username: CupOfTea696
+github_username:  CupOfTea696
+
+# Build settings
+exclude:
+  - docs/api
+markdown: redcarpet
+pygments: true

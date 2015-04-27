@@ -1,0 +1,12 @@
+---
+# Main
+---
+@charset "utf-8";
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import
+        "normalize"
+        "github-light",
+        "base",
+        "syntax-highlighting"
+;
