@@ -1,3 +1,8 @@
+-e ---
+layout: default
+---
+
+
 # Configuration
 
 ## Publishing the Configuration
