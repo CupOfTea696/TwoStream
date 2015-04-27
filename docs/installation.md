@@ -1,4 +1,7 @@
----\r\nlayout: default\r\n---\r\n\r\n
+---
+layout: default
+---
+
 # Installation
 
 ## Install Composer
