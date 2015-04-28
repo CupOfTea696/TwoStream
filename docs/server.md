@@ -11,7 +11,7 @@ $ php artisan twostream:listen
 In addition to the basic command, you can set a bunch of options when you start the Server.
 
  - `-g or --port `: Equivalent of [`websocket.port`](docs/configuration/#websocket-settings) in the configuration.
- - `-p or --push `: Equivalent of [`push.enabled`](docs/configuration/#push-settings) in the configuration. Set to `true` or `false`
+ - `-p or --push `: Equivalent of [`push.enabled`](docs/configuration/#push-settings) in the configuration. Set to `true` or `false`.
  - `-P or --push-port`: Equivalent of [`push.port`](docs/configuration/#push-settings) in the configuration.
- - `-f or --flash `: Equivalent of [`flash.allowed`](docs/configuration/#legacy-settings) in the configuration. Set to `true` or `false`
+ - `-f or --flash `: Equivalent of [`flash.allowed`](docs/configuration/#legacy-settings) in the configuration. Set to `true` or `false`.
  - `-F or --flash-port`: Equivalent of [`push.port`](docs/configuration/#legacy-settings) in the configuration.
