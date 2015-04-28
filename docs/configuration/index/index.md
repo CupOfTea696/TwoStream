@@ -2,6 +2,11 @@
 layout: default
 ---
 
+---
+layout: default
+---
+
+
 # Configuration
 
 ## Publishing the Configuration
