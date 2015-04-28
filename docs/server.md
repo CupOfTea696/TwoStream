@@ -8,7 +8,7 @@ $ php artisan twostream:listen
 
 ## Options
 
-In addition to the basic command, you can set a bunch of options when you start the Server.
+The `twostream:listen` command allows you to set a bunch of options when you start the Server.
 
  - `-g or --port `: Equivalent of [`websocket.port`](docs/configuration/#websocket-settings) in the configuration.
  - `-p or --push `: Equivalent of [`push.enabled`](docs/configuration/#push-settings) in the configuration. Set to `true` or `false`.
