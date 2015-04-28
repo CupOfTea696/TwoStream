@@ -14,5 +14,7 @@ github_username:  CupOfTea696
 
 # Build settings
 markdown: redcarpet
+redcarpet:
+    extensions: ['with_toc_data']
 highlighter: pygments
 pygments_options: ['startinline']
