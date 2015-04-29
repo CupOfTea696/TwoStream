@@ -10,7 +10,7 @@ navigation:
     link: "docs"
   - name: API
     link: "docs/api"
-url: "http://127.0.0.1:4000"
+url: "http://twostream.cupoftea.io"
 twitter_username: CupOfTea696
 github_username:  CupOfTea696
 
