@@ -3,7 +3,7 @@
     <section class="main-content" id="{% if page_id != '' %}{{ page_id }}{% else %}home{% endif %}">
         <main id="content" class="page">
             {% if content contains "<!-- header end -->" %}
-                {% capture the_content %}{{ content | split:"<!-- header end -->" | first % }}{% endcapture %}
+                {% assign the_content = content | split: '<!-- header end -->' %}
                 {{ the_content[1] }}
             {% else %}
                 {{ content }}

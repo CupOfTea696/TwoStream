@@ -61,10 +61,16 @@ a {
       margin-left: 0; } }
 
 .page-header {
+    position: relative;
   color: #FFF;
   text-align: center;
   background-color: mix($lightAccentColor, $darkAccentColor);
   background-image: linear-gradient(120deg, $lightAccentColor, $darkAccentColor);
+}
+
+.page-header main {
+    max-width: 64rem;
+    margin: 0 auto;
 }
 
 .page-header a{
@@ -77,15 +83,15 @@ a {
 
 @media screen and (min-width: 64em) {
   .page-header {
-    padding: 11rem 6rem 5rem; } }
+    padding: 10rem 6rem 6rem; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .page-header {
-    padding: 8rem 4rem 3rem; } }
+    padding: 7rem 4rem 4rem; } }
 
 @media screen and (max-width: 42em) {
   .page-header {
-    padding: 6rem 1rem 2rem; } }
+    padding: 5rem 1rem 3rem; } }
 
 .project-name {
   margin-top: 0;
