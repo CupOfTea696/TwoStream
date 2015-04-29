@@ -1,5 +1,6 @@
 ---
 # Main
+cssversion: 2
 ---
 @charset "utf-8";
 
@@ -7,6 +8,9 @@ $spacing-unit:     30px;
 
 $lightAccentColor: #AA076B;
 $darkAccentColor: #61045F;
+
+$csstyle-part-symbol: '\\/';
+$csstyle-root-id: 'twostream';
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import

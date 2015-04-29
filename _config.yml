@@ -5,10 +5,10 @@ project:
     tagline: Two-way communication between Laravel and the Client
     github: "https://github.com/CupOfTea696/TwoStream/"
     package: "cupoftea/twostream"
-    navigation:
-      - name: API
-        link: "http://twostream.cupoftea.io/docs/api/"
-url: "http://twostream.cupoftea.io"
+navigation:
+  - name: API
+    link: "docs/api"
+url: "http://127.0.0.1:4000"
 twitter_username: CupOfTea696
 github_username:  CupOfTea696
 

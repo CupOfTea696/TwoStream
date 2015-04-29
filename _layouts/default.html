@@ -1,5 +1,11 @@
 {% include head.html %}
-    <section class="main-content">
-        <main id="content">
-            {{ content }}
+    {% capture page_id %}{{ page.url | remove: 'index.html' | slugify }}{% endcapture %}
+    <section class="main-content" id="{% if page_id != '' %}{{ page_id }}{% else %}home{% endif %}">
+        <main id="content" class="page">
+            {% if content contains "<!-- header end -->" %}
+                {% capture the_content %}{{ content | split:"<!-- header end -->" | first % }}{% endcapture %}
+                {{ the_content[1] }}
+            {% else %}
+                {{ content }}
+            {% endif %}
         {% include foot.html %}

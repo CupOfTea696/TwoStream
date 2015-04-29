@@ -1,3 +1,5 @@
+@import "csstyle";
+
 * {
   box-sizing: border-box; }
 
@@ -75,15 +77,15 @@ a {
 
 @media screen and (min-width: 64em) {
   .page-header {
-    padding: 5rem 6rem; } }
+    padding: 11rem 6rem 5rem; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .page-header {
-    padding: 3rem 4rem; } }
+    padding: 8rem 4rem 3rem; } }
 
 @media screen and (max-width: 42em) {
   .page-header {
-    padding: 2rem 1rem; } }
+    padding: 6rem 1rem 2rem; } }
 
 .project-name {
   margin-top: 0;
@@ -257,3 +259,6 @@ a {
 @media screen and (max-width: 42em) {
   .site-footer {
     font-size: 0.9rem; } }
+
+@import "components";
+@import "pages";
