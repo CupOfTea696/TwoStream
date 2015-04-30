@@ -2,43 +2,15 @@
 <html lang="en-us">
 <head>
     <meta charset="UTF-8">
-    <title>{% if page.title %}{{ page.title }} // {% endif %}{{ site.project.name | strip_html }} by CupOfTea696</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% capture page_id %}{{ page.url | remove: '/index.html' | slugify }}{% endcapture %}
+    <title>{% if page.title %}{{ page.title }} // {% endif %}{{ site.project.alt_name }} by {{ site.project.author }}</title>
+    
     <base href="{{ site.url }}">
+    
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/main.css" media="screen">
 </head>
 <body>
-    <header class="page-header">
-        {% include nav.html %}
-        
-        <main>
-            <h1 class="project-name">
-                <a href="">{{ site.project.name }}</a>
-            </h1>
-            <h2 class="project-tagline">{{ site.project.tagline }}</h2>
-            
-            <section class="buttons">
-                <a href="{{ site.project.github }}" class="btn">View on GitHub</a>
-                <a href="{{ site.project.github }}zipball/master" class="btn">Download .zip</a>
-                <a href="{{ site.project.github }}tarball/master" class="btn">Download .tar.gz</a>
-            </section>
-            
-            <section class="meta">
-                <div class="meta/container">
-                    <a href="https://packagist.org/packages/{{ site.project.package }}" class="meta/badge" target="_blank">
-                        <img src="https://poser.pugx.org/{{ site.project.package }}/version.svg" alt="Latest Stable Version">
-                    </a>
-                    <a href="https://packagist.org/packages/{{ site.project.package }}" class="meta/badge" target="_blank">
-                        <img src="https://poser.pugx.org/{{ site.project.package }}/d/total.svg" alt="Total Downloads">
-                    </a>
-                    <a href="https://packagist.org/packages/{{ site.project.package }}" class="meta/badge" target="_blank">
-                        <img src="https://poser.pugx.org/{{ site.project.package }}/v/unstable.svg" alt="Latest Unstable Version">
-                    </a>
-                    <a href="https://packagist.org/packages/{{ site.project.package }}" class="meta/badge" target="_blank">
-                        <img src="https://poser.pugx.org/{{ site.project.package }}/license.svg" alt="License">
-                    </a>
-                </div>
-            </section>
-        </main>
-    </header>
+    {% include nav.html %}
+    {% include header.html %}

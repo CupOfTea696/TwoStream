@@ -1,0 +1,28 @@
+{% for parent in site.navigation %}
+    {% capture page_name %}{{ page.url | remove_first:'/' | remove: '/index.html' }}{% endcapture %}
+    {% if page_name contains parent.link and parent.navigation %}
+        <aside class="sidebar">
+            <nav>
+                {% unless page_name == parent.link %}
+                    <a href="{{ parent.link }}" class="sidebar/parent">&laquo; {{ parent.name }}</a>
+                {% endunless %}
+                <ul class="sidebar/nav">
+                    {% for item in parent.navigation %}
+                        {% if item.type == 'category' %}
+                            <li class="sidebar/nav/category">{{ item.name }}</li>
+                        {% else %}
+                            {% capture full_link %}{{ parent.link }}/{{ item.link }}{% endcapture %}
+                            {% if page_name contains full_link %}
+                                <li class="sidebar/nav/item --active">{{ item.name }}</li>
+                            {% else %}
+                                <li class="sidebar/nav/item">
+                                    <a href="{{ parent.link }}/{{ item.link }}">{{ item.name }}</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </aside>
+    {% endif %}
+{% endfor %}

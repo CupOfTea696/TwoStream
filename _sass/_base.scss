@@ -1,7 +1,12 @@
 @import "csstyle";
+@import "core";
 
 * {
   box-sizing: border-box; }
+
+html, body{
+    height:100%;
+}
 
 body {
   padding: 0;
@@ -9,7 +14,7 @@ body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #606c71; }
+  color: #525252; }
 
 a {
   color: $darkAccentColor;
@@ -21,6 +26,12 @@ a {
 %vertical-rhythm {
     margin-bottom: $spacing-unit / 2;
 }
+
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table; }
+.clearfix:after {
+  clear: both; }
 
 .btn {
   display: inline-block;
@@ -69,7 +80,7 @@ a {
 }
 
 .page-header main {
-    max-width: 64rem;
+    max-width: 1170px;
     margin: 0 auto;
 }
 
@@ -125,6 +136,15 @@ a {
 @media screen and (max-width: 42em) {
   .project-tagline {
     font-size: 1rem; } }
+
+.main-content{
+    position: relative;
+    min-height: 100%;
+}
+
+.body {
+    padding-bottom: 6rem;
+}
 
 .main-content :first-child {
   margin-top: 0; }
@@ -227,7 +247,7 @@ a {
 
 @media screen and (min-width: 64em) {
   .main-content {
-    max-width: 64rem;
+    max-width: 1170px;
     padding: 2rem 6rem;
     margin: 0 auto;
     font-size: 1.1rem; } }
@@ -243,7 +263,10 @@ a {
     font-size: 1rem; } }
 
 .site-footer {
-  padding-top: 2rem;
+  position:absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 2rem 0;
   margin-top: 2rem;
   border-top: solid 1px #eff0f1; }
 
@@ -266,6 +289,5 @@ a {
   .site-footer {
     font-size: 0.9rem; } }
 
-@import "core";
 @import "components";
 @import "pages";

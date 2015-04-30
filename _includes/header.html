@@ -1,0 +1,33 @@
+{% if page_id == '' %}
+    <header class="page-header">
+        <main>
+            <h1 class="project-name">
+                <a href="">{{ site.project.name }}</a>
+            </h1>
+            <h2 class="project-tagline">{{ site.project.tagline }}</h2>
+            
+            <section class="buttons">
+                <a href="{{ site.project.github }}" class="btn">View on GitHub</a>
+                <a href="{{ site.project.github }}zipball/master" class="btn">Download .zip</a>
+                <a href="{{ site.project.github }}tarball/master" class="btn">Download .tar.gz</a>
+            </section>
+            
+            <section class="meta">
+                <div class="meta/container">
+                    <a href="//packagist.org/packages/{{ site.project.package }}" class="meta/badge" target="_blank">
+                        <img src="//poser.pugx.org/{{ site.project.package }}/version.svg" alt="Latest Stable Version">
+                    </a>
+                    <a href="//packagist.org/packages/{{ site.project.package }}" class="meta/badge" target="_blank">
+                        <img src="//poser.pugx.org/{{ site.project.package }}/d/total.svg" alt="Total Downloads">
+                    </a>
+                    <a href="//packagist.org/packages/{{ site.project.package }}" class="meta/badge" target="_blank">
+                        <img src="//poser.pugx.org/{{ site.project.package }}/v/unstable.svg" alt="Latest Unstable Version">
+                    </a>
+                    <a href="//packagist.org/packages/{{ site.project.package }}" class="meta/badge" target="_blank">
+                        <img src="//poser.pugx.org/{{ site.project.package }}/license.svg" alt="License">
+                    </a>
+                </div>
+            </section>
+        </main>
+    </header>
+{% endif %}
