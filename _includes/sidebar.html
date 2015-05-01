@@ -2,9 +2,6 @@
     {% if page_url contains parent.url and parent.navigation %}
         <aside class="sidebar">
             <nav>
-                {% unless page_url == parent.url %}
-                    <a href="{{ parent.url }}" class="sidebar/parent">&laquo; {{ parent.name }}</a>
-                {% endunless %}
                 <ul class="sidebar/nav">
                     {% for item in parent.navigation %}
                         {% if item.type == 'category' %}

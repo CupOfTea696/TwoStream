@@ -1,6 +1,7 @@
 {% include head.html %}
     <section class="main-content" id="{% if page_id != '' %}{{ page_id }}{% else %}home{% endif %}">
         <div class="body clearfix">
+            {% include breadcrumb.html %}
             {% include sidebar.html %}
             <main id="content" class="page">
                 {% if content contains "<!-- header end -->" %}

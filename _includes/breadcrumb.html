@@ -10,12 +10,27 @@
             {% endunless %}
             {% capture ancestor_url %}{{ ancestor_url }}{{ ancestor }}{% endcapture %}
             
+            {% for parent in site.navigation %}
+                {% if ancestor_url == parent.url %}
+                    {% assign ancestor_obj = parent %}
+                {% endif %}
+                
+                {% if parent.navigation %}
+                    {% for item in parent.navigation %}
+                    {% capture full_link %}{{ parent.url }}/{{ item.url }}{% endcapture %}
+                        {% if ancestor_url == full_link %}
+                            {% assign ancestor_obj = item %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            
             {% unless forloop.last %}
                 <li class="breadcrumb/item">
-                    <a href="">{{ ancestor }}</a>
+                    <a href="{{ ancestor_obj.url }}">{{ ancestor_obj.name }}</a>
                 </li>
             {% else %}
-                <li class="breadcrumb/item --active">{{ ancestor }}</li>
+                <li class="breadcrumb/item --active">{{ ancestor_obj.name }}</li>
             {% endunless %}
         {% endfor %}
     </ol>

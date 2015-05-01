@@ -6,7 +6,7 @@
     
     {% capture page_id %}{{ page.url | remove: '/index.html' | slugify }}{% endcapture %}
     {% capture page_url %}{{ page.url | remove_first:'/' | remove: '/index.html' }}{% endcapture %}
-    {% capture page_ancestors %}{{ page_url | split:'/' }}{% endcapture %}
+    {% assign page_ancestors = page_url | split:'/' %}
     
     <title>{% if page.title %}{{ page.title }} // {% endif %}{{ site.project.alt_name }} by {{ site.project.author }}</title>
     

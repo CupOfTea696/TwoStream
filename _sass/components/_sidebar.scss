@@ -7,14 +7,6 @@
         width: 75%;
     }
     
-    @include part(parent){
-        display: block;
-        margin-bottom: 32px;
-        padding-bottom: 8px;
-        @include font-size(14px);
-        line-height: 1.5;
-    }
-    
     @include part(nav){
         margin: 0 64px 0 0;
         padding: 0 32px 32px 0;
