@@ -38,6 +38,12 @@ github_username:  CupOfTea696
 # Build settings
 markdown: redcarpet
 redcarpet:
-    extensions: ['with_toc_data']
+  extensions: ['with_toc_data']
 highlighter: pygments
 pygments_options: ['startinline']
+sass:
+  sass_dir: 'assets/sass'
+  style: :compressed
+  sourcemap: :auto
+gems:
+  - octopress-minify-html

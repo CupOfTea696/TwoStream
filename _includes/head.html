@@ -10,10 +10,14 @@
     
     <title>{% if page.title %}{{ page.title }} // {% endif %}{{ site.project.alt_name }} by {{ site.project.author }}</title>
     
-    <base href="{{ site.url }}">
+    {% if jekyll.environment == "production" %}
+        <base href="{{ site.url }}">
+    {% else %}
+        <base href="http://127.0.0.1:4000">
+    {% endif %}
     
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/main.css" media="screen">
+    <link href='assets/css/app.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
     {% include nav.html %}
