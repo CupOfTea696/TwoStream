@@ -1,0 +1,22 @@
+{% unless page_id == '' %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb/item">
+            <a href="">Home</a>
+        </li>
+        {% capture ancestor_url %}{% endcapture %}
+        {% for ancestor in page_ancestors %}
+            {% unless forloop.first %}
+                {% capture ancestor_url %}{{ ancestor_url }}/{% endcapture %}
+            {% endunless %}
+            {% capture ancestor_url %}{{ ancestor_url }}{{ ancestor }}{% endcapture %}
+            
+            {% unless forloop.last %}
+                <li class="breadcrumb/item">
+                    <a href="">{{ ancestor }}</a>
+                </li>
+            {% else %}
+                <li class="breadcrumb/item --active">{{ ancestor }}</li>
+            {% endunless %}
+        {% endfor %}
+    </ol>
+{% endunless %}

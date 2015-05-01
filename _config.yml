@@ -9,28 +9,28 @@ project:
     package: "cupoftea/twostream"
 navigation:
   - name: Documentation
-    link: "docs"
+    url: "docs"
     navigation:
       - name: Getting Started
         type: category
       - name: Installation
         type: page
-        link: "installation"
+        url: "installation"
       - name: Configuration
         type: page
-        link: "configuration"
+        url: "configuration"
       - name: Running TwoStream
         type: page
-        link: "server"
+        url: "server"
       - name: The Basics
         type: category
       - name: Routing
         type: page
-        link: "routing"
+        url: "routing"
       - name: Services
         type: category
   - name: API
-    link: "docs/api"
+    url: "docs/api"
 url: "http://twostream.cupoftea.io"
 twitter_username: CupOfTea696
 github_username:  CupOfTea696
