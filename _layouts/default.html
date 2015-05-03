@@ -8,7 +8,7 @@
                     {% assign the_content = content | split: '<!-- header end -->' %}
                     {{ the_content[1] | replace_first: '<p>', '<p class="text/lead">' }}
                 {% else %}
-                    {{ content }}
+                    {{ content | toc_generate }}
                 {% endif %}
             </main>
         </div>

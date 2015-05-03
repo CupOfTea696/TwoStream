@@ -1,0 +1,5 @@
+this.app = this.app || {};
+
+(function(window, $, app){
+    
+})(window, $, this.app)

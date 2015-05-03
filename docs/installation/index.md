@@ -4,6 +4,8 @@ layout: default
 
 # Installation
 
+<!-- [[TOC]] -->
+
 ## Install Composer
 
 To install TwoStream, you will first need to install [Composer][composer] if you haven't already.
@@ -80,4 +82,3 @@ $ php artisan twostream:install
 
 
 [composer]: https://getcomposer.org/doc/00-intro.md
-
