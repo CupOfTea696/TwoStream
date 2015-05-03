@@ -11,9 +11,9 @@ layout: default
 
 TwoStream is a WebSocket server for [Laravel 5][l5], built upon [Ratchet](http://socketo.me). This package is currently in **beta** stage and not complete. The most important functionality has been built but could use some more testing.
 
-I am currently working on the Documentation, so that's coming soon. For now, the info below will have to do.
+I am currently working on the [Documentation](http://twostream.cupoftea.io/docs/), which isn't complete yet. The available pages are already accessible, but please note that there is more to come. 
 
-[API Explorer](http://twostream.cupoftea.io/docs/api/) (temporarily down, bare with me)
+[API Explorer](http://twostream.cupoftea.io/docs/api/)
 
 TwoStream is [Laravel 5][l5] only.
 
