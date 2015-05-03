@@ -42,8 +42,9 @@ redcarpet:
 highlighter: pygments
 pygments_options: ['startinline']
 gems:
-  - octopress-minify-html
+  - jekyll-assets
   - nokogiri
+  - octopress-minify-html
 assets:
   dirname: assets
   base_url: assets/
