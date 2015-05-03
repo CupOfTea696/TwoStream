@@ -31,7 +31,7 @@ WsRoute::unsubscribe('chat/room/{id}', function($id)
 
 ### PUBLISH Routes
 
-The Publish Event is triggered when a client Publishes data to a topic. The data can be retrieved by using `Request::input('data');`. More info on Publish Data can be found in the Controllers Documentation.
+The Publish Event is triggered when a client Publishes data to a topic. The data can be retrieved by using `Request::input('data');`. More info on Publish Data can be found in the Requests Documentation.
 
 ```
 WsRoute::publish('blog/create', function()
