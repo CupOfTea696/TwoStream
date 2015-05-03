@@ -44,7 +44,7 @@ _**Note:** All controllers should extend the base WebSocket Controller class, no
 
 ## Controller Middleware
 
-Not yet implemented.
+Not yet implemented. Will come in last beta release.
 
 ## Special Controllers
 
