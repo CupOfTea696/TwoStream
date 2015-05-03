@@ -8,4 +8,9 @@ u{
     text-decoration: none;
     color: $lightAccentColor;
     background-color: $pastelColor;
+    
+    code{
+        color: $darkAccentColor;
+        background-color: rgba($darkAccentColor, .1);
+    }
 }
