@@ -14,7 +14,7 @@ Controllers for WebSocket Routes are located in `app/Ws/Controllers`. It is high
 Here is an example of a basic Controller Class:
 
 ```php
-<?php namespace App\Ws\Controllers;
+namespace App\Ws\Controllers;
 
 use App\Ws\Controllers\Controller;
 
