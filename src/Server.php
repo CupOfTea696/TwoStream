@@ -231,9 +231,9 @@ class Server extends Command
         
         $this->pull = $context->getSocket(ZMQ::SOCKET_PULL, self::SOCKET_PULL_ID . '.' . App::environment());
         $this->pull->bind('tcp://127.0.0.1:' . $this->option('push-port'));
-        $this->pull->on('message', [$this->Dispatcher, 'push']); // TODO
+        $this->pull->on('message', [$this->Dispatcher, 'push']);
         
-        $this->info('Push enabled', 1);
+        $this->info('Push enabled on port <comment>[' . $this->option('push-port') . ']</comment>', 1);
     }
     
     /**
@@ -253,7 +253,7 @@ class Server extends Command
         
         $webServer = new IoServer($policy, $flashSock);
         
-        $this->info('Flash connections allowed', 1);
+        $this->info('Flash connections allowed with policy on port <comment>[' . $this->option('flash-port') . ']</comment>', 1);
     }
     
     /**
