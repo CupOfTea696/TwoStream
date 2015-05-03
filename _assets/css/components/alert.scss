@@ -1,0 +1,11 @@
+u{
+    display: block;
+    margin: 32px 0;
+    padding: 16px;
+    border: 1px solid darken($pastelColor, 5%);
+    border-radius: 4px;
+    @include font-size(14px);
+    text-decoration: none;
+    color: $lightAccentColor;
+    background-color: $pastelColor;
+}

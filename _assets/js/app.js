@@ -19,9 +19,11 @@ this.app = this.app || {};
     
     app.linkifyAnchors([2, 3, 4, 5, 6], '#content');
     
-    $body.on('click', '[data-scrollto]', function(){
+    $body.on('click', '[data-scrollto], [href^="#"]', function(e){
+        e.preventDefault();
+        
         var $this = $(this),
-            location = $this.data('scrollto');
+            location = $this.data('scrollto') || $this.attr('href').replace('#', '');
         
         app.scrollTo(location);
     });
