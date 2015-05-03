@@ -27,6 +27,9 @@ navigation:
       - name: Routing
         type: page
         url: "routing"
+      - name: Controllers
+        type: page
+        url: "controllers"
       - name: Services
         type: category
   - name: API
