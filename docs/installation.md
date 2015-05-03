@@ -1,4 +1,5 @@
 # Installation
+<!-- [[TOC]] -->
 
 ## Install Composer
 

@@ -1,4 +1,5 @@
 # Configuration
+<!-- [[TOC]] -->
 
 ## Publishing the Configuration
 
