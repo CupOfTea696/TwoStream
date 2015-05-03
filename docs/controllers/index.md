@@ -48,6 +48,6 @@ Not yet implemented.
 
 ## Special Controllers
 
-Laravel provides two special types of Controllers: Implicit and RESTful Resource Controllers. Implicit Controllers work in the same way they do in Laravel, so if you're not sure on how they work go [check the Documentation](http://laravel.com/docs/5.0/controllers#implicit-controllers).
+Laravel provides two special types of Controllers: Implicit and RESTful Resource Controllers. Implicit Controllers work in the same way they do in Laravel, so if you're not sure on how they work go check the [Documentation](http://laravel.com/docs/5.0/controllers#implicit-controllers).
 
 RESTful Controllers do not exist within TwoStream. The `WsRoute` Facade does not provide the `resource()` function, and attempting to use it will result in an error.
