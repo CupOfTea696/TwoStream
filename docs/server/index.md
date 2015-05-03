@@ -2,7 +2,10 @@
 layout: default
 ---
 
-# Server
+# Running TwoStream
+<!-- [[TOC]] -->
+
+## Server
 
 Once you have installed and configured TwoStream, starting the WebSocket server is really easy. Just run the following artisan command:
 

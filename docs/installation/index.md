@@ -3,7 +3,6 @@ layout: default
 ---
 
 # Installation
-
 <!-- [[TOC]] -->
 
 ## Install Composer
@@ -82,3 +81,4 @@ $ php artisan twostream:install
 
 
 [composer]: https://getcomposer.org/doc/00-intro.md
+

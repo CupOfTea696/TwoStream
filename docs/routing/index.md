@@ -3,6 +3,7 @@ layout: default
 ---
 
 # Routing
+<!-- [[TOC]] -->
 
 TwoStream provides an easy way to handle WebSocket Topic Events through the provided WsRoute Facade. This allows you to blend in your code in a way that should already be very familliar to you from the default Laravel Routes and Controllers. To put it simple: Anything you can do with an HTTP request, you can now do for Topic Events, in virtually the same way!
 
