@@ -36,13 +36,13 @@ twitter_username: CupOfTea696
 github_username:  CupOfTea696
 
 # Build settings
-  - octopress-minify-html
 markdown: redcarpet
 redcarpet:
   extensions: ['with_toc_data', 'html_toc']
 highlighter: pygments
 pygments_options: ['startinline']
 gems:
+  - octopress-minify-html
   - nokogiri
 assets:
   dirname: assets
