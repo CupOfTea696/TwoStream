@@ -40,7 +40,7 @@ Routing to the Controller Action works in the same way you're used to from Larav
 WsRoute::subscribe('chat/room/{id}', 'ChatController@roomConnect');
 ```
 
-> Note: All controllers should extend the base WebSocket Controller class, not Laravel's base Controller class!
+_**Note:** All controllers should extend the base WebSocket Controller class, not Laravel's base Controller class!_
 
 ## Controller Middleware
 
