@@ -30,6 +30,9 @@ navigation:
       - name: Controllers
         type: page
         url: "controllers"
+      - name: Requests
+        type: page
+        url: "requests"
       - name: Services
         type: category
   - name: API
