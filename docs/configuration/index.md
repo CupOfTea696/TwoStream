@@ -36,7 +36,7 @@ These are the default settings for how TwoStream should handle responses:
 
 These are the settings for the TwoStream WebSocket Server:
 
- - `websocket.port`: Default port on which the React Socket Server will listen for incoming connections. This option can also be set in the artisan command. More info on how to do that in the [Server Documentation](). The default port is `1111`.
+ - `websocket.port`: Default port on which the React Socket Server will listen for incoming connections. This option can also be set in the artisan command. More info on how to do that in the [Server Documentation](http://twostream.cupoftea.io/docs/server/). The default port is `1111`.
 
 ### Push Settings
 
