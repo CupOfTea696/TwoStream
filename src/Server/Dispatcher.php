@@ -79,6 +79,8 @@ class Dispatcher implements DispatcherContract
      */
     public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible)
     {
+        $event = json_decode($event);
+        
         $request = $this->buildRequest(self::WAMP_VERB_PUBLISH, $connection, $topic, $event);
         $response = $this->handle($connection, $request);
         
