@@ -114,6 +114,7 @@ class Dispatcher implements DispatcherContract
      *
      * @param string $message
      * @return void
+     * @throws \CupOfTea\TwoStream\Exception\InvalidRecipientException
      */
     public function push($message){
         $message = json_decode($message, true);
@@ -166,16 +167,18 @@ class Dispatcher implements DispatcherContract
      * @param \Ratchet\ConnectionInterface $conntection
      * @param \Ratchet\Wamp\Topic $topic
      * @return void
+     * @throws \CupOfTea\TwoStream\Exception\InvalidRecipientException
      */
     protected function send($response, Connection $connection, $topic)
     {
         if ($response->getStatusCode() == 404 || !$content = $response->getContent())
             return;
         
-        $content = (array) json_decode($content, true);
-        $recipient = array_get($content, 'recipient', config('twostream.request.recipient'));
-        $data = array_get($content, 'data', count($content) ? $content : $content[0]);
-        $topic->broadcast($data);
+        $json = json_decode($content, true);
+        if(json_last_error() == JSON_ERROR_NONE)
+            $content = (array) $json;
+        $recipient = array_get($content, 'recipient', config('twostream.response.recipient'));
+        $data = array_get($content, 'data', $content);
         
         if ($recipient == 'all') {
             $topic->broadcast($data);
