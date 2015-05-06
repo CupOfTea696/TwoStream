@@ -64,7 +64,10 @@ class Dispatcher implements DispatcherContract
                 config('twostream.response.rpc.error.enabled') : config('twostream.response.rpc.error.disabled');
             $connection->callError($id, 'wamp.error.no_such_procedure', $msg);
         } else {
-            $content = (array)json_decode($response->getContent(), true);
+            $content = $response->getContent();
+            $json = json_decode($content, true);
+            if(json_last_error() == JSON_ERROR_NONE)
+                $content = $json;
             $error = array_get($content, 'error');
             
             if($error)
@@ -80,6 +83,9 @@ class Dispatcher implements DispatcherContract
     public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible)
     {
         $event = json_decode($event);
+        $json = json_decode($event);
+        if(json_last_error() == JSON_ERROR_NONE)
+            $event = $json;
         
         $request = $this->buildRequest(self::WAMP_VERB_PUBLISH, $connection, $topic, $event);
         $response = $this->handle($connection, $request);
@@ -131,11 +137,7 @@ class Dispatcher implements DispatcherContract
             foreach ((array) $recipient as $recipient) {
                 // TODO: if translateUserToSessionId ||
                 if (WsSession::isValidId($recipient)) {
-                    echo var_dump($this->getTopics());
-                    
                     foreach ($topic->getIterator() as $client) {
-                        echo var_dump([$client->session, $recipient]);
-                        
                         if ($client->session == $recipient)
                             $client->event($topic->getId(), $data);
                     }
@@ -176,7 +178,7 @@ class Dispatcher implements DispatcherContract
         
         $json = json_decode($content, true);
         if(json_last_error() == JSON_ERROR_NONE)
-            $content = (array) $json;
+            $content = $json;
         $recipient = array_get($content, 'recipient', config('twostream.response.recipient'));
         $data = array_get($content, 'data', $content);
         
