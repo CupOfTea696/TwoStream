@@ -34,3 +34,22 @@ The following is a list of the Pre-defined Recipient Lists that you can use for 
  - `'requestee'`: The response will be sent to the Client that made the request.
 
 _You can set a default recipient in your [Configuration](http://twostream.cupoftea.io/docs/configuration/#response-settings)._
+
+## CALL Responses
+
+TwoStream provides an easy way to send Error Responses on CALL Requests. Simply return an associative array with the key `error`. The value for this key can either be a string or object with the Error data, or an associative with the keys `domain` and `msg` to specify the Error Domain and Message respectively.
+
+```php
+// Simple Error Message
+return [
+    'error' => 'Object is write protected.'
+];
+
+// Specifying the Error Domain and Message
+return [
+    'error' => [
+        'domain' => 'com.myapp.error.object_write_protected',
+        'msg' => 'Object is write protected.',
+    ]
+];
+```
