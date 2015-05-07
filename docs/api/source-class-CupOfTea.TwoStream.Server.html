@@ -403,9 +403,9 @@
 </span><span id="231" class="l"><a href="#231">231 </a>        
 </span><span id="232" class="l"><a href="#232">232 </a>        <span class="php-var">$this</span>-&gt;pull = <span class="php-var">$context</span>-&gt;getSocket(ZMQ::SOCKET_PULL, self::SOCKET_PULL_ID . <span class="php-quote">'.'</span> . App::environment());
 </span><span id="233" class="l"><a href="#233">233 </a>        <span class="php-var">$this</span>-&gt;pull-&gt;bind(<span class="php-quote">'tcp://127.0.0.1:'</span> . <span class="php-var">$this</span>-&gt;option(<span class="php-quote">'push-port'</span>));
-</span><span id="234" class="l"><a href="#234">234 </a>        <span class="php-var">$this</span>-&gt;pull-&gt;on(<span class="php-quote">'message'</span>, [<span class="php-var">$this</span>-&gt;Dispatcher, <span class="php-quote">'push'</span>]); <span class="php-comment">// TODO</span>
+</span><span id="234" class="l"><a href="#234">234 </a>        <span class="php-var">$this</span>-&gt;pull-&gt;on(<span class="php-quote">'message'</span>, [<span class="php-var">$this</span>-&gt;Dispatcher, <span class="php-quote">'push'</span>]);
 </span><span id="235" class="l"><a href="#235">235 </a>        
-</span><span id="236" class="l"><a href="#236">236 </a>        <span class="php-var">$this</span>-&gt;info(<span class="php-quote">'Push enabled'</span>, <span class="php-num">1</span>);
+</span><span id="236" class="l"><a href="#236">236 </a>        <span class="php-var">$this</span>-&gt;info(<span class="php-quote">'Push enabled on port &lt;comment&gt;['</span> . <span class="php-var">$this</span>-&gt;option(<span class="php-quote">'push-port'</span>) . <span class="php-quote">']&lt;/comment&gt;'</span>, <span class="php-num">1</span>);
 </span><span id="237" class="l"><a href="#237">237 </a>    }
 </span><span id="238" class="l"><a href="#238">238 </a>    
 </span><span id="239" class="l"><a href="#239">239 </a>    <span class="php-comment">/**
@@ -425,7 +425,7 @@
 </span><span id="253" class="l"><a href="#253">253 </a>        
 </span><span id="254" class="l"><a href="#254">254 </a>        <span class="php-var">$webServer</span> = <span class="php-keyword1">new</span> IoServer(<span class="php-var">$policy</span>, <span class="php-var">$flashSock</span>);
 </span><span id="255" class="l"><a href="#255">255 </a>        
-</span><span id="256" class="l"><a href="#256">256 </a>        <span class="php-var">$this</span>-&gt;info(<span class="php-quote">'Flash connections allowed'</span>, <span class="php-num">1</span>);
+</span><span id="256" class="l"><a href="#256">256 </a>        <span class="php-var">$this</span>-&gt;info(<span class="php-quote">'Flash connections allowed with policy on port &lt;comment&gt;['</span> . <span class="php-var">$this</span>-&gt;option(<span class="php-quote">'flash-port'</span>) . <span class="php-quote">']&lt;/comment&gt;'</span>, <span class="php-num">1</span>);
 </span><span id="257" class="l"><a href="#257">257 </a>    }
 </span><span id="258" class="l"><a href="#258">258 </a>    
 </span><span id="259" class="l"><a href="#259">259 </a>    <span class="php-comment">/**
