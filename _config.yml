@@ -33,8 +33,17 @@ navigation:
       - name: Requests
         type: page
         url: "requests"
+      - name: Responses
+        type: page
+        url: "responses"
       - name: Services
         type: category
+      - name: TwoStream
+        type: page
+        url: "twostream"
+      - name: WsSession
+        type: page
+        url: "ws-session"
   - name: API
     url: "docs/api"
 url: "http://twostream.cupoftea.io"
