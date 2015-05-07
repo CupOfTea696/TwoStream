@@ -32,8 +32,6 @@ class Dispatcher implements DispatcherContract
     
     protected $output;
     
-    protected $sessions = [];
-    
     /**
      * Create a new Dispatcher instance.
      *
@@ -229,7 +227,6 @@ class Dispatcher implements DispatcherContract
     public function onClose(Connection $connection)
     {
         $sessionId = $this->getSessionIdFromCookie($connection);
-        $this->forgetSession($sessionId);
         
         $this->output->writeln("<info>Connection from <comment>[$sessionId]</comment> closed.</info>");
     }
@@ -252,26 +249,13 @@ class Dispatcher implements DispatcherContract
     {
         $sessionId = $connection->session = $this->getSessionIdFromCookie($connection);
         
-        if (array_get($this->sessions, $sessionId))
-            return WsSession::swap($this->sessions[$sessionId]);
-        
         $session = clone $this->Session;
         $session->setId($sessionId);
         $session->start();
         
-        $this->sessions[$sessionId] = (new ReadOnly(config('session.cookie')))->initialize($session->all(), $sessionId);
-        WsSession::swap($this->sessions[$sessionId]);
+        $readonly = (new ReadOnly(config('session.cookie')))->initialize($session->all(), $sessionId);
+        WsSession::swap($readonly);
         unset($session);
-    }
-    
-    /**
-     * Remove Session from stored sessions
-     *
-     * @param string $sessionId
-     * @return void
-     */
-    protected function forgetSession($sessionId){
-        array_forget($this->sessions, $sessionId);
     }
     
     /**
