@@ -1,7 +1,3 @@
----
-layout: default
----
-
 # WsSession
 <!-- [[TOC]] -->
 
