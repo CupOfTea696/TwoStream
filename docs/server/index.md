@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Running TwoStream
 <!-- [[TOC]] -->
 
