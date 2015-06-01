@@ -1,5 +1,6 @@
 <?php namespace CupOfTea\TwoStream\Server;
 
+use Auth;
 use Crypt;
 use Session;
 use Exception;
@@ -55,23 +56,24 @@ class Dispatcher implements DispatcherContract
     public function onCall(Connection $connection, $id, $topic, array $params)
     {
         $request = $this->buildRequest(self::WAMP_VERB_CALL, $connection, $topic, [], $params);
-        $response = $this->handle($connection, $request);
         
-        if ($response->getStatusCode() == 404) {
+        try {
+            $response = $this->handle($connection, $request);
+        } catch (Exception $e) {
+            $connection->callError($id, 'php.' . snake_case(get_class($e)), $e->getMessage());
+        }
+        
+        if (!$response) {
             $msg = config('twostream.response.rpc.enabled') ?
                 config('twostream.response.rpc.error.enabled') : config('twostream.response.rpc.error.disabled');
             $connection->callError($id, 'wamp.error.no_such_procedure', $msg);
         } else {
-            $content = $response->getContent();
-            $json = json_decode($content, true);
-            if(json_last_error() == JSON_ERROR_NONE)
-                $content = $json;
-            $error = array_get($content, 'error');
+            $error = array_get($response, 'error');
             
             if($error)
-                $connection->callError($id, array_get($content, 'error.domain', $topic), array_get($content, 'error.msg', $error));
+                $connection->callError($id, array_get($response, 'error.domain', $topic), array_get($response, 'error.msg', $error));
             else
-                $connection->callResult($id, $content);
+                $connection->callResult($id, $response);
         }
     }
     
@@ -255,6 +257,10 @@ class Dispatcher implements DispatcherContract
         
         $readonly = (new ReadOnly(config('session.cookie')))->initialize($session->all(), $sessionId);
         WsSession::swap($readonly);
+        
+        // shh, don't tell anyone
+        Session::put(Auth::getName(), WsSession::get(Auth::getName()));
+        
         unset($session);
     }
     

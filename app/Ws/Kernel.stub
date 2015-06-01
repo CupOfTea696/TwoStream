@@ -11,8 +11,7 @@ class Kernel extends WsKernel
      */
     protected $middleware = [
         'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-        'Illuminate\Cookie\Middleware\EncryptCookies',
-        'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
+        'CupOfTea\TwoStream\Session\Middleware\StartSession',
     ];
     
     /**

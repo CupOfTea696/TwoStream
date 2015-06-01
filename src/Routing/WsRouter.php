@@ -1048,10 +1048,7 @@ class WsRouter implements RegistrarContract
      */
     protected function prepareResponse($request, $response)
     {
-        if (!$response instanceof SymfonyResponse) {
-            $response = new Response($response);
-        }
-        return $response->prepare($request);
+        return $response;
     }
     
     /**
