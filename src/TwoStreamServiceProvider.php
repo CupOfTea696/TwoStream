@@ -79,12 +79,13 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
      */
     public function register()
     {
-        $this->app['command.twostream.install'] = $this->app->share(function($app){
-            return new Install($this->getAppNamespace());
-        });
-        
-        if (!$this->isInstalled())
+        if (!$this->isInstalled()) {
+            $this->app['command.twostream.install'] = $this->app->share(function($app){
+                return new Install($this->getAppNamespace());
+            });
+            
             return $this->commands(['command.twostream.install']);
+        }
         
         parent::register();
         
@@ -92,7 +93,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
             return new Server($app);
         });
         
-        $this->commands($this->commands);
+        $this->commands(['command.twostream.listen']);
         
         $this->mergeConfigFrom(
             __DIR__.'/../config/twostream.php', 'twostream'
