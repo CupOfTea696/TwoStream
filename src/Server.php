@@ -100,7 +100,7 @@ class Server extends Command
         if (!$this->isInstalled())
             return $this->error('TwoStream is not installed. Please run twostream:install before attempting to run this command.');
         
-        $this->line('TwoStream Server listening on port <comment>[' . $this->option('port') . ']</comment>');
+        $this->line('TwoStream Server listening on IP <comment>[' . self::IP . ']</comment> with port <comment>[' . $this->option('port') . ']</comment>');
         $this->boot();
         
         $this->start();
@@ -145,7 +145,7 @@ class Server extends Command
      */
     protected function getSession()
     {
-        return (new SessionManager($this->app))->driver();
+        return with(new SessionManager($this->app))->driver();
     }
     
     /**

@@ -57,11 +57,11 @@ class Dispatcher implements DispatcherContract
     {
         $request = $this->buildRequest(self::WAMP_VERB_CALL, $connection, $topic, [], $params);
         
-        try {
+        //try {
             $response = $this->handle($connection, $request);
-        } catch (Exception $e) {
-            $connection->callError($id, 'php.' . snake_case(get_class($e)), $e->getMessage());
-        }
+        //} catch (Exception $e) {
+            //$connection->callError($id, 'php.' . snake_case(get_class($e)), $e->getMessage());
+        //}
         
         if (!$response) {
             $msg = config('twostream.response.rpc.enabled') ?
@@ -84,7 +84,7 @@ class Dispatcher implements DispatcherContract
     {
         $event = json_decode($event);
         $json = json_decode($event);
-        if(json_last_error() == JSON_ERROR_NONE)
+        if (json_last_error() == JSON_ERROR_NONE)
             $event = $json;
         
         $request = $this->buildRequest(self::WAMP_VERB_PUBLISH, $connection, $topic, $event);
@@ -257,9 +257,7 @@ class Dispatcher implements DispatcherContract
         
         $readonly = (new ReadOnly(config('session.cookie')))->initialize($session->all(), $sessionId);
         WsSession::swap($readonly);
-        
-        // shh, don't tell anyone
-        Session::put(Auth::getName(), WsSession::get(Auth::getName()));
+        Session::flush();
         
         unset($session);
     }

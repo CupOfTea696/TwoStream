@@ -1,8 +1,10 @@
 <?php namespace CupOfTea\TwoStream\Foundation\Ws;
 
+use Auth;
 use Session;
 use Exception;
 
+use Illuminate\Auth\AuthManager;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Facade;
 use CupOfTea\TwoStream\Routing\WsRouter;
@@ -52,6 +54,7 @@ class Kernel implements KernelContract
     public function __construct(Application $app, WsRouter $router)
     {
         $this->app = $app;
+        $this->app['config']['session.driver'] = 'array';
         $this->router = $router;
         foreach ($this->routeMiddleware as $key => $middleware) {
             $router->middleware($key, $middleware);
@@ -66,6 +69,8 @@ class Kernel implements KernelContract
      */
     public function handle($request)
     {
+        $this->loadGuard();
+        
         try {
             $response = $this->sendRequestThroughRouter($request);
         } catch (Exception $e) {
@@ -74,6 +79,12 @@ class Kernel implements KernelContract
         }
         $this->app['events']->fire('wskernel.handled', [$request, $response]);
         return $response;
+    }
+    
+    protected function loadGuard()
+    {
+        $guard = new AuthManager($this->app);
+        Auth::swap($guard);
     }
     
     /**
