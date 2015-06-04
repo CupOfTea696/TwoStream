@@ -94,7 +94,7 @@ class TwoStream implements ProviderContract
                 'data' => [
                     'secret' => config('app.key')
                 ],
-                'recipient' => $recipient,
+                'recipient' => 'server',
             ])
         );
     }

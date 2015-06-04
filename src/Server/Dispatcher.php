@@ -128,17 +128,20 @@ class Dispatcher implements DispatcherContract
         $data = $message['data'];
         $recipient = array_get($message, 'recipient');
         
-        if (!$topic)
-            return;
-        
         // Handle TwoStream::stop();
-        if ($topic = 'cupoftea/twostream/server/stop') {
+        if ($message['topic'] == 'cupoftea/twostream/server/stop') {
+            $this->output->writeln("Stop Command fired.");
+            $this->output->writeln("<question>Stopping Server.</question>");
+            
             if ($data['secret'] == config('app.key')) {
                 die();
             } else {
                 // report malicious attempt
             }
         }
+        
+        if (!$topic)
+            return;
         
         if ($recipient == 'all') {
             $topic->broadcast($data);
