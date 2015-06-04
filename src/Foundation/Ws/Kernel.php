@@ -75,7 +75,7 @@ class Kernel implements KernelContract
             $response = $this->sendRequestThroughRouter($request);
         } catch (Exception $e) {
             $this->reportException($e);
-            $response = $this->renderException($request, $e);
+            throw($e);
         }
         $this->app['events']->fire('wskernel.handled', [$request, $response]);
         return $response;

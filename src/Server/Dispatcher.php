@@ -57,11 +57,11 @@ class Dispatcher implements DispatcherContract
     {
         $request = $this->buildRequest(self::WAMP_VERB_CALL, $connection, $topic, [], $params);
         
-        //try {
+        try {
             $response = $this->handle($connection, $request);
-        //} catch (Exception $e) {
-            //$connection->callError($id, 'php.' . snake_case(get_class($e)), $e->getMessage());
-        //}
+        } catch (Exception $e) {
+            $connection->callError($id, 'php.' . snake_case(get_class($e)), $e->getMessage());
+        }
         
         if (!$response) {
             $msg = config('twostream.response.rpc.enabled') ?
