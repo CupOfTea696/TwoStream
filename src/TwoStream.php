@@ -86,6 +86,19 @@ class TwoStream implements ProviderContract
         );
     }
     
+    public function stop()
+    {
+        $this->getSocket()->send(
+            json_encode([
+                'topic' => 'cupoftea/twostream/server/stop',
+                'data' => [
+                    'secret' => config('app.key')
+                ],
+                'recipient' => $recipient,
+            ])
+        );
+    }
+    
     /**
      * Get ZMQSocket to push messages
      *

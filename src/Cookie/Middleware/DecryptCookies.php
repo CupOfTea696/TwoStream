@@ -59,7 +59,7 @@ class DecryptCookies implements Middleware {
 				$request->cookies->set($key, null);
 			}
 		}
-
+        
 		return $request;
 	}
 

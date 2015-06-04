@@ -131,6 +131,15 @@ class Dispatcher implements DispatcherContract
         if (!$topic)
             return;
         
+        // Handle TwoStream::stop();
+        if ($topic = 'cupoftea/twostream/server/stop') {
+            if ($data['secret'] == config('app.key')) {
+                die();
+            } else {
+                // report malicious attempt
+            }
+        }
+        
         if ($recipient == 'all') {
             $topic->broadcast($data);
         } else {

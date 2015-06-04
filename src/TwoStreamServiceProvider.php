@@ -33,8 +33,8 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
      * @var array
      */
     protected $commands = [
-        'command.twostream.install',
         'command.twostream.listen',
+        'command.twostream.stop',
     ];
     
     /**
@@ -93,7 +93,11 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
             return new Server($app);
         });
         
-        $this->commands(['command.twostream.listen']);
+        $this->app['command.twostream.stop'] = $this->app->share(function($app){
+            return new Stop();
+        });
+        
+        $this->commands($this->commands);
         
         $this->mergeConfigFrom(
             __DIR__.'/../config/twostream.php', 'twostream'
