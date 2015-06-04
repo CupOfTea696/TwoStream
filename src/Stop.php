@@ -1,7 +1,7 @@
 <?php namespace CupOfTea\TwoStream;
 
 use Exception;
-use TwoStream;
+use TwoStream as TwoStreamFacade;
 
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
@@ -53,7 +53,7 @@ class Stop extends Command
         $this->line('Stopping TwoStream server.');
         
         try {
-            TwoStream::stop();
+            TwoStreamFacade::stop();
         } catch (Exception $e) {}
     }
     
