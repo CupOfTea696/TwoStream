@@ -16,3 +16,11 @@ TwoStream::push('queued/task/complete', $data);
 // Push data to specific Client(s)
 TwoStream::push('queued/task/complete', $data, [$redClient->sessionId, $blueClient->sessionId]);
 ```
+
+## Stop
+
+The TwoStream facade also contains a `stop` method, to stop the server from your code. Make sure you don't put this in a place where unauthorized users could trigger this, especially if your application heavily relies on WebSockets.
+
+```php
+TwoStream::stop();
+```

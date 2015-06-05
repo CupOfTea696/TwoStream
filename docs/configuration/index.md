@@ -42,7 +42,7 @@ These are the settings for the TwoStream WebSocket Server:
 
 These are the settings for pushing messages from Server to Client:
 
- - `push.enabled`: Enable/Disable push messages from your Server. This setting is disabled by default and **requires the ZeroMQ Library** to work. More info on this can be found in the [Push Documentation]().
+ - `push.enabled`: Enable/Disable push messages from your Server. This setting is disabled by default and **requires the ZeroMQ Library** to work. More info on this can be found in the [Push Documentation](http://twostream.cupoftea.io/docs/twostream/#push).
  - `push.port`: The default port for ZeroMQ Connections. This is used to we can connect to all Socket connections and broadcast messages from the back-end.
 
 ### Legacy Settings
