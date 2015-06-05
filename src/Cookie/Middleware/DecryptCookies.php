@@ -73,7 +73,7 @@ class DecryptCookies implements Middleware {
 	{
 		return is_array($cookie)
 						? $this->decryptArray($cookie)
-						: $this->encrypter->decrypt($cookie);
+						: $this->encrypter->decrypt(urldecode($cookie));
 	}
 
 	/**
@@ -88,7 +88,7 @@ class DecryptCookies implements Middleware {
 
 		foreach ($cookie as $key => $value)
 		{
-			$decrypted[$key] = $this->encrypter->decrypt($value);
+			$decrypted[$key] = $this->encrypter->decrypt(urldecode($value));
 		}
 
 		return $decrypted;
