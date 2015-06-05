@@ -15,7 +15,7 @@ namespace App\Ws\Controllers;
 use App\Ws\Controllers\Controller;
 
 class ChatController extends Controller {
-
+    
     /**
      * Connect the user to given chatroom
      *
@@ -26,7 +26,7 @@ class ChatController extends Controller {
     {
         return 'You connected to chat room ' . $id;
     }
-
+    
 }
 ```
 
