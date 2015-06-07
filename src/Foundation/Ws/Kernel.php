@@ -1,5 +1,6 @@
 <?php namespace CupOfTea\TwoStream\Foundation\Ws;
 
+use Log;
 use Auth;
 use Session;
 use Exception;
@@ -187,7 +188,7 @@ class Kernel implements KernelContract
      */
     protected function reportException(Exception $e)
     {
-        $this->app['Illuminate\Contracts\Debug\ExceptionHandler']->report($e);
+        Log::error($e);
     }
     
     /**
