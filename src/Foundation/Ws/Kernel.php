@@ -8,9 +8,10 @@ use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Facade;
-use CupOfTea\TwoStream\Routing\WsRouter;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\TerminableMiddleware;
+
+use CupOfTea\TwoStream\Routing\WsRouter;
 use CupOfTea\TwoStream\Session\ReadOnlySessionManager;
 use CupOfTea\TwoStream\Contracts\Ws\Kernel as KernelContract;
 
@@ -76,7 +77,13 @@ class Kernel implements KernelContract
             $response = $this->sendRequestThroughRouter($request);
         } catch (Exception $e) {
             $this->reportException($e);
-            throw($e);
+            $response = [
+                'error' => [
+                    'msg' => $e->getMessage(),
+                    'domain' => 'php.' . snake_case(get_class($e)),
+                    'full_error' => $e
+                ]
+            ];
         }
         $this->app['events']->fire('wskernel.handled', [$request, $response]);
         return $response;
