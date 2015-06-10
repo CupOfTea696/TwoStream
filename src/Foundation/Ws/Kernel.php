@@ -75,6 +75,15 @@ class Kernel implements KernelContract
         
         try {
             $response = $this->sendRequestThroughRouter($request);
+            
+            if ($response->getStatusCode() == 404 || !$response = $response->getContent()) {
+                $response = 404;
+            } else {
+                $json = json_decode($response, true);
+                if (json_last_error() == JSON_ERROR_NONE) {
+                    $response = $json;
+                }
+            }
         } catch (Exception $e) {
             $this->reportException($e);
             $response = [
@@ -85,6 +94,7 @@ class Kernel implements KernelContract
                 ]
             ];
         }
+        
         $this->app['events']->fire('wskernel.handled', [$request, $response]);
         return $response;
     }

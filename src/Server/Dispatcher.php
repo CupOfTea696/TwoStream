@@ -187,14 +187,12 @@ class Dispatcher implements DispatcherContract
      */
     protected function send($response, Connection $connection, $topic)
     {
-        if ($response->getStatusCode() == 404 || !$content = $response->getContent())
+        if ($response == 404) {
             return;
+        }
         
-        $json = json_decode($content, true);
-        if(json_last_error() == JSON_ERROR_NONE)
-            $content = $json;
-        $recipient = array_get($content, 'recipient', config('twostream.response.recipient'));
-        $data = array_get($content, 'data', $content);
+        $recipient = array_get($response, 'recipient', config('twostream.response.recipient'));
+        $data = array_get($response, 'data', $response);
         
         if ($recipient == 'all') {
             $topic->broadcast($data);
