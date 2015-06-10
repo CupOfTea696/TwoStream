@@ -76,7 +76,7 @@ class Kernel implements KernelContract
         try {
             $response = $this->sendRequestThroughRouter($request);
             
-            if ($response->getStatusCode() == 404 || !$response = $response->getContent()) {
+            if ($response->getStatusCode() == 404 || !($response = $response->getContent()) === null) {
                 $response = 404;
             } else {
                 $json = json_decode($response, true);
