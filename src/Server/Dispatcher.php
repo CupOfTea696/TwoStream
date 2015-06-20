@@ -135,11 +135,11 @@ class Dispatcher implements DispatcherContract
         
         // Handle TwoStream::stop();
         if ($message['topic'] == 'cupoftea/twostream/server/stop') {
-            $this->output->writeln("Stop Command fired.");
-            $this->output->writeln("<question>Stopping Server.</question>");
-            
             if ($data['secret'] == config('app.key')) {
                 event(new ServerStopped());
+                $this->output->writeln("Stop Command fired.");
+                $this->output->writeln("<question>Stopping Server.</question>");
+                
                 die();
             } else {
                 // report malicious attempt
