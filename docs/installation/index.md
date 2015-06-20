@@ -27,7 +27,7 @@ Before you start, you will have to add the repository below to your composer.jso
 You can install TwoStream by simply requiring the package with [Composer][composer] inside your projects root. To do so, run the following commands:
 
 ```bash
-$ composer require cupoftea/twostream ~0.2.4-beta
+$ composer require cupoftea/twostream ~0.3.0-beta
 $ composer update
 ```
 
