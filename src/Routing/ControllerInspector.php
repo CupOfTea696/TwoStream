@@ -8,8 +8,8 @@ class ControllerInspector extends LaravelControllerInspector
     /**
      * {@inheritdoc}
      */
-    protected $verbs = array(
+    protected $verbs = [
 		'call', 'publish', 'subscribe', 'unsubscribe',
-	);
+	];
     
 }

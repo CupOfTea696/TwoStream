@@ -14,15 +14,16 @@ use React\ZMQ\Context as ZMQContext;
 use React\Socket\Server as ReactServer;
 use React\EventLoop\Factory as EventLoopFactory;
 
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
-
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
 use CupOfTea\TwoStream\Server\Dispatcher;
+use CupOfTea\TwoStream\Events\ServerStarted;
 
 use Illuminate\Session\SessionManager;
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
+
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
 class Server extends Command
 {
@@ -101,6 +102,7 @@ class Server extends Command
             return $this->error('TwoStream is not installed. Please run twostream:install before attempting to run this command.');
         
         $this->line('TwoStream Server listening on IP <comment>[' . self::IP . ']</comment> with port <comment>[' . $this->option('port') . ']</comment>');
+        event(new ServerStarted($port));
         $this->boot();
         
         $this->start();

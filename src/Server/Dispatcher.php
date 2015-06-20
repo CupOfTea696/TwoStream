@@ -10,6 +10,7 @@ use WsSession;
 use Illuminate\Http\Request;
 
 use CupOfTea\TwoStream\Session\ReadOnly;
+use CupOfTea\TwoStream\Events\ServerStopped;
 use CupOfTea\TwoStream\Events\ClientConnected;
 use CupOfTea\TwoStream\Events\ClientDisconnected;
 use CupOfTea\TwoStream\Exception\InvalidRecipientException;
@@ -138,6 +139,7 @@ class Dispatcher implements DispatcherContract
             $this->output->writeln("<question>Stopping Server.</question>");
             
             if ($data['secret'] == config('app.key')) {
+                event(new ServerStopped());
                 die();
             } else {
                 // report malicious attempt
