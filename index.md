@@ -45,8 +45,8 @@ For more information on how to install TwoStream, please visit the [Documentatio
  
 ## TODO:
  - Push events from server to all or specific user. (to sessionId = &#10003;, to username/user object &#10006;) (zmq)
- - Middleware for connections. (or something similar)
- - Online Documentation
+ - Clean up some code
+ - Improve Error Handling
  
 ### Acknowledgements
 TwoStream is heavily based on [Latchet][latchet]. Some of the internal workings and public API is entirely different, other parts are near copy-pasted from the original code. The main difference between TwoStream and [Latchet][latchet] is [Laravel 5][l5] support and read-only access to Session data. If you are using Laravel 4, please do go and use [Latchet][latchet] since it is pretty good. (Although the creator claims it's not even an alpha version. Believe me, it is.) If you use [Laravel 5][l5] however, feel free to start testing this out and contribute.
