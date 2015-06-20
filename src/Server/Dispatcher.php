@@ -10,6 +10,8 @@ use WsSession;
 use Illuminate\Http\Request;
 
 use CupOfTea\TwoStream\Session\ReadOnly;
+use CupOfTea\TwoStream\Events\ClientConnected;
+use CupOfTea\TwoStream\Events\ClientDisconnected;
 use CupOfTea\TwoStream\Exception\InvalidRecipientException;
 
 use Ratchet\ConnectionInterface as Connection;
@@ -232,6 +234,7 @@ class Dispatcher implements DispatcherContract
         $sessionId = $this->getSessionIdFromCookie($connection);
         $this->loadSession($connection);
         
+        event(new ClientConnected($connection->session));
         $this->output->writeln("<info>Connection from <comment>[{$connection->session}]</comment> opened.</info>");
     }
     
@@ -242,6 +245,7 @@ class Dispatcher implements DispatcherContract
     {
         $sessionId = $this->getSessionIdFromCookie($connection);
         
+        event(new ClientDisconnected($sessionId));
         $this->output->writeln("<info>Connection from <comment>[$sessionId]</comment> closed.</info>");
     }
     
