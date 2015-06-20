@@ -38,6 +38,9 @@ navigation:
         url: "responses"
       - name: Services
         type: category
+      - name: Events
+        type: page
+        url: "events"
       - name: TwoStream
         type: page
         url: "twostream"
