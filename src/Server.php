@@ -102,7 +102,7 @@ class Server extends Command
             return $this->error('TwoStream is not installed. Please run twostream:install before attempting to run this command.');
         
         $this->line('TwoStream Server listening on IP <comment>[' . self::IP . ']</comment> with port <comment>[' . $this->option('port') . ']</comment>');
-        event(new ServerStarted($port));
+        event(new ServerStarted($this->option('port')));
         $this->boot();
         
         $this->start();
