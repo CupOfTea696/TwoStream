@@ -103,7 +103,7 @@ class Server extends Command
         }
         
         $this->line('TwoStream Server listening on IP <comment>[' . self::IP . ']</comment> with port <comment>[' . $this->option('port') . ']</comment>');
-        event(new ServerStarted($port));
+        event(new ServerStarted($this->option('port')));
         $this->boot();
         
         $this->start();
