@@ -55,11 +55,17 @@ class TwoStream implements ProviderContract
     use Package;
     
     /**
-     * Package Info
+     * Package Name
      *
      * @const string
      */
     const PACKAGE = 'CupOfTea/TwoStream';
+    
+    /**
+     * Package Version
+     *
+     * @const string
+     */
     const VERSION = '0.3.0-beta';
     
     /**
@@ -74,8 +80,9 @@ class TwoStream implements ProviderContract
      */
     public function push($topic, $data, $recipient = 'all')
     {
-        if (!config('twostream.push.enabled'))
+        if (!config('twostream.push.enabled')) {
             throw new TwoStreamException('Push is disabled, please enable it in the twostream configuration before using');
+        }
         
         $this->getSocket()->send(
             json_encode([
@@ -123,6 +130,7 @@ class TwoStream implements ProviderContract
         $context = new ZMQContext();
         $this->socket = $context->getSocket(ZMQ::SOCKET_PUSH, self::SOCKET_PULL_ID . '.' . App::environment());
         $this->socket->connect('tcp://localhost:' . config('twostream.push.port'));
+        
         return $this->socket;
     }
     

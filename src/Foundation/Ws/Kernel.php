@@ -15,6 +15,8 @@ use CupOfTea\TwoStream\Routing\WsRouter;
 use CupOfTea\TwoStream\Session\ReadOnlySessionManager;
 use CupOfTea\TwoStream\Contracts\Ws\Kernel as KernelContract;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class Kernel implements KernelContract
 {
     
@@ -71,7 +73,7 @@ class Kernel implements KernelContract
      */
     public function handle($request)
     {
-        $this->loadGuard();
+        $this->loadAuthManager();
         
         try {
             $response = $this->sendRequestThroughRouter($request);
@@ -85,24 +87,27 @@ class Kernel implements KernelContract
                 }
             }
         } catch (Exception $e) {
-            $this->reportException($e);
-            $response = [
-                'error' => [
-                    'msg' => $e->getMessage(),
-                    'domain' => 'php.' . snake_case(get_class($e)),
-                    'full_error' => $e
-                ]
-            ];
+            if ($e instanceof NotFoundHttpException) {
+                $response = 404;
+            } else {
+                $this->reportException($e);
+                $response = [
+                    'error' => [
+                        'msg' => $e->getMessage(),
+                        'domain' => 'php.' . str_replace('\_', '.', snake_case(get_class($e))),
+                        'full_error' => $e
+                    ]
+                ];
+            }
         }
         
         $this->app['events']->fire('wskernel.handled', [$request, $response]);
         return $response;
     }
     
-    protected function loadGuard()
+    protected function loadAuthManager()
     {
-        $guard = new AuthManager($this->app);
-        Auth::swap($guard);
+        Auth::swap(with(new AuthManager($this->app)));
     }
     
     /**
@@ -152,6 +157,7 @@ class Kernel implements KernelContract
         if ($request->route()) {
             return $this->router->gatherRouteMiddlewares($request->route());
         }
+        
         return [];
     }
     
@@ -166,6 +172,7 @@ class Kernel implements KernelContract
         if (array_search($middleware, $this->middleware) === false) {
             array_unshift($this->middleware, $middleware);
         }
+        
         return $this;
     }
     
@@ -180,6 +187,7 @@ class Kernel implements KernelContract
         if (array_search($middleware, $this->middleware) === false) {
             $this->middleware[] = $middleware;
         }
+        
         return $this;
     }
     
@@ -190,8 +198,7 @@ class Kernel implements KernelContract
      */
     protected function dispatchToRouter()
     {
-        return function($request)
-        {
+        return function($request) {
             $this->app->instance('request', $request);
             return $this->router->dispatch($request);
         };

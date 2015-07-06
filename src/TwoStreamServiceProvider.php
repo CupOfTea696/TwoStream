@@ -67,7 +67,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
      */
     public function map(WsRouter $router)
     {
-        $router->group(['namespace' => $this->namespace], function($router){
+        $router->group(['namespace' => $this->namespace], function($router) {
             require app_path('Ws/routes.php');
         });
     }
@@ -80,7 +80,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
     public function register()
     {
         if (!$this->isInstalled()) {
-            $this->app['command.twostream.install'] = $this->app->share(function($app){
+            $this->app['command.twostream.install'] = $this->app->share(function($app) {
                 return new Install($this->getAppNamespace());
             });
             
@@ -89,11 +89,11 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         
         parent::register();
         
-        $this->app['command.twostream.listen'] = $this->app->share(function($app){
+        $this->app['command.twostream.listen'] = $this->app->share(function($app) {
             return new Server($app);
         });
         
-        $this->app['command.twostream.stop'] = $this->app->share(function($app){
+        $this->app['command.twostream.stop'] = $this->app->share(function($app) {
             return new Stop();
         });
         
@@ -103,13 +103,13 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
             __DIR__.'/../config/twostream.php', 'twostream'
         );
         
-        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app){
+        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app) {
             $config = array_dot($this->app['config']['twostream']);
             
             return new TwoStream($config);
         });
         
-        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Session\ReadOnly', function($app){
+        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Session\ReadOnly', function($app) {
             return new ReadOnly($this->app['config']['session.cookie']);
         });
     }
@@ -140,8 +140,9 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         ]);
         
         foreach (TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required) {
-            if (!$disk->exists(str_replace('.stub', '.php', $required)))
+            if (!$disk->exists(str_replace('.stub', '.php', $required))) {
                 return false;
+            }
         }
         
         return true;

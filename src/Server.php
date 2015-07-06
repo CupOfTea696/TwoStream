@@ -17,6 +17,7 @@ use React\EventLoop\Factory as EventLoopFactory;
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
 use CupOfTea\TwoStream\Server\Dispatcher;
+use CupOfTea\TwoStream\Contracts\Ws\Kernel;
 use CupOfTea\TwoStream\Events\ServerStarted;
 
 use Illuminate\Session\SessionManager;
@@ -160,11 +161,11 @@ class Server extends Command
     protected function buildKernel()
     {
         $this->app->singleton(
-            'CupOfTea\TwoStream\Contracts\Ws\Kernel',
+            Kernel::class,
             $this->getAppNamespace() . 'Ws\Kernel'
         );
         
-        return $this->Kernel = $this->app->make('CupOfTea\TwoStream\Contracts\Ws\Kernel');
+        return $this->Kernel = $this->app->make(Kernel::class);
     }
     
     /**
@@ -174,7 +175,12 @@ class Server extends Command
      */
     protected function buildDispatcher()
     {
-        return $this->Dispatcher = new Dispatcher($this->getSession(), $this->buildKernel(), clone $this->out);
+        $this->app->singleton(
+            'Ratchet\Wamp\WampServerInterface',
+            Dispatcher::class
+        );
+        
+        return $this->Dispatcher = $this->app->make('Ratchet\Wamp\WampServerInterface', [$this->getSession(), $this->buildKernel(), clone $this->out]);
     }
     
     /**

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 
+use CupOfTea\TwoStream\Contracts\Factory;
+
 /**
  * @see CupOfTea\TwoStream\TwoStream
  */
@@ -13,6 +15,6 @@ class TwoStream extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'CupOfTea\TwoStream\Contracts\Factory'; }
+    protected static function getFacadeAccessor() { return Factory::class; }
     
 }

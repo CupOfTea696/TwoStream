@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 
+use CupOfTea\TwoStream\Contracts\Session\ReadOnly;
+
 /**
  * @see CupOfTea\TwoStream\TwoStream
  */
@@ -13,6 +15,6 @@ class WsSession extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'CupOfTea\TwoStream\Contracts\Session\ReadOnly'; }
+    protected static function getFacadeAccessor() { return ReadOnly::class; }
     
 }

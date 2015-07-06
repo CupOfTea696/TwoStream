@@ -92,16 +92,18 @@ class Install extends Command
                 $this->info('Setting namespace for <comment>[/app' . str_replace([app_path(), '.php', '.stub'], '', $required) . ']</comment>', 2);
                 
                 $disk->put($required, $file);
-                if (!$disk->exists(str_replace('.stub', '.php', $required)))
+                if (!$disk->exists(str_replace('.stub', '.php', $required))) {
                     $disk->move($required, str_replace('.stub', '.php', $required));
+                }
             }
         }
         
         $this->info('Cleaning up...', 1);
         $files = $disk->allFiles('Ws');
         foreach ($files as $key => $file) {
-            if (preg_match('/\\.stub$/', $file))
+            if (preg_match('/\\.stub$/', $file)) {
                 $disk->delete($file);
+            }
         }
     }
     

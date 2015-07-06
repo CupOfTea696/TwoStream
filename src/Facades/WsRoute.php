@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 
+use CupOfTea\TwoStream\Routing\WsRouter;
+
 /**
  * @see \CupOfTea\TwoStream\Routing\WsRouter
  */
@@ -13,6 +15,6 @@ class WsRoute extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'CupOfTea\TwoStream\Routing\WsRouter'; }
+    protected static function getFacadeAccessor() { return WsRouter::class; }
     
 }

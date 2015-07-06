@@ -48,8 +48,7 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     protected function loadCachedRoutes()
     {
-        $this->app->booted(function()
-        {
+        $this->app->booted(function() {
             require $this->app->getCachedRoutesPath();
         });
     }

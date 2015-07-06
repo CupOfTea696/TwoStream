@@ -1,3 +1,5 @@
 <?php namespace CupOfTea\TwoStream\Exception;
 
-class TwoStreamException extends \Exception {}
+use Exception;
+
+class TwoStreamException extends Exception {}

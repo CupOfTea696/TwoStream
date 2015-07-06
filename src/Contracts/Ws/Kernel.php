@@ -25,4 +25,5 @@ interface Kernel {
      * @return \Illuminate\Contracts\Foundation\Application
      */
     public function getApplication();
+    
 }

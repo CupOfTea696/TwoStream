@@ -178,6 +178,7 @@ class WsRouter implements RegistrarContract
     public function any($uri, $action)
     {
         $verbs = ['CALL', 'PUBLISH', 'SUBSCRIBE', 'UNSUBSCRIBE'];
+        
         return $this->addRoute($verbs, $uri, $action);
     }
     

@@ -7,7 +7,9 @@ use Session;
 use Exception;
 use WsSession;
 
+use Illuminate\Auth\Guard;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Encryption\Encrypter;
 
 use CupOfTea\TwoStream\Session\ReadOnly;
 use CupOfTea\TwoStream\Events\ServerStopped;
@@ -37,16 +39,19 @@ class Dispatcher implements DispatcherContract
     
     protected $output;
     
+    protected $users = [];
+    
     /**
      * Create a new Dispatcher instance.
      *
      * @return void
      */
-    public function __construct($Session, $Kernel, $output)
+    public function __construct($Session, $Kernel, $output, Encrypter $Encrypter)
     {
         $this->Session = $Session;
         $this->Kernel = $Kernel;
         $this->output = $output->level(2);
+        $this->Encrypter = $Encrypter;
     }
     
     /**
@@ -75,10 +80,11 @@ class Dispatcher implements DispatcherContract
         } else {
             $error = array_get($response, 'error');
             
-            if($error)
+            if($error) {
                 $connection->callError($id, array_get($response, 'error.domain', $topic), array_get($response, 'error.msg', $error));
-            else
+            } else {
                 $connection->callResult($id, $response);
+            }
         }
     }
     
@@ -89,8 +95,9 @@ class Dispatcher implements DispatcherContract
     {
         $event = json_decode($event);
         $json = json_decode($event);
-        if (json_last_error() == JSON_ERROR_NONE)
+        if (json_last_error() == JSON_ERROR_NONE) {
             $event = $json;
+        }
         
         $request = $this->buildRequest(self::WAMP_VERB_PUBLISH, $connection, $topic, $event);
         $response = $this->handle($connection, $request);
@@ -146,18 +153,19 @@ class Dispatcher implements DispatcherContract
             }
         }
         
-        if (!$topic)
+        if (!$topic){
             return;
+        }
         
         if ($recipient == 'all') {
             $topic->broadcast($data);
         } else {
             foreach ((array) $recipient as $recipient) {
-                // TODO: if translateUserToSessionId ||
-                if (WsSession::isValidId($recipient)) {
+                if (($sessionId = $this->getUserSessionId($recipient)) || ($sessionId = WsSession::isValidId($recipient) ? $recipient : false)) {
                     foreach ($topic->getIterator() as $client) {
-                        if ($client->session == $recipient)
+                        if ($client->session == $sessionId) {
                             $client->event($topic->getId(), $data);
+                        }
                     }
                 } else {
                     throw new InvalidRecipientException($recipient);
@@ -202,19 +210,21 @@ class Dispatcher implements DispatcherContract
             $topic->broadcast($data);
         } elseif ($recipient == 'except') {
             foreach($topic->getIterator() as $client) {
-                if($client->session != $connection->session)
+                if($client->session != $connection->session) {
                     $client->event($topic->getId(), $data);
+                }
             }
         } else {
-            if ($recipient == 'requestee')
+            if ($recipient == 'requestee') {
                 $recipient = $connection->session;
+            }
             
             foreach ((array) $recipient as $recipient) {
-                // TODO: if translateUserToSessionId ||
-                if (WsSession::isValidId($recipient)) {
+                if (($sessionId = $this->getUserSessionId($recipient)) || ($sessionId = WsSession::isValidId($recipient) ? $recipient : false)) {
                     foreach ($topic->getIterator() as $client) {
-                        if ($client->session == $recipient)
+                        if ($client->session == $sessionId) {
                             $client->event($topic->getId(), $data);
+                        }
                     }
                 } else {
                     throw new InvalidRecipientException($recipient);
@@ -235,6 +245,10 @@ class Dispatcher implements DispatcherContract
     {
         $sessionId = $this->getSessionIdFromCookie($connection);
         $this->loadSession($connection);
+        
+        if (($user = $this->getUser($connection)) !== false) {
+            $this->users[$user] = $sessionId;
+        }
         
         event(new ClientConnected($connection->session));
         $this->output->writeln("<info>Connection from <comment>[{$connection->session}]</comment> opened.</info>");
@@ -325,5 +339,33 @@ class Dispatcher implements DispatcherContract
         $cookie = urldecode($connection->WebSocket->request->getCookie(config('session.cookie')));
         
         return $cookie ? Crypt::decrypt($cookie) : null;
+    }
+    
+    protected function getUser($connection)
+    {
+        $recaller = $connection->WebSocket->request->getCookie('remember_' . md5(Guard::class));
+        try {
+            $recaller = $this->Encrypter->decrypt(urldecode($recaller));
+        } catch (Exception $e) {
+            $recaller = $this->Encrypter->decrypt($recaller);
+        }
+        
+        $id = explode('|', $recaller, 2)[0];
+        $model = config('auth.model');
+        
+        return $model::find($id) !== null ? $id : false;
+    }
+    
+    protected function getUserSessionId($user)
+    {
+        $model = config('auth.model');
+        
+        if ($user instanceof $model) {
+            return array_get($this->users, $user->getKey(), false);
+        } elseif ($model::find($user) !== null) {
+            return array_get($this->users, $user, false);
+        }
+        
+        return false;
     }
 }
