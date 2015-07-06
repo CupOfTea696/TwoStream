@@ -1,22 +1,26 @@
 <?php namespace CupOfTea\TwoStream\Cookie\Middleware;
 
 use Closure;
+use Exception;
+
 use Symfony\Component\HttpFoundation\Cookie;
-use Illuminate\Contracts\Routing\Middleware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter as EncrypterContract;
 
-class DecryptCookies implements Middleware {
-
+class DecryptCookies implements Middleware
+{
+    
 	/**
 	 * The encrypter instance.
 	 *
 	 * @var \Illuminate\Contracts\Encryption\Encrypter
 	 */
 	protected $encrypter;
-
+    
 	/**
 	 * Create a new CookieGuard instance.
 	 *
@@ -27,7 +31,7 @@ class DecryptCookies implements Middleware {
 	{
 		$this->encrypter = $encrypter;
 	}
-
+    
 	/**
 	 * Handle an incoming request.
 	 *
@@ -39,7 +43,7 @@ class DecryptCookies implements Middleware {
 	{
 		return $next($this->decrypt($request));
 	}
-
+    
 	/**
 	 * Decrypt the cookies on the request.
 	 *
@@ -62,7 +66,7 @@ class DecryptCookies implements Middleware {
         
 		return $request;
 	}
-
+    
 	/**
 	 * Decrypt the given cookie and return the value.
 	 *
@@ -71,11 +75,17 @@ class DecryptCookies implements Middleware {
 	 */
 	protected function decryptCookie($cookie)
 	{
-		return is_array($cookie)
-						? $this->decryptArray($cookie)
-						: $this->encrypter->decrypt(urldecode($cookie));
+		if (is_array($cookie)) {
+            return $this->decryptArray($cookie);
+        } else {
+            try {
+                return $this->encrypter->decrypt(urldecode($cookie));
+            } catch (Exception $e) {
+                return $this->encrypter->decrypt($cookie);
+            }
+        }
 	}
-
+    
 	/**
 	 * Decrypt an array based cookie.
 	 *
@@ -85,15 +95,19 @@ class DecryptCookies implements Middleware {
 	protected function decryptArray(array $cookie)
 	{
 		$decrypted = array();
-
+        
 		foreach ($cookie as $key => $value)
 		{
-			$decrypted[$key] = $this->encrypter->decrypt(urldecode($value));
+            try {
+                $decrypted[$key] = $this->encrypter->decrypt(urldecode($value));
+            } catch (Exception $e) {
+                $decrypted[$key] = $this->encrypter->decrypt($value);
+            }
 		}
-
+        
 		return $decrypted;
 	}
-
+    
 	/**
 	 * Duplicate a cookie with a new value.
 	 *
@@ -108,5 +122,5 @@ class DecryptCookies implements Middleware {
 			$c->getDomain(), $c->isSecure(), $c->isHttpOnly()
 		);
 	}
-
+    
 }
