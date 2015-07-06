@@ -98,8 +98,9 @@ class Server extends Command
      */
     public function fire()
     {
-        if (!$this->isInstalled())
+        if (!$this->isInstalled()) {
             return $this->error('TwoStream is not installed. Please run twostream:install before attempting to run this command.');
+        }
         
         $this->line('TwoStream Server listening on IP <comment>[' . self::IP . ']</comment> with port <comment>[' . $this->option('port') . ']</comment>');
         event(new ServerStarted($port));
@@ -128,15 +129,16 @@ class Server extends Command
         $this->buildDispatcher();
         $this->createLoop();
         
-        if ($this->option('push'))
+        if ($this->option('push')) {
             $this->enablePush();
+        }
         
         $this->bootWsServer();
         $this->bootHttpServer();
         
-        if ($this->option('flash'))
+        if ($this->option('flash')) {
             $this->allowFlash();
-        
+        }
         return $this->loop;
     }
     
@@ -287,8 +289,9 @@ class Server extends Command
         ]);
         
         foreach (TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required) {
-            if (!$disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required)))
+            if (!$disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required))) {
                 return false;
+            }
         }
         
         return true;
