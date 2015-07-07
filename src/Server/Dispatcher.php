@@ -65,15 +65,9 @@ class Dispatcher implements DispatcherContract
     public function onCall(Connection $connection, $id, $topic, array $params)
     {
         $request = $this->buildRequest(self::WAMP_VERB_CALL, $connection, $topic, [], $params);
+        $response = $this->handle($connection, $request);
         
-        try {
-            $response = $this->handle($connection, $request);
-        } catch (Exception $e) {
-            Log::error($e);
-            $connection->callError($id, 'php.' . snake_case(get_class($e)), $e->getMessage());
-        }
-        
-        if (!$response) {
+        if ($response == 404) {
             $msg = config('twostream.response.rpc.enabled') ?
                 config('twostream.response.rpc.error.enabled') : config('twostream.response.rpc.error.disabled');
             $connection->callError($id, 'wamp.error.no_such_procedure', $msg);
@@ -270,8 +264,9 @@ class Dispatcher implements DispatcherContract
      */
     public function onError(Connection $connection, Exception $e)
     {
-        Log::error($e);
         $this->output->writeln("<error>Error: {$e->getMessage()}</error>");
+        
+        event(new ExceptionWasThrown($e));
     }
     
     /**
