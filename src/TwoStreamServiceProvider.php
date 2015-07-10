@@ -25,7 +25,14 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected $defer = false;
+    
+    /**
+     * The files that should be published.
+     *
+     * @var array
+     */
+    protected $files;
     
     /**
      * Available commands in this package
@@ -37,6 +44,22 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         'command.twostream.stop',
     ];
     
+    public function __construct($app)
+    {
+        parent::__construct($app);
+        
+        $this->files = [
+            'required' => [
+                __DIR__ . '/../app/Ws/Kernel.stub' => app_path('Ws/Kernel.stub'),
+                __DIR__ . '/../app/Exceptions/WsHandler.stub' => app_path('Exceptions/WsHandler.stub'),
+                __DIR__ . '/../app/Ws/Controllers/Controller.stub' => app_path('Ws/Controllers/Controller.stub'),
+            ],
+            'config' => [
+                __DIR__ . '/../config/twostream.php' => config_path('twostream.php'),
+            ],
+        ];
+    }
+    
     /**
      * Bootstrap the application events.
      *
@@ -45,18 +68,13 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
      */
     public function boot(WsRouter $router)
     {
+        foreach ($this->files as $tag => $files) {
+            $this->publishes($files, $tag);
+        }
+        
         $this->namespace = str_replace('{{namespace}}', $this->getAppNamespace(), $this->namespace);
         
         parent::boot($router);
-        
-        $this->publishes([
-            __DIR__ . '/../app/Ws/Kernel.stub' => app_path('Ws/Kernel.stub'),
-            __DIR__ . '/../app/Ws/Controllers/Controller.stub' => app_path('Ws/Controllers/Controller.stub'),
-        ], 'required');
-        
-        $this->publishes([
-            __DIR__ . '/../config/twostream.php' => config_path('twostream.php'),
-        ], 'cfg');
     }
     
     /**
@@ -139,7 +157,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
             'root'   => app_path(),
         ]);
         
-        foreach (TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required) {
+        foreach ($this->files['required'] as $required) {
             if (!$disk->exists(str_replace('.stub', '.php', $required))) {
                 return false;
             }

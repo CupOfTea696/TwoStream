@@ -1,8 +1,8 @@
-<?php namespace CupOfTea\TwoStream\Exception;
+<?php namespace CupOfTea\TwoStream\Exceptions;
 
 use Exception;
 
-class InvalidRecipientException extends Exception
+class InvalidRecipientException extends BaseException
 {
     
     /**

@@ -46,7 +46,7 @@ use Request;
 use ZMQContext;
 
 use CupOfTea\Package\Package;
-use CupOfTea\TwoStream\Exception\TwoStreamException;
+use CupOfTea\TwoStream\Exceptions\TwoStreamException;
 use CupOfTea\TwoStream\Contracts\Provider as ProviderContract;
 
 class TwoStream implements ProviderContract

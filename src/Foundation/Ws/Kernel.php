@@ -77,31 +77,22 @@ class Kernel implements KernelContract
         
         try {
             $response = $this->sendRequestThroughRouter($request);
+            $response = $response->getContent();
             
-            if ($response->getStatusCode() == 404 || !($response = $response->getContent()) === null) {
-                $response = 404;
-            } else {
-                $json = json_decode($response, true);
-                if (json_last_error() == JSON_ERROR_NONE) {
-                    $response = $json;
-                }
+            $json = json_decode($response, true);
+            if (json_last_error() == JSON_ERROR_NONE) {
+                $response = $json;
             }
         } catch (Exception $e) {
             if ($e instanceof NotFoundHttpException) {
-                $response = 404;
+                $response = $e;
             } else {
-                $this->reportException($e);
-                $response = [
-                    'error' => [
-                        'msg' => $e->getMessage(),
-                        'domain' => 'php.' . str_replace('\_', '.', snake_case(get_class($e))),
-                        'full_error' => $e
-                    ]
-                ];
+                throw $e;
             }
         }
         
         $this->app['events']->fire('wskernel.handled', [$request, $response]);
+        
         return $response;
     }
     
@@ -202,29 +193,6 @@ class Kernel implements KernelContract
             $this->app->instance('request', $request);
             return $this->router->dispatch($request);
         };
-    }
-    
-    /**
-     * Report the exception to the exception handler.
-     *
-     * @param  \Exception  $e
-     * @return void
-     */
-    protected function reportException(Exception $e)
-    {
-        Log::error($e);
-    }
-    
-    /**
-     * Render the exception to a response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function renderException($request, Exception $e)
-    {
-        return $this->app['Illuminate\Contracts\Debug\ExceptionHandler']->render($request, $e);
     }
     
     /**

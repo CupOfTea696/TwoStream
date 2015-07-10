@@ -14,11 +14,11 @@ class Install extends Command
 {
     
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'twostream:install';
+    protected $signature = 'twostream:install';
     
     /**
      * The user's App Namespace.
@@ -57,7 +57,7 @@ class Install extends Command
     
     /**
      * Fire the command
-     * 
+     *
      * @return void
      */
     public function fire()
@@ -69,7 +69,7 @@ class Install extends Command
     
     /**
      * Install the TwoStream package
-     * 
+     *
      * @return void
      */
     public function install()
@@ -80,25 +80,26 @@ class Install extends Command
         ]);
         
         $this->info('Publishing required files', 1);
-        $this->call('vendor:publish', ['--provider' => strtolower(TwoStream::PACKAGE), '--tag' => 'required'], 2);
+        $this->call('vendor:publish', ['--provider' => TwoStreamServiceProvider::class, '--tag' => ['required']], 2);
         
         $this->info('Applying your app\'s namespace <comment>[' . $this->appNamespace . ']</comment>', 1);
-        foreach (TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required) {
+        foreach (TwoStreamServiceProvider::pathsToPublish(TwoStreamServiceProvider::class, 'required') as $required) {
             $required = str_replace(app_path(), '', $required);
             $originalFile = $disk->get($required);
             $file = str_replace('{{namespace}}', $this->appNamespace, $originalFile);
             
             if ($file != $originalFile) {
                 $this->info('Setting namespace for <comment>[/app' . str_replace([app_path(), '.php', '.stub'], '', $required) . ']</comment>', 2);
-                
                 $disk->put($required, $file);
-                if (!$disk->exists(str_replace('.stub', '.php', $required))) {
-                    $disk->move($required, str_replace('.stub', '.php', $required));
-                }
+            }
+            
+            if (!$disk->exists(str_replace('.stub', '.php', $required))) {
+                $disk->move($required, str_replace('.stub', '.php', $required));
             }
         }
         
         $this->info('Cleaning up...', 1);
+        $this->level(0);
         $files = $disk->allFiles('Ws');
         foreach ($files as $key => $file) {
             if (preg_match('/\\.stub$/', $file)) {

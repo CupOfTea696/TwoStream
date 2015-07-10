@@ -10,14 +10,22 @@ class Output extends ConsoleOutput
      *
      * @var string
      */
-    protected $prepend = '';
+    protected $prepend = '   ';
     
     /**
      * {@inheritdoc}
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
-        return parent::writeln($this->prepend . $messages);
+        if (is_array($messages)) {
+            foreach ($messages as &$message) {
+                $message = $this->prepend . $message;
+            }
+        } else {
+            $messages = $this->prepend . $messages;
+        }
+        
+        return parent::writeln($messages, $type);
     }
     
     /**
@@ -26,8 +34,12 @@ class Output extends ConsoleOutput
      * @var int
      * @default 0
      */
-    public function level($level = 0)
+    public function level($level = null)
     {
+        if ($level === null) {
+            return $this;
+        }
+        
         $this->prepend = '   ' . (str_repeat('  ', $level));
         
         return $this;

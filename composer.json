@@ -16,8 +16,9 @@
         }
     ],
     "require": {
-        "cupoftea/package": "~1.2.0",
         "php": ">=5.4.0",
+        "cupoftea/package": "~1.2.0",
+        "cupoftea/chain": "~1.1.0",
         "cboden/ratchet": "~0.3.3"
     },
     "suggest": {

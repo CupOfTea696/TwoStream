@@ -7,26 +7,33 @@ use Session;
 use Exception;
 use WsSession;
 
-use Illuminate\Auth\Guard;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Encryption\Encrypter;
-
+use CupOfTea\Chain\Chain;
+use CupOfTea\TwoStream\Console\Output;
+use CupOfTea\TwoStream\Console\Writer;
 use CupOfTea\TwoStream\Session\ReadOnly;
 use CupOfTea\TwoStream\Events\ServerStopped;
 use CupOfTea\TwoStream\Events\ClientConnected;
 use CupOfTea\TwoStream\Events\ClientDisconnected;
-use CupOfTea\TwoStream\Exception\InvalidRecipientException;
+use CupOfTea\TwoStream\Events\ExceptionWasThrown;
+use CupOfTea\TwoStream\Contracts\Exceptions\Handler;
+use CupOfTea\TwoStream\Exceptions\InvalidRecipientException;
+
+use Illuminate\Auth\Guard;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
 
 use Ratchet\ConnectionInterface as Connection;
 use Ratchet\Wamp\TopicAccessTrait as TopicAccess;
 use Ratchet\Wamp\WampServerInterface as DispatcherContract;
 
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Dispatcher implements DispatcherContract
 {
     
-    use TopicAccess;
+    use AppNamespaceDetector, TopicAccess, Writer;
     
     const WAMP_VERB_CALL        = 'CALL';
     const WAMP_VERB_PUBLISH     = 'PUBLISH';
@@ -37,7 +44,7 @@ class Dispatcher implements DispatcherContract
     
     protected $Kernel;
     
-    protected $output;
+    protected $out;
     
     protected $users = [];
     
@@ -46,11 +53,11 @@ class Dispatcher implements DispatcherContract
      *
      * @return void
      */
-    public function __construct($Session, $Kernel, $output, Encrypter $Encrypter)
+    public function __construct($Session, $Kernel, Output $output, Encrypter $Encrypter)
     {
         $this->Session = $Session;
         $this->Kernel = $Kernel;
-        $this->output = $output->level(2);
+        $this->out = $output->level(2);
         $this->Encrypter = $Encrypter;
     }
     
@@ -67,7 +74,7 @@ class Dispatcher implements DispatcherContract
         $request = $this->buildRequest(self::WAMP_VERB_CALL, $connection, $topic, [], $params);
         $response = $this->handle($connection, $request);
         
-        if ($response == 404) {
+        if ($response instanceof NotFoundHttpException) {
             $msg = config('twostream.response.rpc.enabled') ?
                 config('twostream.response.rpc.error.enabled') : config('twostream.response.rpc.error.disabled');
             $connection->callError($id, 'wamp.error.no_such_procedure', $msg);
@@ -126,7 +133,7 @@ class Dispatcher implements DispatcherContract
      *
      * @param string $message
      * @return void
-     * @throws \CupOfTea\TwoStream\Exception\InvalidRecipientException
+     * @throws \CupOfTea\TwoStream\Exceptions\InvalidRecipientException
      */
     public function push($message){
         $message = json_decode($message, true);
@@ -138,8 +145,8 @@ class Dispatcher implements DispatcherContract
         if ($message['topic'] == 'cupoftea/twostream/server/stop') {
             if ($data['secret'] == config('app.key')) {
                 event(new ServerStopped());
-                $this->output->writeln("Stop Command fired.");
-                $this->output->writeln("<question>Stopping Server.</question>");
+                $this->line('Stop Command fired.');
+                $this->question('Stopping Server.');
                 
                 die();
             } else {
@@ -162,7 +169,7 @@ class Dispatcher implements DispatcherContract
                         }
                     }
                 } else {
-                    throw new InvalidRecipientException($recipient);
+                    throw with(new InvalidRecipientException($recipient))->setTopic($topic);
                 }
             }
         }
@@ -189,11 +196,11 @@ class Dispatcher implements DispatcherContract
      * @param \Ratchet\ConnectionInterface $conntection
      * @param \Ratchet\Wamp\Topic $topic
      * @return void
-     * @throws \CupOfTea\TwoStream\Exception\InvalidRecipientException
+     * @throws \CupOfTea\TwoStream\Exceptions\InvalidRecipientException
      */
     protected function send($response, Connection $connection, $topic)
     {
-        if ($response == 404) {
+        if ($response instanceof NotFoundHttpException) {
             return;
         }
         
@@ -221,7 +228,7 @@ class Dispatcher implements DispatcherContract
                         }
                     }
                 } else {
-                    throw new InvalidRecipientException($recipient);
+                    throw with(new InvalidRecipientException($recipient))->setTopic($topic);
                 }
             }
         }
@@ -245,7 +252,7 @@ class Dispatcher implements DispatcherContract
         }
         
         event(new ClientConnected($connection->session));
-        $this->output->writeln("<info>Connection from <comment>[{$connection->session}]</comment> opened.</info>");
+        $this->info("Connection from <comment>[{$connection->session}]</comment> opened.");
     }
     
     /**
@@ -256,7 +263,7 @@ class Dispatcher implements DispatcherContract
         $sessionId = $this->getSessionIdFromCookie($connection);
         
         event(new ClientDisconnected($sessionId));
-        $this->output->writeln("<info>Connection from <comment>[$sessionId]</comment> closed.</info>");
+        $this->info("Connection from <comment>[$sessionId]</comment> closed.");
     }
     
     /**
@@ -264,9 +271,16 @@ class Dispatcher implements DispatcherContract
      */
     public function onError(Connection $connection, Exception $e)
     {
-        $this->output->writeln("<error>Error: {$e->getMessage()}</error>");
+        $response = new Chain()
+            ->requires(Handler::class)
+            ->on(app($this->getAppNamespace() . 'Exceptions\WsHandler'))
+            ->call('report', 'render')
+            ->with($e)
+            ->run();
         
-        event(new ExceptionWasThrown($e));
+        if ($response !== null) {
+            $this->send($response, Connection $connection, $e->getTopic());
+        }
     }
     
     /**

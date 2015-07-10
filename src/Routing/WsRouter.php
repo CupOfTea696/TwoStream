@@ -4,7 +4,6 @@ use Closure;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Route;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
@@ -12,15 +11,18 @@ use Illuminate\Routing\RouteCollection;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Events\Dispatcher;
 
+use CupOfTea\TwoStream\Routing\Route;
+use CupOfTea\TwoStream\Contracts\Routing\Registrar as RegistrarContract;
+
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use CupOfTea\TwoStream\Contracts\Routing\Registrar as RegistrarContract;
 
 class WsRouter implements RegistrarContract
 {
     
     use Macroable;
+    
+    protected $error = false;
     
     /**
      * The event dispatcher instance.
@@ -577,6 +579,7 @@ class WsRouter implements RegistrarContract
         // the "after" filters to do any last minute processing on this request or
         // response object before the response is returned back to the consumer.
         $this->callRouteAfter($route, $request, $response);
+        
         return $response;
     }
     
