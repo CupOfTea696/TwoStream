@@ -300,7 +300,7 @@ class Dispatcher implements DispatcherContract
             if ($call_id = array_get($this->topic, 'call_id')) {
                 $connection->callError($call_id, array_get($response, 'error.domain', $topic), array_get($response, 'error.msg', $response['error']));
             } else {
-                $this->send($response, $connection, $topic);
+                $this->send(['recipient' => 'requestee', 'data' => $response], $connection, $topic);
             }
         }
     }
