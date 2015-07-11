@@ -68,6 +68,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-CupOfTea.TwoStream.Contracts.Exceptions.html">
+							Exceptions						</a>
+							</li>
+					<li>
 						<a href="namespace-CupOfTea.TwoStream.Contracts.Routing.html">
 							Routing						</a>
 							</li>
@@ -81,8 +85,22 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-CupOfTea.TwoStream.Exception.html">
-							Exception						</a>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.html">
+							Cookie<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.Middleware.html">
+							Middleware						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Events.html">
+							Events						</a>
+							</li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Exceptions.html">
+							Exceptions						</a>
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Facades.html">
@@ -118,9 +136,14 @@
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Session.html">
-							Session						</a>
+							Session<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Session.Middleware.html">
+							Middleware						</a>
 							</li>
-								</ul></li></ul></li>
+								</ul></li></ul></li></ul></li>
 			</ul>
 		</div>
 
@@ -129,6 +152,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-CupOfTea.TwoStream.Routing.ControllerInspector.html">ControllerInspector</a></li>
+				<li><a href="class-CupOfTea.TwoStream.Routing.Route.html">Route</a></li>
 				<li class="active"><a href="class-CupOfTea.TwoStream.Routing.WsRouter.html">WsRouter</a></li>
 			</ul>
 
@@ -175,7 +199,7 @@
 		<b>Namespace:</b> <a href="namespace-CupOfTea.html">CupOfTea</a>\<a href="namespace-CupOfTea.TwoStream.html">TwoStream</a>\<a href="namespace-CupOfTea.TwoStream.Routing.html">Routing</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#20-1241" title="Go to source code">Routing/WsRouter.php</a>
+			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#19-1239" title="Go to source code">Routing/WsRouter.php</a>
 		<br>
 	</div>
 
@@ -195,7 +219,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#109-121" title="Go to source code">__construct</a>( <span>Illuminate\Contracts\Events\Dispatcher <var>$events</var></span>, <span>Illuminate\Container\Container <var>$container</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#108-120" title="Go to source code">__construct</a>( <span>Illuminate\Contracts\Events\Dispatcher <var>$events</var></span>, <span>Illuminate\Container\Container <var>$container</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Create a new Router instance.</p>
@@ -224,14 +248,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_call">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#123-133" title="Go to source code">call</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#122-132" title="Go to source code">call</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new CALL route with the router.</p>
@@ -251,7 +275,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -266,14 +290,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_publish">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#135-145" title="Go to source code">publish</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#134-144" title="Go to source code">publish</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new PUBLISH route with the router.</p>
@@ -293,7 +317,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -308,14 +332,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_subscribe">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#147-157" title="Go to source code">subscribe</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#146-156" title="Go to source code">subscribe</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new SUBSCRIBE route with the router.</p>
@@ -335,7 +359,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -350,14 +374,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_unsubscribe">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#159-169" title="Go to source code">unsubscribe</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#158-168" title="Go to source code">unsubscribe</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new UNSUBSCRIBE route with the router.</p>
@@ -377,7 +401,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -392,14 +416,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_any">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#171-182" title="Go to source code">any</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#170-182" title="Go to source code">any</a>( <span>string <var>$uri</var></span>, <span>Closure|array|string <var>$action</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new route responding to all verbs.</p>
@@ -419,7 +443,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -432,7 +456,7 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
@@ -461,7 +485,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -887,7 +911,7 @@
 
 			<td class="attributes"><code>
 				 protected 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
@@ -916,7 +940,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -929,7 +953,7 @@
 
 			<td class="attributes"><code>
 				 protected 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
@@ -958,7 +982,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -971,7 +995,7 @@
 
 			<td class="attributes"><code>
 				 protected 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
@@ -1000,7 +1024,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -1051,14 +1075,14 @@
 
 			<td class="attributes"><code>
 				 protected 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addWhereClausesToRoute">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#447-459" title="Go to source code">addWhereClausesToRoute</a>( <span>Illuminate\Routing\Route <var>$route</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#447-459" title="Go to source code">addWhereClausesToRoute</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span> )</code>
 
 			<div class="description short">
 				<p>Add the necessary where clauses to the route based on its initial registration.</p>
@@ -1076,7 +1100,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -1096,7 +1120,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_mergeGroupAttributesIntoRoute">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#461-471" title="Go to source code">mergeGroupAttributesIntoRoute</a>( <span>Illuminate\Routing\Route <var>$route</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#461-471" title="Go to source code">mergeGroupAttributesIntoRoute</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span> )</code>
 
 			<div class="description short">
 				<p>Merge the group stack with the controller action.</p>
@@ -1282,7 +1306,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dispatchToRoute">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#547-580" title="Go to source code">dispatchToRoute</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#547-581" title="Go to source code">dispatchToRoute</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Dispatch the request to a route and return the response.</p>
@@ -1320,7 +1344,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_runRouteWithinStack">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#582-602" title="Go to source code">runRouteWithinStack</a>( <span>Illuminate\Routing\Route <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#583-603" title="Go to source code">runRouteWithinStack</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Run the given route within a Stack "onion" instance.</p>
@@ -1360,7 +1384,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gatherRouteMiddlewares">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#604-616" title="Go to source code">gatherRouteMiddlewares</a>( <span>Illuminate\Routing\Route <var>$route</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#605-617" title="Go to source code">gatherRouteMiddlewares</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span> )</code>
 
 			<div class="description short">
 				<p>Gather the middleware for the given route.</p>
@@ -1391,14 +1415,14 @@
 
 			<td class="attributes"><code>
 				 protected 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_findRoute">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#618-629" title="Go to source code">findRoute</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#619-630" title="Go to source code">findRoute</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Find the route matching a given request.</p>
@@ -1416,7 +1440,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -1429,14 +1453,14 @@
 
 			<td class="attributes"><code>
 				 protected 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_substituteBindings">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#631-645" title="Go to source code">substituteBindings</a>( <span>Illuminate\Routing\Route <var>$route</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#632-646" title="Go to source code">substituteBindings</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span> )</code>
 
 			<div class="description short">
 				<p>Substitute the route bindings onto the route.</p>
@@ -1454,7 +1478,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -1474,7 +1498,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_performBinding">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#647-658" title="Go to source code">performBinding</a>( <span>string <var>$key</var></span>, <span>string <var>$value</var></span>, <span>Illuminate\Routing\Route <var>$route</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#648-659" title="Go to source code">performBinding</a>( <span>string <var>$key</var></span>, <span>string <var>$value</var></span>, <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span> )</code>
 
 			<div class="description short">
 				<p>Call the binding callback for the given key.</p>
@@ -1516,7 +1540,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_matched">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#660-669" title="Go to source code">matched</a>( <span>string|callable <var>$callback</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#661-670" title="Go to source code">matched</a>( <span>string|callable <var>$callback</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a route matched event listener.</p>
@@ -1550,7 +1574,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_before">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#671-680" title="Go to source code">before</a>( <span>string|callable <var>$callback</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#672-681" title="Go to source code">before</a>( <span>string|callable <var>$callback</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new "before" filter with the router.</p>
@@ -1586,7 +1610,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_after">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#682-691" title="Go to source code">after</a>( <span>string|callable <var>$callback</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#683-692" title="Go to source code">after</a>( <span>string|callable <var>$callback</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new "after" filter with the router.</p>
@@ -1622,7 +1646,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_addGlobalFilter">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#693-703" title="Go to source code">addGlobalFilter</a>( <span>string <var>$filter</var></span>, <span>string|callable <var>$callback</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#694-704" title="Go to source code">addGlobalFilter</a>( <span>string <var>$filter</var></span>, <span>string|callable <var>$callback</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new global filter with the router.</p>
@@ -1658,7 +1682,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getMiddleware">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#705-713" title="Go to source code">getMiddleware</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#706-714" title="Go to source code">getMiddleware</a>( )</code>
 
 			<div class="description short">
 				<p>Get all of the defined middleware short-hand names.</p>
@@ -1691,7 +1715,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_middleware">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#715-726" title="Go to source code">middleware</a>( <span>string <var>$name</var></span>, <span>string <var>$class</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#716-727" title="Go to source code">middleware</a>( <span>string <var>$name</var></span>, <span>string <var>$class</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a short-hand name for a middleware.</p>
@@ -1731,7 +1755,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_filter">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#728-738" title="Go to source code">filter</a>( <span>string <var>$name</var></span>, <span>string|callable <var>$callback</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#729-739" title="Go to source code">filter</a>( <span>string <var>$name</var></span>, <span>string|callable <var>$callback</var></span> )</code>
 
 			<div class="description short">
 				<p>Register a new filter with the router.</p>
@@ -1769,7 +1793,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_parseFilter">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#740-752" title="Go to source code">parseFilter</a>( <span>callable|string <var>$callback</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#741-753" title="Go to source code">parseFilter</a>( <span>callable|string <var>$callback</var></span> )</code>
 
 			<div class="description short">
 				<p>Parse the registered filter.</p>
@@ -1807,7 +1831,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_when">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#754-766" title="Go to source code">when</a>( <span>string <var>$pattern</var></span>, <span>string <var>$name</var></span>, <span>array|null <var>$methods</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#755-767" title="Go to source code">when</a>( <span>string <var>$pattern</var></span>, <span>string <var>$name</var></span>, <span>array|null <var>$methods</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Register a pattern-based filter with the router.</p>
@@ -1845,7 +1869,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_whenRegex">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#768-780" title="Go to source code">whenRegex</a>( <span>string <var>$pattern</var></span>, <span>string <var>$name</var></span>, <span>array|null <var>$methods</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#769-781" title="Go to source code">whenRegex</a>( <span>string <var>$pattern</var></span>, <span>string <var>$name</var></span>, <span>array|null <var>$methods</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Register a regular expression based filter with the router.</p>
@@ -1883,7 +1907,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_model">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#782-813" title="Go to source code">model</a>( <span>string <var>$key</var></span>, <span>string <var>$class</var></span>, <span>Closure <var>$callback</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#783-814" title="Go to source code">model</a>( <span>string <var>$key</var></span>, <span>string <var>$class</var></span>, <span>Closure <var>$callback</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Register a model binder for a wildcard.</p>
@@ -1925,7 +1949,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_bind">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#815-828" title="Go to source code">bind</a>( <span>string <var>$key</var></span>, <span>string|callable <var>$binder</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#816-829" title="Go to source code">bind</a>( <span>string <var>$key</var></span>, <span>string|callable <var>$binder</var></span> )</code>
 
 			<div class="description short">
 				<p>Add a new route parameter binder.</p>
@@ -1961,7 +1985,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createClassBinding">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#830-848" title="Go to source code">createClassBinding</a>( <span>string <var>$binding</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#831-849" title="Go to source code">createClassBinding</a>( <span>string <var>$binding</var></span> )</code>
 
 			<div class="description short">
 				<p>Create a class based binding using the IoC container.</p>
@@ -1999,7 +2023,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_pattern">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#850-860" title="Go to source code">pattern</a>( <span>string <var>$key</var></span>, <span>string <var>$pattern</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#851-861" title="Go to source code">pattern</a>( <span>string <var>$key</var></span>, <span>string <var>$pattern</var></span> )</code>
 
 			<div class="description short">
 				<p>Set a global where pattern on all routes.</p>
@@ -2035,7 +2059,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_patterns">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#862-874" title="Go to source code">patterns</a>( <span>array <var>$patterns</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#863-875" title="Go to source code">patterns</a>( <span>array <var>$patterns</var></span> )</code>
 
 			<div class="description short">
 				<p>Set a group of global where patterns on all routes.</p>
@@ -2069,7 +2093,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callFilter">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#876-887" title="Go to source code">callFilter</a>( <span>string <var>$filter</var></span>, <span>Illuminate\Http\Request <var>$request</var></span>, <span>Illuminate\Http\Response <var>$response</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#877-888" title="Go to source code">callFilter</a>( <span>string <var>$filter</var></span>, <span>Illuminate\Http\Request <var>$request</var></span>, <span>Illuminate\Http\Response <var>$response</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Call the given filter with the request and response.</p>
@@ -2111,7 +2135,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callRouteBefore">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#889-900" title="Go to source code">callRouteBefore</a>( <span>Illuminate\Routing\Route <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#890-901" title="Go to source code">callRouteBefore</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Call the given route's before filters.</p>
@@ -2151,7 +2175,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callPatternFilters">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#902-915" title="Go to source code">callPatternFilters</a>( <span>Illuminate\Routing\Route <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#903-916" title="Go to source code">callPatternFilters</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Call the pattern based filters for the request.</p>
@@ -2191,7 +2215,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_findPatternFilters">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#917-946" title="Go to source code">findPatternFilters</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#918-947" title="Go to source code">findPatternFilters</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Find the patterned filters matching a request.</p>
@@ -2229,7 +2253,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_patternsByMethod">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#948-968" title="Go to source code">patternsByMethod</a>( <span>string <var>$method</var></span>, <span>array <var>$filters</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#949-969" title="Go to source code">patternsByMethod</a>( <span>string <var>$method</var></span>, <span>array <var>$filters</var></span> )</code>
 
 			<div class="description short">
 				<p>Filter pattern filters that don't apply to the request verb.</p>
@@ -2269,7 +2293,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_filterSupportsMethod">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#970-981" title="Go to source code">filterSupportsMethod</a>( <span>array <var>$filter</var></span>, <span>array <var>$method</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#971-982" title="Go to source code">filterSupportsMethod</a>( <span>array <var>$filter</var></span>, <span>array <var>$method</var></span> )</code>
 
 			<div class="description short">
 				<p>Determine if the given pattern filters applies to a given method.</p>
@@ -2309,7 +2333,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callAttachedBefores">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#983-996" title="Go to source code">callAttachedBefores</a>( <span>Illuminate\Routing\Route <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#984-997" title="Go to source code">callAttachedBefores</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Call the given route's before (non-pattern) filters.</p>
@@ -2349,7 +2373,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callRouteAfter">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#998-1011" title="Go to source code">callRouteAfter</a>( <span>Illuminate\Routing\Route <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span>, <span>Illuminate\Http\Response <var>$response</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#999-1012" title="Go to source code">callRouteAfter</a>( <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span>, <span>Illuminate\Http\Response <var>$response</var></span> )</code>
 
 			<div class="description short">
 				<p>Call the given route's after filters.</p>
@@ -2391,7 +2415,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_callRouteFilter">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1013-1027" title="Go to source code">callRouteFilter</a>( <span>string <var>$filter</var></span>, <span>array <var>$parameters</var></span>, <span>Illuminate\Routing\Route <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span>, <span>Illuminate\Http\Response|null <var>$response</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1014-1028" title="Go to source code">callRouteFilter</a>( <span>string <var>$filter</var></span>, <span>array <var>$parameters</var></span>, <span><code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code> <var>$route</var></span>, <span>Illuminate\Http\Request <var>$request</var></span>, <span>Illuminate\Http\Response|null <var>$response</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Call the given route filter.</p>
@@ -2437,7 +2461,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_cleanFilterParameters">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1029-1040" title="Go to source code">cleanFilterParameters</a>( <span>array <var>$parameters</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1030-1041" title="Go to source code">cleanFilterParameters</a>( <span>array <var>$parameters</var></span> )</code>
 
 			<div class="description short">
 				<p>Clean the parameters being passed to a filter callback.</p>
@@ -2475,7 +2499,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_prepareResponse">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1042-1055" title="Go to source code">prepareResponse</a>( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span>mixed <var>$response</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1043-1053" title="Go to source code">prepareResponse</a>( <span>Symfony\Component\HttpFoundation\Request <var>$request</var></span>, <span>mixed <var>$response</var></span> )</code>
 
 			<div class="description short">
 				<p>Create a response instance from the given value.</p>
@@ -2515,7 +2539,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasGroupStack">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1057-1065" title="Go to source code">hasGroupStack</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1055-1063" title="Go to source code">hasGroupStack</a>( )</code>
 
 			<div class="description short">
 				<p>Determine if the router currently has a group stack.</p>
@@ -2548,7 +2572,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getGroupStack">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1067-1075" title="Go to source code">getGroupStack</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1065-1073" title="Go to source code">getGroupStack</a>( )</code>
 
 			<div class="description short">
 				<p>Get the current group stack for the router.</p>
@@ -2581,7 +2605,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_input">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1077-1087" title="Go to source code">input</a>( <span>string <var>$key</var></span>, <span>string <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1075-1085" title="Go to source code">input</a>( <span>string <var>$key</var></span>, <span>string <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Get a route parameter for the current route.</p>
@@ -2614,14 +2638,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCurrentRoute">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1089-1097" title="Go to source code">getCurrentRoute</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1087-1095" title="Go to source code">getCurrentRoute</a>( )</code>
 
 			<div class="description short">
 				<p>Get the currently dispatched route instance.</p>
@@ -2634,7 +2658,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -2647,14 +2671,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_current">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1099-1107" title="Go to source code">current</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1097-1105" title="Go to source code">current</a>( )</code>
 
 			<div class="description short">
 				<p>Get the currently dispatched route instance.</p>
@@ -2667,7 +2691,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\Route
+						<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 					</div>
 
 
@@ -2687,7 +2711,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_has">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1109-1118" title="Go to source code">has</a>( <span>string <var>$name</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1107-1116" title="Go to source code">has</a>( <span>string <var>$name</var></span> )</code>
 
 			<div class="description short">
 				<p>Check if a route with the given name exists.</p>
@@ -2725,7 +2749,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_currentRouteName">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1120-1128" title="Go to source code">currentRouteName</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1118-1126" title="Go to source code">currentRouteName</a>( )</code>
 
 			<div class="description short">
 				<p>Get the current route name.</p>
@@ -2758,7 +2782,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_is">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1130-1144" title="Go to source code">is</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1128-1142" title="Go to source code">is</a>( )</code>
 
 			<div class="description short">
 				<p>Alias for the "currentRouteNamed" method.</p>
@@ -2791,7 +2815,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_currentRouteNamed">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1146-1155" title="Go to source code">currentRouteNamed</a>( <span>string <var>$name</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1144-1153" title="Go to source code">currentRouteNamed</a>( <span>string <var>$name</var></span> )</code>
 
 			<div class="description short">
 				<p>Determine if the current route matches a given name.</p>
@@ -2829,7 +2853,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_currentRouteAction">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1157-1167" title="Go to source code">currentRouteAction</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1155-1165" title="Go to source code">currentRouteAction</a>( )</code>
 
 			<div class="description short">
 				<p>Get the current route action.</p>
@@ -2862,7 +2886,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_uses">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1169-1183" title="Go to source code">uses</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1167-1181" title="Go to source code">uses</a>( )</code>
 
 			<div class="description short">
 				<p>Alias for the "currentRouteUses" method.</p>
@@ -2895,7 +2919,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_currentRouteUses">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1185-1194" title="Go to source code">currentRouteUses</a>( <span>string <var>$action</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1183-1192" title="Go to source code">currentRouteUses</a>( <span>string <var>$action</var></span> )</code>
 
 			<div class="description short">
 				<p>Determine if the current route action matches a given action.</p>
@@ -2933,7 +2957,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getCurrentRequest">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1196-1204" title="Go to source code">getCurrentRequest</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1194-1202" title="Go to source code">getCurrentRequest</a>( )</code>
 
 			<div class="description short">
 				<p>Get the request currently being dispatched.</p>
@@ -2959,14 +2983,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Routing\RouteCollection
+				CupOfTea\TwoStream\Routing\RouteCollection
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getRoutes">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1206-1214" title="Go to source code">getRoutes</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1204-1212" title="Go to source code">getRoutes</a>( )</code>
 
 			<div class="description short">
 				<p>Get the underlying route collection.</p>
@@ -2979,7 +3003,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Routing\RouteCollection
+						CupOfTea\TwoStream\Routing\RouteCollection
 					</div>
 
 
@@ -2999,7 +3023,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setRoutes">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1216-1229" title="Go to source code">setRoutes</a>( <span>Illuminate\Routing\RouteCollection <var>$routes</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1214-1227" title="Go to source code">setRoutes</a>( <span>Illuminate\Routing\RouteCollection <var>$routes</var></span> )</code>
 
 			<div class="description short">
 				<p>Set the route collection instance.</p>
@@ -3033,7 +3057,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getPatterns">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1231-1239" title="Go to source code">getPatterns</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#1229-1237" title="Go to source code">getPatterns</a>( )</code>
 
 			<div class="description short">
 				<p>Get the global "where" patterns.</p>
@@ -3078,7 +3102,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#25-30" title="Go to source code"><var>$events</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#24-29" title="Go to source code"><var>$events</var></a>
 
 				<div class="description short">
 					<p>The event dispatcher instance.</p>
@@ -3103,7 +3127,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#32-37" title="Go to source code"><var>$container</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#31-36" title="Go to source code"><var>$container</var></a>
 
 				<div class="description short">
 					<p>The IoC container instance.</p>
@@ -3124,11 +3148,11 @@
 		<tr data-order="routes" id="$routes">
 			<td class="attributes"><code>
 				protected  
-				Illuminate\Routing\RouteCollection
+				CupOfTea\TwoStream\Routing\RouteCollection
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#39-44" title="Go to source code"><var>$routes</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#38-43" title="Go to source code"><var>$routes</var></a>
 
 				<div class="description short">
 					<p>The route collection instance.</p>
@@ -3149,11 +3173,11 @@
 		<tr data-order="current" id="$current">
 			<td class="attributes"><code>
 				protected  
-				Illuminate\Routing\Route
+				<code><a href="class-CupOfTea.TwoStream.Routing.Route.html">CupOfTea\TwoStream\Routing\Route</a></code>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#46-51" title="Go to source code"><var>$current</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#45-50" title="Go to source code"><var>$current</var></a>
 
 				<div class="description short">
 					<p>The currently dispatched route instance.</p>
@@ -3178,7 +3202,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#53-58" title="Go to source code"><var>$currentRequest</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#52-57" title="Go to source code"><var>$currentRequest</var></a>
 
 				<div class="description short">
 					<p>The request currently being dispatched.</p>
@@ -3203,7 +3227,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#60-65" title="Go to source code"><var>$middleware</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#59-64" title="Go to source code"><var>$middleware</var></a>
 
 				<div class="description short">
 					<p>All of the short-hand keys for middlewares.</p>
@@ -3228,7 +3252,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#67-72" title="Go to source code"><var>$patternFilters</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#66-71" title="Go to source code"><var>$patternFilters</var></a>
 
 				<div class="description short">
 					<p>The registered pattern based filters.</p>
@@ -3253,7 +3277,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#74-79" title="Go to source code"><var>$regexFilters</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#73-78" title="Go to source code"><var>$regexFilters</var></a>
 
 				<div class="description short">
 					<p>The registered regular expression based filters.</p>
@@ -3278,7 +3302,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#81-86" title="Go to source code"><var>$binders</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#80-85" title="Go to source code"><var>$binders</var></a>
 
 				<div class="description short">
 					<p>The registered route value binders.</p>
@@ -3303,7 +3327,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#88-93" title="Go to source code"><var>$patterns</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#87-92" title="Go to source code"><var>$patterns</var></a>
 
 				<div class="description short">
 					<p>The globally available parameter patterns.</p>
@@ -3328,7 +3352,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#95-100" title="Go to source code"><var>$groupStack</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#94-99" title="Go to source code"><var>$groupStack</var></a>
 
 				<div class="description short">
 					<p>The route group attribute stack.</p>
@@ -3353,7 +3377,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#102-107" title="Go to source code"><var>$verbs</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Routing.WsRouter.html#101-106" title="Go to source code"><var>$verbs</var></a>
 
 				<div class="description short">
 					<p>All of the verbs supported by the router.</p>

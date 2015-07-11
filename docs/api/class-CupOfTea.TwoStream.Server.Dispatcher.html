@@ -68,6 +68,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-CupOfTea.TwoStream.Contracts.Exceptions.html">
+							Exceptions						</a>
+							</li>
+					<li>
 						<a href="namespace-CupOfTea.TwoStream.Contracts.Routing.html">
 							Routing						</a>
 							</li>
@@ -81,8 +85,22 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-CupOfTea.TwoStream.Exception.html">
-							Exception						</a>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.html">
+							Cookie<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.Middleware.html">
+							Middleware						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Events.html">
+							Events						</a>
+							</li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Exceptions.html">
+							Exceptions						</a>
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Facades.html">
@@ -118,9 +136,14 @@
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Session.html">
-							Session						</a>
+							Session<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Session.Middleware.html">
+							Middleware						</a>
 							</li>
-								</ul></li></ul></li>
+								</ul></li></ul></li></ul></li>
 			</ul>
 		</div>
 
@@ -155,8 +178,13 @@
 <span>Ratchet\Wamp\WampServerInterface</span>
 			
 			 uses 
+					Illuminate\Console\AppNamespaceDetectorTrait (not available)
+
+			
 					Ratchet\Wamp\TopicAccessTrait (not available)
 
+			
+					<a href="class-CupOfTea.TwoStream.Console.Writer.html"><span>CupOfTea\TwoStream\Console\Writer</span></a>
 			
 		</dd>
 	</dl>
@@ -174,7 +202,7 @@
 		<b>Namespace:</b> <a href="namespace-CupOfTea.html">CupOfTea</a>\<a href="namespace-CupOfTea.TwoStream.html">TwoStream</a>\<a href="namespace-CupOfTea.TwoStream.Server.html">Server</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#19-306" title="Go to source code">Server/Dispatcher.php</a>
+			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#33-425" title="Go to source code">Server/Dispatcher.php</a>
 		<br>
 	</div>
 
@@ -194,7 +222,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#35-45" title="Go to source code">__construct</a>( <span> <var>$Session</var></span>, <span> <var>$Kernel</var></span>, <span> <var>$output</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#53-68" title="Go to source code">__construct</a>( <span> <var>$Session</var></span>, <span> <var>$Kernel</var></span>, <span><code><a href="class-CupOfTea.TwoStream.Console.Output.html">CupOfTea\TwoStream\Console\Output</a></code> <var>$output</var></span>, <span>Illuminate\Contracts\Encryption\Encrypter <var>$Encrypter</var></span> )</code>
 
 			<div class="description short">
 				<p>Create a new Dispatcher instance.</p>
@@ -204,6 +232,17 @@
 				<p>Create a new Dispatcher instance.</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$Session</var></dt>
+						<dd></dd>
+						<dt><var>$Kernel</var></dt>
+						<dd></dd>
+						<dt><var>$output</var></dt>
+						<dd></dd>
+						<dt><var>$Encrypter</var></dt>
+						<dd></dd>
+					</dl></div>
 
 
 
@@ -223,7 +262,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onCall">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#52-76" title="Go to source code">onCall</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span> <var>$id</var></span>, <span> <var>$topic</var></span>, <span>array <var>$params</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#75-98" title="Go to source code">onCall</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span> <var>$id</var></span>, <span> <var>$topic</var></span>, <span>array <var>$params</var></span> )</code>
 
 			<div class="description short">
 				
@@ -255,7 +294,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onPublish">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#78-92" title="Go to source code">onPublish</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span> <var>$topic</var></span>, <span> <var>$event</var></span>, <span>array <var>$exclude</var></span>, <span>array <var>$eligible</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#100-117" title="Go to source code">onPublish</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span> <var>$topic</var></span>, <span> <var>$event</var></span>, <span>array <var>$exclude</var></span>, <span>array <var>$eligible</var></span> )</code>
 
 			<div class="description short">
 				
@@ -287,7 +326,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onSubscribe">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#94-103" title="Go to source code">onSubscribe</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span> <var>$topic</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#119-130" title="Go to source code">onSubscribe</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span> <var>$topic</var></span> )</code>
 
 			<div class="description short">
 				
@@ -319,7 +358,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onUnSubscribe">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#105-114" title="Go to source code">onUnSubscribe</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span> <var>$topic</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#132-143" title="Go to source code">onUnSubscribe</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span> <var>$topic</var></span> )</code>
 
 			<div class="description short">
 				
@@ -351,7 +390,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_push">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#116-147" title="Go to source code">push</a>( <span>string <var>$message</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#145-192" title="Go to source code">push</a>( <span>string <var>$message</var></span> )</code>
 
 			<div class="description short">
 				<p>Handle Push messages</p>
@@ -370,7 +409,7 @@
 
 					<h4>Throws</h4>
 					<div class="list">
-						<code><a href="class-CupOfTea.TwoStream.Exception.InvalidRecipientException.html">CupOfTea\TwoStream\Exception\InvalidRecipientException</a></code>
+						<code><a href="class-CupOfTea.TwoStream.Exceptions.InvalidRecipientException.html">CupOfTea\TwoStream\Exceptions\InvalidRecipientException</a></code>
 					</div>
 
 
@@ -382,14 +421,14 @@
 
 			<td class="attributes"><code>
 				 protected 
-				Illuminate\Http\Response
+				mixed
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_handle">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#149-161" title="Go to source code">handle</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#194-206" title="Go to source code">handle</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Handle Request</p>
@@ -409,7 +448,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Http\Response
+						mixed
 					</div>
 
 
@@ -429,7 +468,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_send">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#163-206" title="Go to source code">send</a>( <span>Illuminate\Http\Response <var>$response</var></span>, <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span>Ratchet\Wamp\Topic <var>$topic</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#208-251" title="Go to source code">send</a>( <span>Illuminate\Http\Response <var>$response</var></span>, <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span>Ratchet\Wamp\Topic <var>$topic</var></span> )</code>
 
 			<div class="description short">
 				<p>Send Response</p>
@@ -444,7 +483,7 @@
 						<dt><var>$response</var></dt>
 						<dd></dd>
 						<dt><var>$connection</var></dt>
-						<dd>$conntection</dd>
+						<dd></dd>
 						<dt><var>$topic</var></dt>
 						<dd></dd>
 					</dl></div>
@@ -452,7 +491,7 @@
 
 					<h4>Throws</h4>
 					<div class="list">
-						<code><a href="class-CupOfTea.TwoStream.Exception.InvalidRecipientException.html">CupOfTea\TwoStream\Exception\InvalidRecipientException</a></code>
+						<code><a href="class-CupOfTea.TwoStream.Exceptions.InvalidRecipientException.html">CupOfTea\TwoStream\Exceptions\InvalidRecipientException</a></code>
 					</div>
 
 
@@ -471,7 +510,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onOpen">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#213-222" title="Go to source code">onOpen</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#258-272" title="Go to source code">onOpen</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
 
 			<div class="description short">
 				
@@ -503,7 +542,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onClose">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#224-232" title="Go to source code">onClose</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#274-283" title="Go to source code">onClose</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
 
 			<div class="description short">
 				
@@ -535,7 +574,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_onError">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#234-240" title="Go to source code">onError</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span>Exception <var>$e</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#285-306" title="Go to source code">onError</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span>Exception <var>$e</var></span> )</code>
 
 			<div class="description short">
 				
@@ -567,7 +606,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loadSession">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#242-259" title="Go to source code">loadSession</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#308-327" title="Go to source code">loadSession</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
 
 			<div class="description short">
 				<p>Load the Session data and store it into a Read-Only Session</p>
@@ -580,7 +619,7 @@
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$connection</var></dt>
-						<dd>$sessionId</dd>
+						<dd></dd>
 					</dl></div>
 
 
@@ -601,7 +640,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_buildRequest">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#261-292" title="Go to source code">buildRequest</a>( <span>string <var>$verb</var></span>, <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span>Rathcet\Wamp\Topic <var>$topic</var></span>, <span>array <var>$data</var> = []</span>, <span> <var>$params</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#329-361" title="Go to source code">buildRequest</a>( <span>string <var>$verb</var></span>, <span>Ratchet\ConnectionInterface <var>$connection</var></span>, <span>Ratchet\Wamp\Topic <var>$topic</var></span>, <span>array <var>$data</var> = []</span>, <span>array|null <var>$params</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Build an \Illuminate\Http\Request object</p>
@@ -647,7 +686,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getSessionIdFromCookie">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#294-305" title="Go to source code">getSessionIdFromCookie</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#363-374" title="Go to source code">getSessionIdFromCookie</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
 
 			<div class="description short">
 				<p>Get the Session ID from the Cookie</p>
@@ -674,10 +713,126 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getUser" id="_getUser">
+
+			<td class="attributes"><code>
+				 protected 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getUser">#</a>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#376-395" title="Go to source code">getUser</a>( <span>Ratchet\ConnectionInterface <var>$connection</var></span> )</code>
+
+			<div class="description short">
+				<p>Get the current logged in user.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Get the current logged in user.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$connection</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getUserSessionId" id="_getUserSessionId">
+
+			<td class="attributes"><code>
+				 protected 
+				mixed
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getUserSessionId">#</a>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#397-414" title="Go to source code">getUserSessionId</a>( <span> <var>$user</var></span> )</code>
+
+			<div class="description short">
+				<p>Get the Session ID for a connected user.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Get the Session ID for a connected user.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$user</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setTopic" id="_setTopic">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setTopic">#</a>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#416-423" title="Go to source code">setTopic</a>( <span> <var>$topic</var></span>, <span> <var>$call_id</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
 
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-CupOfTea.TwoStream.Console.Writer.html#methods">CupOfTea\TwoStream\Console\Writer</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_comment">comment()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_error">error()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_info">info()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_level">level()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_line">line()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_question">question()</a></code>
+			</p>
+		</div>
 
 
 
@@ -692,7 +847,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#24" title="Go to source code"><b>WAMP_VERB_CALL</b></a>
+						<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#38" title="Go to source code"><b>WAMP_VERB_CALL</b></a>
 					</code>
 
 					<div class="description short">
@@ -716,7 +871,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#25" title="Go to source code"><b>WAMP_VERB_PUBLISH</b></a>
+						<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#39" title="Go to source code"><b>WAMP_VERB_PUBLISH</b></a>
 					</code>
 
 					<div class="description short">
@@ -740,7 +895,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#26" title="Go to source code"><b>WAMP_VERB_SUBSCRIBE</b></a>
+						<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#40" title="Go to source code"><b>WAMP_VERB_SUBSCRIBE</b></a>
 					</code>
 
 					<div class="description short">
@@ -764,7 +919,7 @@
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#27" title="Go to source code"><b>WAMP_VERB_UNSUBSCRIBE</b></a>
+						<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#41" title="Go to source code"><b>WAMP_VERB_UNSUBSCRIBE</b></a>
 					</code>
 
 					<div class="description short">
@@ -799,7 +954,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#29" title="Go to source code"><var>$Session</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#43" title="Go to source code"><var>$Session</var></a>
 
 				<div class="description short">
 					
@@ -824,7 +979,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#31" title="Go to source code"><var>$Kernel</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#45" title="Go to source code"><var>$Kernel</var></a>
 
 				<div class="description short">
 					
@@ -842,14 +997,14 @@
 				</div>
 			</td>
 		</tr>
-		<tr data-order="output" id="$output">
+		<tr data-order="out" id="$out">
 			<td class="attributes"><code>
 				protected  
 				
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#33" title="Go to source code"><var>$output</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#47" title="Go to source code"><var>$out</var></a>
 
 				<div class="description short">
 					
@@ -862,8 +1017,58 @@
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$output" class="anchor">#</a>
+					<a href="#$out" class="anchor">#</a>
 					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="topic" id="$topic">
+			<td class="attributes"><code>
+				protected  
+				
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#49" title="Go to source code"><var>$topic</var></a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$topic" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="users" id="$users">
+			<td class="attributes"><code>
+				protected  
+				array
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-CupOfTea.TwoStream.Server.Dispatcher.html#51" title="Go to source code"><var>$users</var></a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$users" class="anchor">#</a>
+					<code>[]</code>
 				</div>
 			</td>
 		</tr>
