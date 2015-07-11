@@ -2,6 +2,7 @@
 
 project:
     name: "TwoStream"
+    alt_name: "TwoStream"
     tagline: The WebSocket server for Laravel
     author: "CupOfTea696"
     github: "https://github.com/CupOfTea696/TwoStream/"
