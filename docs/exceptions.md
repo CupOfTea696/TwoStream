@@ -42,4 +42,4 @@ public function render(Exception $e)
 }
 ```
 
-_**Note:** It is highly recommended that you don't call the parent render method, for it sends the entire error include its stack trace back to the client._
+_**Note:** It is highly recommended that you don't call the parent render method in production, for it sends the entire error include its stack trace back to the client._
