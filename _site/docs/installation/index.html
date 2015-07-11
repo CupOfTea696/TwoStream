@@ -4,8 +4,7 @@
             <span class="s2">"url"</span><span class="o">:</span> <span class="s2">"https://github.com/CupOfTea696/Ratchet"</span>
         <span class="p">}</span>
     <span class="p">],</span>
-</code></pre></div><p>You can install TwoStream by simply requiring the package with <a href="https://getcomposer.org/doc/00-intro.md">Composer</a> inside your projects root. To do so, run the following commands:</p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>composer require cupoftea/twostream ~0.3.0-beta
-<span class="nv">$ </span>composer update
+</code></pre></div><p>You can install TwoStream by simply requiring the package with <a href="https://getcomposer.org/doc/00-intro.md">Composer</a> inside your projects root. To do so, run the following commands:</p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>composer require cupoftea/twostream ~1.0
 </code></pre></div><h3 id="setting-up-twostream">Setting up TwoStream</h3><p>You will need to add the following service providers to your <code>config/app.php</code>:</p><div class="highlight"><pre><code class="language-php" data-lang="php">    <span class="s1">'providers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
 
         <span class="cm">/*</span>
@@ -34,7 +33,7 @@
         <span class="s1">'WsSession'</span> <span class="o">=&gt;</span> <span class="s1">'CupOfTea\TwoStream\Facades\WsSession'</span><span class="p">,</span>
 
     <span class="p">],</span>
-</code></pre></div><p>Lastly, you will need to run the <code>twostream:install</code> command to publish and configure the required files.</p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>php artisan twostream:install
+</code></pre></div><p>Lastly, you will need to run the <code>twostream:install</code> command to publish and configure the required files. You won't be able to access any TwoStream functionality before you run this command.</p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>php artisan twostream:install
 </code></pre></div><h2 id="push-requirements">Push Requirements</h2><p>In order to use TwoStream's Push functionality, you must have the ZeroMQ PHP extension installed.</p><h3 id="installing-zeromq">Installing ZeroMQ</h3><p>Go to the <a href="http://zeromq.org/intro:get-the-software">ZMQ website</a>, and copy the link to the latest stable release. Then on your server run the following commands:</p><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>wget http://download.zeromq.org/zeromq-4.1.1.tar.gz <span class="c"># Use the latest release!</span>
 <span class="nv">$ </span>tar -xvzf zeromq-4.1.1.tar.gz
 <span class="nv">$ </span><span class="nb">cd </span>zeromq-4.1.1
