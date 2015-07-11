@@ -13,7 +13,7 @@ Although it is possible to return views as a response, it is recommended not to 
 
 ## Targeted Responses
 
-TwoStream provides an easy way to send your responses to a list of specific Clients. You can either use one of the [Pre-defined Recipient Lists](http://twostream.cupoftea.io/docs/responses/#pre-defined-recipient-lists) or specify Clients by their Session ID. To specify the response recipients, simply return an associative array with the keys `recipient` and `data`, where where `recipient` is a Session ID or an array of Session IDs, and `data` is the response you want to send. The ability to send Responses to a Client by username will be added in the future.
+TwoStream provides an easy way to send your responses to a list of specific Clients. You can either use one of the [Pre-defined Recipient Lists](http://twostream.cupoftea.io/docs/responses/#pre-defined-recipient-lists) or specify Clients either by their User ID or Session ID. If you provide a User Model, TwoStream will autmatically extract the ID from the Model as well. To specify the response recipients, simply return an associative array with the keys `recipient` and `data`, where where `recipient` is a User ID, User Model, Session ID or an array of any of those, and `data` is the response you want to send. The ability to send Responses to a Client by username will be added in the future.
 
 ```php
 // Pre-defined recipient list
@@ -23,6 +23,11 @@ return [
 ];
 
 // Specific recipient
+return [
+    'data' => 'hello world',
+    'recipient' => Auth::user(),
+];
+
 return [
     'data' => 'hello world',
     'recipient' => $sessionID,
@@ -37,9 +42,11 @@ The following is a list of the Pre-defined Recipient Lists that you can use for 
  - `'except'`: The response will be sent to all subscribed Clients except the Client that made the request.
  - `'requestee'`: The response will be sent to the Client that made the request.
 
-_You can set a default recipient in your [Configuration](http://twostream.cupoftea.io/docs/configuration/#response-settings)._
+_**Note:** You can set a default recipient in your [Configuration](http://twostream.cupoftea.io/docs/configuration/#response-settings)._
 
 ## CALL Responses
+
+For CALL Responses there is no need to specify a recipient. It will always be sent to the requestee. As with the other responses, all return data will automatically be converted to JSON.
 
 TwoStream provides an easy way to send Error Responses on CALL Requests. Simply return an associative array with the key `error`. The value for this key can either be a string or object with the Error data, or an associative with the keys `domain` and `msg` to specify the Error Domain and Message respectively.
 

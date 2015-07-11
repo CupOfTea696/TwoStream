@@ -7,10 +7,10 @@ layout: default
 
 ## Publishing the Configuration
 
-To publish the TwoSTream configuration file in your Application, run the following command
+To publish the TwoStream configuration file in your Application, run the following command
 
 ```bash
-$ php artisan vendor:publish --provider="cupoftea/twostream" --tag="cfg"
+$ php artisan vendor:publish --provider="CupOfTea\TwoStream\TwoStreamServiceProvider" --tag="config"
 ```
 
 Once you have done that, you can find the TwoStream configuration inside `config/twostream.php`. This step is optional, and if you know which settings you want to change, you can just create the `config/twostream.php` file yourself and place those settings inside.
