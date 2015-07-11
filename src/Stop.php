@@ -31,9 +31,8 @@ class Stop extends Command
     protected $description = 'Stop the TwoStream server.';
     
     /**
-     * Create a new install command instance.
+     * Create a new stop command instance.
      *
-     * @param  string $namespace
      * @return void
      */
     public function __construct()

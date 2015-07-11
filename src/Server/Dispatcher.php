@@ -46,11 +46,17 @@ class Dispatcher implements DispatcherContract
     
     protected $out;
     
+    protected $topic;
+    
     protected $users = [];
     
     /**
      * Create a new Dispatcher instance.
      *
+     * @param $Session
+     * @param $Kernel
+     * @param \CupOfTea\TwoStream\Console\Output $output
+     * @param \Illuminate\Contracts\Encryption\Encrypter $Encrypter
      * @return void
      */
     public function __construct($Session, $Kernel, Output $output, Encrypter $Encrypter)
@@ -71,6 +77,8 @@ class Dispatcher implements DispatcherContract
      */
     public function onCall(Connection $connection, $id, $topic, array $params)
     {
+        $this->setTopic($topic, $id);
+        
         $request = $this->buildRequest(self::WAMP_VERB_CALL, $connection, $topic, [], $params);
         $response = $this->handle($connection, $request);
         
@@ -94,6 +102,8 @@ class Dispatcher implements DispatcherContract
      */
     public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible)
     {
+        $this->setTopic($topic);
+        
         $event = json_decode($event);
         $json = json_decode($event);
         if (json_last_error() == JSON_ERROR_NONE) {
@@ -111,6 +121,8 @@ class Dispatcher implements DispatcherContract
      */
     public function onSubscribe(Connection $connection, $topic)
     {
+        $this->setTopic($topic);
+        
         $request = $this->buildRequest(self::WAMP_VERB_SUBSCRIBE, $connection, $topic);
         $response = $this->handle($connection, $request);
         
@@ -122,6 +134,8 @@ class Dispatcher implements DispatcherContract
      */
     public function onUnSubscribe(Connection $connection, $topic)
     {
+        $this->setTopic($topic);
+        
         $request = $this->buildRequest(self::WAMP_VERB_UNSUBSCRIBE, $connection, $topic);
         $response = $this->handle($connection, $request);
         
@@ -158,6 +172,8 @@ class Dispatcher implements DispatcherContract
             return;
         }
         
+        $this->setTopic($topic);
+        
         if ($recipient == 'all') {
             $topic->broadcast($data);
         } else {
@@ -169,7 +185,7 @@ class Dispatcher implements DispatcherContract
                         }
                     }
                 } else {
-                    throw with(new InvalidRecipientException($recipient))->setTopic($topic);
+                    throw new InvalidRecipientException($recipient);
                 }
             }
         }
@@ -180,7 +196,7 @@ class Dispatcher implements DispatcherContract
      *
      * @param \Ratchet\ConnectionInterface $connection
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     protected function handle(Connection $connection, $request)
     {
@@ -193,7 +209,7 @@ class Dispatcher implements DispatcherContract
      * Send Response
      *
      * @param \Illuminate\Http\Response $response
-     * @param \Ratchet\ConnectionInterface $conntection
+     * @param \Ratchet\ConnectionInterface $connection
      * @param \Ratchet\Wamp\Topic $topic
      * @return void
      * @throws \CupOfTea\TwoStream\Exceptions\InvalidRecipientException
@@ -228,7 +244,7 @@ class Dispatcher implements DispatcherContract
                         }
                     }
                 } else {
-                    throw with(new InvalidRecipientException($recipient))->setTopic($topic);
+                    throw new InvalidRecipientException($recipient);
                 }
             }
         }
@@ -271,22 +287,28 @@ class Dispatcher implements DispatcherContract
      */
     public function onError(Connection $connection, Exception $e)
     {
-        $response = new Chain()
+        $response = with(new Chain())
             ->requires(Handler::class)
             ->on(app($this->getAppNamespace() . 'Exceptions\WsHandler'))
             ->call('report', 'render')
             ->with($e)
-            ->run();
+            ->getResult('render');
         
         if ($response !== null) {
-            $this->send($response, Connection $connection, $e->getTopic());
+            $topic = $this->topic['topic'];
+            
+            if ($call_id = array_get($this->topic, 'call_id')) {
+                $connection->callError($call_id, array_get($response, 'error.domain', $topic), array_get($response, 'error.msg', $response['error']));
+            } else {
+                $this->send($response, $connection, $topic);
+            }
         }
     }
     
     /**
      * Load the Session data and store it into a Read-Only Session
      *
-     * @param string $sessionId
+     * @param \Ratchet\ConnectionInterface $connection
      * @return void
      */
     protected function loadSession(Connection $connection)
@@ -309,8 +331,9 @@ class Dispatcher implements DispatcherContract
      *
      * @param string $verb
      * @param \Ratchet\ConnectionInterface $connection
-     * @param \Rathcet\Wamp\Topic $topic
+     * @param \Ratchet\Wamp\Topic $topic
      * @param array $data
+     * @param array|null $params
      * @return \Illuminate\Http\Request
      */
     protected function buildRequest($verb, Connection $connection, $topic, $data = [], $params = null)
@@ -350,7 +373,13 @@ class Dispatcher implements DispatcherContract
         return $cookie ? Crypt::decrypt($cookie) : null;
     }
     
-    protected function getUser($connection)
+    /**
+     * Get the current logged in user.
+     *
+     * @param \Ratchet\ConnectionInterface $connection
+     * @return mixed
+     */
+    protected function getUser(Connection $connection)
     {
         $recaller = $connection->WebSocket->request->getCookie('remember_' . md5(Guard::class));
         try {
@@ -365,6 +394,12 @@ class Dispatcher implements DispatcherContract
         return $model::find($id) !== null ? $id : false;
     }
     
+    /**
+     * Get the Session ID for a connected user.
+     *
+     * @param $user
+     * @return mixed
+     */
     protected function getUserSessionId($user)
     {
         $model = config('auth.model');
@@ -377,4 +412,14 @@ class Dispatcher implements DispatcherContract
         
         return false;
     }
+    
+    public function setTopic($topic, $call_id = null)
+    {
+        if ($call_id === null) {
+            $this->topic = ['topic' => $topic];
+        } else {
+            $this->topic = ['topic' => $topic, 'call_id' => $call_id];
+        }
+    }
+    
 }

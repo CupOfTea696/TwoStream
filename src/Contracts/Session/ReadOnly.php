@@ -4,51 +4,47 @@ interface ReadOnly
 {
     
     /**
-     * {@inheritdoc}
+     * Get the session ID.
+     *
+     * @return int
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    public function getId();
     
     /**
-     * {@inheritdoc}
+     * Get the session name.
+     *
+     * @return string
      */
-    public function getName()
-    {
-        return $this->name;
-    }
+    public function getName();
     
     /**
-     * {@inheritdoc}
+     * Determine if a session key has been set.
+     *
+     * @return bool
      */
-    public function has($name)
-    {
-        return ! is_null($this->get($name));
-    }
+    public function has($name);
     
     /**
-     * {@inheritdoc}
+     * Get a session value.
+     *
+     * @param $name
+     * @param null $default
+     * @return mixed
      */
-    public function get($name, $default = null)
-    {
-        return array_get($this->attributes, $name, $default);
-    }
+    public function get($name, $default = null);
     
     /**
-     * {@inheritdoc}
+     * Get all session values.
+     *
+     * @return array
      */
-    public function all()
-    {
-        return $this->attributes;
-    }
+    public function all();
     
     /**
-     * {@inheritdoc}
+     * Determine if the session has started.
+     *
+     * @return bool
      */
-    public function isStarted()
-    {
-        return true;
-    }
+    public function isStarted();
     
 }

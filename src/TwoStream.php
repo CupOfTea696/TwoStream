@@ -93,6 +93,11 @@ class TwoStream implements ProviderContract
         );
     }
     
+    /**
+     * Stop the TwoStream Server
+     *
+     * @return void
+     */
     public function stop()
     {
         $this->getSocket()->send(

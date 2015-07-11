@@ -4,6 +4,7 @@ use Storage;
 
 use CupOfTea\TwoStream\Routing\WsRouter;
 use CupOfTea\TwoStream\Session\ReadOnly;
+use CupOfTea\TwoStream\Contracts\Factory;
 use CupOfTea\TwoStream\Foundation\Support\Providers\WsRouteServiceProvider;
 
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
@@ -50,6 +51,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         
         $this->files = [
             'required' => [
+                __DIR__ . '/../app/Ws/routes.php' => app_path('Ws/routes.php'),
                 __DIR__ . '/../app/Ws/Kernel.stub' => app_path('Ws/Kernel.stub'),
                 __DIR__ . '/../app/Exceptions/WsHandler.stub' => app_path('Exceptions/WsHandler.stub'),
                 __DIR__ . '/../app/Ws/Controllers/Controller.stub' => app_path('Ws/Controllers/Controller.stub'),
@@ -121,13 +123,13 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
             __DIR__.'/../config/twostream.php', 'twostream'
         );
         
-        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Factory', function($app) {
+        $this->app->bindShared(Factory::class, function($app) {
             $config = array_dot($this->app['config']['twostream']);
             
             return new TwoStream($config);
         });
         
-        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Session\ReadOnly', function($app) {
+        $this->app->bindShared(ReadOnly::class, function($app) {
             return new ReadOnly($this->app['config']['session.cookie']);
         });
     }
@@ -140,8 +142,8 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
     public function provides()
     {
         return array_merge([
-            'CupOfTea\TwoStream\Contracts\Factory',
-            'CupOfTea\TwoStream\Contracts\Session\ReadOnly',
+            Factory::class,
+            ReadOnly::class,
         ], parent::provides());
     }
     
@@ -158,7 +160,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         ]);
         
         foreach ($this->files['required'] as $required) {
-            if (!$disk->exists(str_replace('.stub', '.php', $required))) {
+            if (!$disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required))) {
                 return false;
             }
         }

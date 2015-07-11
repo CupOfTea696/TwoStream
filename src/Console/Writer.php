@@ -3,6 +3,12 @@
 trait Writer
 {
     
+    /**
+     * Set the output's indentation level
+     *
+     * @param  int $level
+     * @return \CupOfTea\TwoStream\Console\Writer
+     */
     public function level($level)
     {
         $this->out->level($level);

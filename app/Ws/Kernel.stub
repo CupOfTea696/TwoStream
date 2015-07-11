@@ -4,6 +4,7 @@ use CupOfTea\TwoStream\Foundation\Ws\Kernel as WsKernel;
 
 class Kernel extends WsKernel
 {
+
     /**
      * The application's global Ws middleware stack.
      *

@@ -2,7 +2,7 @@
 
 use Exception;
 
-class InvalidRecipientException extends BaseException
+class InvalidRecipientException extends Exception
 {
     
     /**

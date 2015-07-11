@@ -12,19 +12,23 @@ use Illuminate\Session\SessionInterface;
 use Illuminate\Session\CookieSessionHandler;
 use Illuminate\Contracts\Routing\TerminableMiddleware;
 
-class StartSession implements TerminableMiddleware {
+class StartSession implements TerminableMiddleware
+{
+    
 	/**
 	 * The session manager.
 	 *
 	 * @var \Illuminate\Session\SessionManager
 	 */
 	protected $manager;
+    
 	/**
 	 * Indicates if the session was handled for the current request.
 	 *
 	 * @var bool
 	 */
 	protected $sessionHandled = false;
+    
 	/**
 	 * Create a new session middleware.
 	 *
@@ -35,6 +39,7 @@ class StartSession implements TerminableMiddleware {
 	{
 		$this->manager = $manager;
 	}
+    
 	/**
 	 * Handle an incoming request.
 	 *
@@ -64,6 +69,7 @@ class StartSession implements TerminableMiddleware {
 		}
 		return $response;
 	}
+    
 	/**
 	 * Perform any final actions for the request lifecycle.
 	 *
@@ -78,6 +84,7 @@ class StartSession implements TerminableMiddleware {
 			$this->manager->driver()->save();
 		}
 	}
+    
 	/**
 	 * Start the session for the given request.
 	 *
@@ -90,6 +97,7 @@ class StartSession implements TerminableMiddleware {
 		$session->start();
 		return $session;
 	}
+    
 	/**
 	 * Get the session implementation from the manager.
 	 *
@@ -102,6 +110,7 @@ class StartSession implements TerminableMiddleware {
 		$session->setId($request->cookies->get($session->getName()));
 		return $session;
 	}
+    
 	/**
 	 * Store the current URL for the request if necessary.
 	 *
@@ -116,6 +125,7 @@ class StartSession implements TerminableMiddleware {
 			$session->setPreviousUrl($request->fullUrl());
 		}
 	}
+    
 	/**
 	 * Remove the garbage from the session if necessary.
 	 *
@@ -133,6 +143,7 @@ class StartSession implements TerminableMiddleware {
 			$session->getHandler()->gc($this->getSessionLifetimeInSeconds());
 		}
 	}
+    
 	/**
 	 * Determine if the configuration odds hit the lottery.
 	 *
@@ -143,6 +154,7 @@ class StartSession implements TerminableMiddleware {
 	{
 		return mt_rand(1, $config['lottery'][1]) <= $config['lottery'][0];
 	}
+    
 	/**
 	 * Add the session cookie to the application response.
 	 *
@@ -154,6 +166,7 @@ class StartSession implements TerminableMiddleware {
 	{
 		return;
 	}
+    
 	/**
 	 * Get the session lifetime in seconds.
 	 *
@@ -163,6 +176,7 @@ class StartSession implements TerminableMiddleware {
 	{
 		return array_get($this->manager->getSessionConfig(), 'lifetime') * 60;
 	}
+    
 	/**
 	 * Get the cookie lifetime in seconds.
 	 *
@@ -173,6 +187,7 @@ class StartSession implements TerminableMiddleware {
 		$config = $this->manager->getSessionConfig();
 		return $config['expire_on_close'] ? 0 : Carbon::now()->addMinutes($config['lifetime']);
 	}
+    
 	/**
 	 * Determine if a session driver has been configured.
 	 *
@@ -182,6 +197,7 @@ class StartSession implements TerminableMiddleware {
 	{
 		return ! is_null(array_get($this->manager->getSessionConfig(), 'driver'));
 	}
+    
 	/**
 	 * Determine if the configured session driver is persistent.
 	 *
@@ -193,6 +209,7 @@ class StartSession implements TerminableMiddleware {
 		$config = $config ?: $this->manager->getSessionConfig();
 		return ! in_array($config['driver'], array(null, 'array'));
 	}
+    
 	/**
 	 * Determine if the session is using cookie sessions.
 	 *
@@ -203,4 +220,5 @@ class StartSession implements TerminableMiddleware {
 		if ( ! $this->sessionConfigured()) return false;
 		return $this->manager->driver()->getHandler() instanceof CookieSessionHandler;
 	}
+    
 }

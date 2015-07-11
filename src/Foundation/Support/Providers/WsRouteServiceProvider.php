@@ -2,6 +2,10 @@
 
 use CupOfTea\Package\ServiceProvider;
 use CupOfTea\TwoStream\Routing\WsRouter;
+use CupOfTea\TwoStream\Contracts\Routing\Registrar;
+
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 class WsRouteServiceProvider extends ServiceProvider
 {
@@ -16,7 +20,7 @@ class WsRouteServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param  \CupOfTea\TwoStream\Routing\WsRouter  $router
      * @return void
      */
     public function boot(WsRouter $router)
@@ -37,7 +41,7 @@ class WsRouteServiceProvider extends ServiceProvider
     protected function setRootControllerNamespace()
     {
         if (is_null($this->namespace)) return;
-        $this->app['Illuminate\Contracts\Routing\UrlGenerator']
+        $this->app[UrlGenerator::class]
                         ->setRootControllerNamespace($this->namespace);
     }
     
@@ -71,7 +75,7 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     protected function loadRoutesFrom($path)
     {
-        $router = $this->app['CupOfTea\TwoStream\Routing\WsRouter'];
+        $router = $this->app[WsRouter::class];
         if (is_null($this->namespace)) return require $path;
         $router->group(['namespace' => $this->namespace], function($router) use ($path)
         {
@@ -86,14 +90,14 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bindShared('CupOfTea\TwoStream\Routing\WsRouter', function($app)
+        $this->app->bindShared(WsRouter::class, function($app)
         {
-            return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
+            return new WsRouter($app->make(Dispatcher::class), $app);
         });
         
-        $this->app->bindShared('CupOfTea\TwoStream\Contracts\Routing\Registrar', function($app)
+        $this->app->bindShared(Registrar::class, function($app)
         {
-            return new WsRouter($app->make('Illuminate\Contracts\Events\Dispatcher'), $app);
+            return new WsRouter($app->make(Dispatcher::class), $app);
         });
     }
     
@@ -105,8 +109,8 @@ class WsRouteServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'CupOfTea\TwoStream\Routing\WsRouter',
-            'CupOfTea\TwoStream\Contracts\Routing\Registrar',
+            WsRouter::class,
+            Registrar::class,
         ];
     }
     
@@ -119,7 +123,7 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->app['CupOfTea\TwoStream\Routing\WsRouter'], $method], $parameters);
+        return call_user_func_array([$this->app[WsRouter::class], $method], $parameters);
     }
     
 }

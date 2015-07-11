@@ -11,7 +11,6 @@ use Illuminate\Routing\RouteCollection;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Events\Dispatcher;
 
-use CupOfTea\TwoStream\Routing\Route;
 use CupOfTea\TwoStream\Contracts\Routing\Registrar as RegistrarContract;
 
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
@@ -21,8 +20,6 @@ class WsRouter implements RegistrarContract
 {
     
     use Macroable;
-    
-    protected $error = false;
     
     /**
      * The event dispatcher instance.
@@ -41,14 +38,14 @@ class WsRouter implements RegistrarContract
     /**
      * The route collection instance.
      *
-     * @var \Illuminate\Routing\RouteCollection
+     * @var \CupOfTea\TwoStream\Routing\RouteCollection
      */
     protected $routes;
     
     /**
      * The currently dispatched route instance.
      *
-     * @var \Illuminate\Routing\Route
+     * @var \CupOfTea\TwoStream\Routing\Route
      */
     protected $current;
     
@@ -127,7 +124,7 @@ class WsRouter implements RegistrarContract
      *
      * @param  string  $uri
      * @param  \Closure|array|string  $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     public function call($uri, $action)
     {
@@ -139,7 +136,7 @@ class WsRouter implements RegistrarContract
      *
      * @param  string  $uri
      * @param  \Closure|array|string  $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     public function publish($uri, $action)
     {
@@ -151,7 +148,7 @@ class WsRouter implements RegistrarContract
      *
      * @param  string  $uri
      * @param  \Closure|array|string  $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     public function subscribe($uri, $action)
     {
@@ -163,7 +160,7 @@ class WsRouter implements RegistrarContract
      *
      * @param  string  $uri
      * @param  \Closure|array|string  $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     public function unsubscribe($uri, $action)
     {
@@ -175,7 +172,7 @@ class WsRouter implements RegistrarContract
      *
      * @param  string  $uri
      * @param  \Closure|array|string  $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     public function any($uri, $action)
     {
@@ -190,7 +187,7 @@ class WsRouter implements RegistrarContract
      * @param  array|string  $methods
      * @param  string  $uri
      * @param  \Closure|array|string  $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     public function match($methods, $uri, $action)
     {
@@ -386,7 +383,7 @@ class WsRouter implements RegistrarContract
      * @param  array|string  $methods
      * @param  string  $uri
      * @param  \Closure|array|string  $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     protected function addRoute($methods, $uri, $action)
     {
@@ -399,7 +396,7 @@ class WsRouter implements RegistrarContract
      * @param  array|string  $methods
      * @param  string  $uri
      * @param  mixed   $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     protected function createRoute($methods, $uri, $action)
     {
@@ -429,7 +426,7 @@ class WsRouter implements RegistrarContract
      * @param  array|string  $methods
      * @param  string  $uri
      * @param  mixed   $action
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     protected function newRoute($methods, $uri, $action)
     {
@@ -450,8 +447,8 @@ class WsRouter implements RegistrarContract
     /**
      * Add the necessary where clauses to the route based on its initial registration.
      *
-     * @param  \Illuminate\Routing\Route  $route
-     * @return \Illuminate\Routing\Route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     protected function addWhereClausesToRoute($route)
     {
@@ -464,7 +461,7 @@ class WsRouter implements RegistrarContract
     /**
      * Merge the group stack with the controller action.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @return void
      */
     protected function mergeGroupAttributesIntoRoute($route)
@@ -586,7 +583,7 @@ class WsRouter implements RegistrarContract
     /**
      * Run the given route within a Stack "onion" instance.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
@@ -608,7 +605,7 @@ class WsRouter implements RegistrarContract
     /**
      * Gather the middleware for the given route.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @return array
      */
     public function gatherRouteMiddlewares(Route $route)
@@ -623,7 +620,7 @@ class WsRouter implements RegistrarContract
      * Find the route matching a given request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     protected function findRoute($request)
     {
@@ -635,8 +632,8 @@ class WsRouter implements RegistrarContract
     /**
      * Substitute the route bindings onto the route.
      *
-     * @param  \Illuminate\Routing\Route  $route
-     * @return \Illuminate\Routing\Route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     protected function substituteBindings($route)
     {
@@ -653,7 +650,7 @@ class WsRouter implements RegistrarContract
      *
      * @param  string  $key
      * @param  string  $value
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @return mixed
      */
     protected function performBinding($key, $value, $route)
@@ -893,7 +890,7 @@ class WsRouter implements RegistrarContract
     /**
      * Call the given route's before filters.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
@@ -906,7 +903,7 @@ class WsRouter implements RegistrarContract
     /**
      * Call the pattern based filters for the request.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @param  \Illuminate\Http\Request  $request
      * @return mixed|null
      */
@@ -987,7 +984,7 @@ class WsRouter implements RegistrarContract
     /**
      * Call the given route's before (non-pattern) filters.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
@@ -1002,7 +999,7 @@ class WsRouter implements RegistrarContract
     /**
      * Call the given route's after filters.
      *
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Response  $response
      * @return mixed
@@ -1019,7 +1016,7 @@ class WsRouter implements RegistrarContract
      *
      * @param  string  $filter
      * @param  array  $parameters
-     * @param  \Illuminate\Routing\Route  $route
+     * @param  \CupOfTea\TwoStream\Routing\Route  $route
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Response|null $response
      * @return mixed
@@ -1090,7 +1087,7 @@ class WsRouter implements RegistrarContract
     /**
      * Get the currently dispatched route instance.
      *
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     public function getCurrentRoute()
     {
@@ -1100,7 +1097,7 @@ class WsRouter implements RegistrarContract
     /**
      * Get the currently dispatched route instance.
      *
-     * @return \Illuminate\Routing\Route
+     * @return \CupOfTea\TwoStream\Routing\Route
      */
     public function current()
     {
@@ -1207,7 +1204,7 @@ class WsRouter implements RegistrarContract
     /**
      * Get the underlying route collection.
      *
-     * @return \Illuminate\Routing\RouteCollection
+     * @return \CupOfTea\TwoStream\Routing\RouteCollection
      */
     public function getRoutes()
     {

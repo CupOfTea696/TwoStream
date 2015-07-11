@@ -69,7 +69,8 @@ class Kernel implements KernelContract
      * Handle an incoming HTTP request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return mixed
+     * @throws \Exception
      */
     public function handle($request)
     {
@@ -96,6 +97,9 @@ class Kernel implements KernelContract
         return $response;
     }
     
+    /**
+     * Load the Auth Manager for the Request
+     */
     protected function loadAuthManager()
     {
         Auth::swap(with(new AuthManager($this->app)));
@@ -105,7 +109,7 @@ class Kernel implements KernelContract
      * Send the given request through the middleware / router.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     protected function sendRequestThroughRouter($request)
     {
@@ -122,7 +126,7 @@ class Kernel implements KernelContract
      * Call the terminate method on any terminable middleware.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Response  $response
+     * @param  mixed  $response
      * @return void
      */
     public function terminate($request, $response)

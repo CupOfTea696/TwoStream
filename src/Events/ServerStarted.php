@@ -3,6 +3,11 @@
 class ServerStarted
 {
     
+    /**
+     * Port on which the WebSocket Server is listening.
+     *
+     * @var int
+     */
     public $port;
     
     /**

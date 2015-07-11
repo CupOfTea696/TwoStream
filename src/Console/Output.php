@@ -31,10 +31,10 @@ class Output extends ConsoleOutput
     /**
      * Set the output's indentation level
      *
-     * @var int
-     * @default 0
+     * @param  int $level
+     * @return \CupOfTea\TwoStream\Console\Output
      */
-    public function level($level = null)
+    public function level($level)
     {
         if ($level === null) {
             return $this;

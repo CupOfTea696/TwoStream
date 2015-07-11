@@ -20,6 +20,7 @@ class Route extends LaravelRoute
      *
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
+     * @throws \CupOfTea\TwoStream\Exceptions\SyntaxErrorException
      */
     public function run(Request $request)
     {
@@ -55,14 +56,20 @@ class Route extends LaravelRoute
         }
     }
     
+    /**
+     * Throw recoverable errors as a CatchableFatalErrorException
+     *
+     * @param  int  $errno
+     * @param  string  $errstr
+     * @return void
+     * @throws \CupOfTea\TwoStream\Exceptions\CatchableFatalErrorException
+     */
     public function error($errno, $errstr)
     {
         if ($errno === E_RECOVERABLE_ERROR) {
-            $name = $this->current->getName();
-            $route = $name ? $name : $this->current->getActionName();
+            $name = $this->getName();
+            $route = $name ? $name : $this->getActionName();
             throw new CatchableFatalErrorException($route, $errstr);
-            
-            return true;
         }
     }
     

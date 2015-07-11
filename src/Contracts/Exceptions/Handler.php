@@ -2,6 +2,10 @@
 
 use Exception;
 
+use Psr\Log\LoggerInterface;
+
+use CupOfTea\TwoStream\Console\Output;
+
 interface Handler
 {
     
@@ -9,6 +13,7 @@ interface Handler
      * Create a new exception handler instance.
      *
      * @param  \Psr\Log\LoggerInterface  $log
+     * @param  \CupOfTea\TwoStream\Console\Output  $ouput
      * @return void
      */
     public function __construct(LoggerInterface $log, Output $output);

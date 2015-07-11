@@ -2,7 +2,7 @@
 
 use Exception;
 
-class CatchableFatalErrorException extends BaseException
+class CatchableFatalErrorException extends Exception
 {
     
     /**

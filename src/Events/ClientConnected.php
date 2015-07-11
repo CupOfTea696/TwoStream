@@ -3,6 +3,11 @@
 class ClientConnected
 {
     
+    /**
+     * Session ID of the Client.
+     *
+     * @var string
+     */
     public $client;
     
     /**

@@ -2,7 +2,7 @@
 
 use Exception;
 
-class SyntaxErrorException extends BaseException
+class SyntaxErrorException extends Exception
 {
     
     /**

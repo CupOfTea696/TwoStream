@@ -4,6 +4,7 @@ use Exception;
 
 use Psr\Log\LoggerInterface;
 
+use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Writer;
 use CupOfTea\TwoStream\Contracts\Exceptions\Handler as HandlerContract;
 
@@ -19,6 +20,11 @@ class Handler implements HandlerContract
      */
     protected $log;
     
+    /**
+     * Console output for the Application.
+     *
+     * @var \CupOfTea\TwoStream\Console\Output
+     */
     protected $out;
     
     /**
@@ -56,12 +62,11 @@ class Handler implements HandlerContract
         $lines = explode(PHP_EOL, $message);
         $first_line = array_shift($lines);
         
-        $this->error("Error: {$first_line}");
+        $this->error("Error: {$first_line}", 2);
         $this->level(3);
         foreach ($lines as $line) {
             $this->comment($line);
         }
-        $this->level(2);
         
         return [
             'error' => [
@@ -70,6 +75,34 @@ class Handler implements HandlerContract
                 'full_error' => $e
             ]
         ];
+    }
+    
+    /**
+     * Determine if the exception should be reported.
+     *
+     * @param  \Exception  $e
+     * @return bool
+     */
+    public function shouldReport(Exception $e)
+    {
+        return !$this->shouldntReport($e);
+    }
+    
+    /**
+     * Determine if the exception is in the "do not report" list.
+     *
+     * @param  \Exception  $e
+     * @return bool
+     */
+    protected function shouldntReport(Exception $e)
+    {
+        foreach ($this->dontReport as $type) {
+            if ($e instanceof $type) {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
 }

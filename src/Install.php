@@ -100,7 +100,7 @@ class Install extends Command
         
         $this->info('Cleaning up...', 1);
         $this->level(0);
-        $files = $disk->allFiles('Ws');
+        $files = array_merge($disk->allFiles('Ws'), $disk->allFiles('Exceptions'));
         foreach ($files as $key => $file) {
             if (preg_match('/\\.stub$/', $file)) {
                 $disk->delete($file);

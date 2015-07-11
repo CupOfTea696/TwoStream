@@ -1,6 +1,8 @@
 <?php namespace CupOfTea\TwoStream\Session;
 
-class ReadOnly
+use CupOfTea\TwoStream\Contracts\Session\ReadOnly as ReadOnlyContract;
+
+class ReadOnly implements ReadOnlyContract
 {
     
     /**
@@ -20,7 +22,7 @@ class ReadOnly
     /**
      * Create a new session instance.
      *
-     * @param  string $nam
+     * @param  string $name
      * @param  string|null $id
      * @return void
      */
@@ -95,7 +97,7 @@ class ReadOnly
     /**
      * Determine if the session contains old input.
      *
-     * @param  string  $key
+     * @param  string|null  $key
      * @return bool
      */
     public function hasOldInput($key = null)
@@ -108,7 +110,7 @@ class ReadOnly
     /**
      * Get the requested item from the flashed input array.
      *
-     * @param  string  $key
+     * @param  string|null  $key
      * @param  mixed   $default
      * @return mixed
      */

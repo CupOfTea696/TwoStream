@@ -59,20 +59,60 @@ class Server extends Command
      */
     protected $description = 'Let the WebSocket server listen on specified port for incomming connections';
     
+    /**
+     * The Application instance.
+     *
+     * @var \Illuminate\Foundation\Application
+     */
     protected $app;
     
+    /**
+     * The Application Output.
+     *
+     * @var \CupOfTea\TwoStream\Console\Output
+     */
     protected $out;
     
+    /**
+     * The Application Kernel
+     *
+     * @var \CupOfTea\TwoStream\Contracts\Ws\Kernel
+     */
     protected $Kernel;
     
+    /**
+     * The WebSocket server Dispatcher
+     *
+     * @var \CupOfTea\TwoStream\Server\Dispatcher
+     */
     protected $Dispatcher;
     
+    /**
+     * The loop
+     *
+     * @var \React\EventLoop\LibEventLoop
+     */
     protected $loop;
     
+    /**
+     * The WebSocket server.
+     *
+     * @var \React\Socket\Server
+     */
     protected $Ws;
     
+    /**
+     * The IO Server
+     *
+     * @var \Ratchet\Server\IoServer
+     */
     protected $server;
     
+    /**
+     * ZMQ Pull Socket.
+     *
+     * @var \ZMQSocket
+     */
     protected $pull;
     
     /**
@@ -84,9 +124,6 @@ class Server extends Command
     public function __construct($app)
     {
         parent::__construct();
-        
-        // TODO: Remove after beta
-        ini_set('xdebug.var_display_max_depth', 9);
         
         $this->app = $app;
         $this->out = new Output();
@@ -140,6 +177,7 @@ class Server extends Command
         if ($this->option('flash')) {
             $this->allowFlash();
         }
+        
         return $this->loop;
     }
     
@@ -274,9 +312,9 @@ class Server extends Command
     protected function getOptions()
     {
         return [
-            ['port', 'g', InputOption::VALUE_OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
-            ['push', 'p', InputOption::VALUE_OPTIONAL, 'Enable push messages from the server to the client', config('twostream.push.enabled')],
-            ['push-port', 'P', InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.push.port')],
+            ['port', 'p', InputOption::VALUE_OPTIONAL, 'Port the WebSocket server should listen on', config('twostream.websocket.port')],
+            ['push', 'z', InputOption::VALUE_OPTIONAL, 'Enable push messages from the server to the client', config('twostream.push.enabled')],
+            ['push-port', 'Z', InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.push.port')],
             ['flash', 'f', InputOption::VALUE_OPTIONAL, 'Allow legacy browsers to connect with the websocket polyfill', config('twostream.flash.allowed')],
             ['flash-port', 'F', InputOption::VALUE_OPTIONAL, 'Port the push server should listen on', config('twostream.flash.port')],
         ];
