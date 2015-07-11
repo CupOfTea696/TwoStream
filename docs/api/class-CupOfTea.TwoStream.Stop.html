@@ -68,6 +68,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-CupOfTea.TwoStream.Contracts.Exceptions.html">
+							Exceptions						</a>
+							</li>
+					<li>
 						<a href="namespace-CupOfTea.TwoStream.Contracts.Routing.html">
 							Routing						</a>
 							</li>
@@ -95,8 +99,8 @@
 							Events						</a>
 							</li>
 					<li>
-						<a href="namespace-CupOfTea.TwoStream.Exception.html">
-							Exception						</a>
+						<a href="namespace-CupOfTea.TwoStream.Exceptions.html">
+							Exceptions						</a>
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Facades.html">
@@ -182,6 +186,8 @@ Illuminate\Console\Command
 			<a href="class-CupOfTea.TwoStream.Console.Command.html"><span>CupOfTea\TwoStream\Console\Command</span></a>
 			
 			
+			 uses 
+					<a href="class-CupOfTea.TwoStream.Console.Writer.html"><span>CupOfTea\TwoStream\Console\Writer</span></a>
 			
 		</dd>
 		<dd style="padding-left:60px">
@@ -205,7 +211,7 @@ Illuminate\Console\Command
 		<b>Namespace:</b> <a href="namespace-CupOfTea.html">CupOfTea</a>\<a href="namespace-CupOfTea.TwoStream.html">TwoStream</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Stop.html#9-60" title="Go to source code">Stop.php</a>
+			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Stop.html#9-59" title="Go to source code">Stop.php</a>
 		<br>
 	</div>
 
@@ -225,21 +231,16 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Stop.html#33-44" title="Go to source code">__construct</a>( <span>string <var>$namespace</var>,…</span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Stop.html#33-43" title="Go to source code">__construct</a>( )</code>
 
 			<div class="description short">
-				<p>Create a new install command instance.</p>
+				<p>Create a new stop command instance.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Create a new install command instance.</p>
+				<p>Create a new stop command instance.</p>
 
 
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$namespace</var>,…</dt>
-						<dd></dd>
-					</dl></div>
 
 
 
@@ -259,7 +260,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_fire">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Stop.html#46-58" title="Go to source code">fire</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Stop.html#45-57" title="Go to source code">fire</a>( )</code>
 
 			<div class="description short">
 				<p>Fire the command</p>
@@ -283,15 +284,21 @@ Illuminate\Console\Command
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-CupOfTea.TwoStream.Console.Command.html#methods">CupOfTea\TwoStream\Console\Command</a></h3></div>
 			<p class="elementList">
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_call">call()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_comment">comment()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_error">error()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_info">info()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_line">line()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_question">question()</a></code>
+				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_call">call()</a></code>
 			</p>
 		</div>
 
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-CupOfTea.TwoStream.Console.Writer.html#methods">CupOfTea\TwoStream\Console\Writer</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_comment">comment()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_error">error()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_info">info()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_level">level()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_line">line()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_question">question()</a></code>
+			</p>
+		</div>
 
 
 
