@@ -68,6 +68,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-CupOfTea.TwoStream.Contracts.Exceptions.html">
+							Exceptions						</a>
+							</li>
+					<li>
 						<a href="namespace-CupOfTea.TwoStream.Contracts.Routing.html">
 							Routing						</a>
 							</li>
@@ -81,8 +85,22 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-CupOfTea.TwoStream.Exception.html">
-							Exception						</a>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.html">
+							Cookie<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.Middleware.html">
+							Middleware						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Events.html">
+							Events						</a>
+							</li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Exceptions.html">
+							Exceptions						</a>
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Facades.html">
@@ -118,9 +136,14 @@
 							</li>
 					<li class="active">
 						<a href="namespace-CupOfTea.TwoStream.Session.html">
-							Session						</a>
+							Session<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Session.Middleware.html">
+							Middleware						</a>
 							</li>
-								</ul></li></ul></li>
+								</ul></li></ul></li></ul></li>
 			</ul>
 		</div>
 
@@ -148,6 +171,15 @@
 
 
 
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+<b><span>CupOfTea\TwoStream\Session\ReadOnly</span></b>			
+			 implements 
+				<a href="class-CupOfTea.TwoStream.Contracts.Session.ReadOnly.html"><span>CupOfTea\TwoStream\Contracts\Session\ReadOnly</span></a>
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -162,7 +194,7 @@
 		<b>Namespace:</b> <a href="namespace-CupOfTea.html">CupOfTea</a>\<a href="namespace-CupOfTea.TwoStream.html">TwoStream</a>\<a href="namespace-CupOfTea.TwoStream.Session.html">Session</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#3-171" title="Go to source code">Session/ReadOnly.php</a>
+			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#5-173" title="Go to source code">Session/ReadOnly.php</a>
 		<br>
 	</div>
 
@@ -182,7 +214,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#20-31" title="Go to source code">__construct</a>( <span>string <var>$name</var></span>, <span>string|null <var>$id</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#22-33" title="Go to source code">__construct</a>( <span>string <var>$name</var></span>, <span>string|null <var>$id</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Create a new session instance.</p>
@@ -195,7 +227,7 @@
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$name</var></dt>
-						<dd>$nam</dd>
+						<dd></dd>
 						<dt><var>$id</var></dt>
 						<dd></dd>
 					</dl></div>
@@ -218,7 +250,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_initialize">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#33-50" title="Go to source code">initialize</a>( <span>array <var>$attributes</var></span>, <span>string|null <var>$id</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#35-52" title="Go to source code">initialize</a>( <span>array <var>$attributes</var></span>, <span>string|null <var>$id</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Store the Session data in the ReadOnly Session and lock it</p>
@@ -247,28 +279,34 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				integer
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getId">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#52-58" title="Go to source code">getId</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#54-60" title="Go to source code">getId</a>( )</code>
 
 			<div class="description short">
-				
+				<p>Get the session ID.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Get the session ID.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						integer
+					</div>
 
 
 
 
-
-
-
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-CupOfTea.TwoStream.Contracts.Session.ReadOnly.html#_getId">CupOfTea\TwoStream\Contracts\Session\ReadOnly::getId()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -283,7 +321,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isValidId">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#60-69" title="Go to source code">isValidId</a>( <span>string <var>$id</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#62-71" title="Go to source code">isValidId</a>( <span>string <var>$id</var></span> )</code>
 
 			<div class="description short">
 				<p>Determine if this is a valid session ID.</p>
@@ -314,28 +352,34 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getName">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#71-77" title="Go to source code">getName</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#73-79" title="Go to source code">getName</a>( )</code>
 
 			<div class="description short">
-				
+				<p>Get the session name.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Get the session name.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						string
+					</div>
 
 
 
 
-
-
-
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-CupOfTea.TwoStream.Contracts.Session.ReadOnly.html#_getName">CupOfTea\TwoStream\Contracts\Session\ReadOnly::getName()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -343,28 +387,34 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				boolean
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_has">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#79-85" title="Go to source code">has</a>( <span> <var>$name</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#81-87" title="Go to source code">has</a>( <span> <var>$name</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Determine if a session key has been set.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Determine if a session key has been set.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
 
 
 
 
-
-
-
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-CupOfTea.TwoStream.Contracts.Session.ReadOnly.html#_has">CupOfTea\TwoStream\Contracts\Session\ReadOnly::has()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -372,28 +422,41 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				mixed
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_get">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#87-93" title="Go to source code">get</a>( <span> <var>$name</var></span>, <span> <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#89-95" title="Go to source code">get</a>( <span> <var>$name</var></span>, <span>null <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
-				
+				<p>Get a session value.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Get a session value.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$name</var></dt>
+						<dd></dd>
+						<dt><var>$default</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						mixed
+					</div>
 
 
 
 
-
-
-
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-CupOfTea.TwoStream.Contracts.Session.ReadOnly.html#_get">CupOfTea\TwoStream\Contracts\Session\ReadOnly::get()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -408,7 +471,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasOldInput">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#95-106" title="Go to source code">hasOldInput</a>( <span>string <var>$key</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#97-108" title="Go to source code">hasOldInput</a>( <span>string|null <var>$key</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Determine if the session contains old input.</p>
@@ -446,7 +509,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getOldInput">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#108-123" title="Go to source code">getOldInput</a>( <span>string <var>$key</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#110-125" title="Go to source code">getOldInput</a>( <span>string|null <var>$key</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$default</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>Get the requested item from the flashed input array.</p>
@@ -479,28 +542,34 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				array
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_all">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#125-131" title="Go to source code">all</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#127-133" title="Go to source code">all</a>( )</code>
 
 			<div class="description short">
-				
+				<p>Get all session values.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Get all session values.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						array
+					</div>
 
 
 
 
-
-
-
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-CupOfTea.TwoStream.Contracts.Session.ReadOnly.html#_all">CupOfTea\TwoStream\Contracts\Session\ReadOnly::all()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -508,28 +577,34 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				boolean
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isStarted">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#133-139" title="Go to source code">isStarted</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#135-141" title="Go to source code">isStarted</a>( )</code>
 
 			<div class="description short">
-				
+				<p>Determine if the session has started.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Determine if the session has started.</p>
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						boolean
+					</div>
 
 
 
 
-
-
-
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-CupOfTea.TwoStream.Contracts.Session.ReadOnly.html#_isStarted">CupOfTea\TwoStream\Contracts\Session\ReadOnly::isStarted()</a></code></div>
 			</div>
 			</div></td>
 		</tr>
@@ -544,7 +619,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_token">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#141-149" title="Go to source code">token</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#143-151" title="Go to source code">token</a>( )</code>
 
 			<div class="description short">
 				<p>Get the CSRF token value.</p>
@@ -577,7 +652,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getToken">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#151-159" title="Go to source code">getToken</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#153-161" title="Go to source code">getToken</a>( )</code>
 
 			<div class="description short">
 				<p>Get the CSRF token value.</p>
@@ -610,7 +685,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_previousUrl">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#161-169" title="Go to source code">previousUrl</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#163-171" title="Go to source code">previousUrl</a>( )</code>
 
 			<div class="description short">
 				<p>Get the previous URL from the session.</p>
@@ -655,7 +730,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#6-11" title="Go to source code"><var>$attributes</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#8-13" title="Go to source code"><var>$attributes</var></a>
 
 				<div class="description short">
 					<p>The session attributes.</p>
@@ -680,7 +755,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#13-18" title="Go to source code"><var>$started</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Session.ReadOnly.html#15-20" title="Go to source code"><var>$started</var></a>
 
 				<div class="description short">
 					<p>Session store started status.</p>
