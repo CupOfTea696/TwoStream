@@ -1,9 +1,8 @@
 # Site settings
 
 project:
-    name: "TwoStream <sup>{{ Beta }}</sup>"
-    alt_name: "TwoStream"
-    tagline: Two-way communication between Laravel and the Client
+    name: "TwoStream"
+    tagline: The WebSocket server for Laravel
     author: "CupOfTea696"
     github: "https://github.com/CupOfTea696/TwoStream/"
     package: "cupoftea/twostream"
@@ -40,7 +39,7 @@ navigation:
         type: category
       - name: Error Handling
         type: page
-        url: "events"
+        url: "exceptions"
       - name: Events
         type: page
         url: "events"
