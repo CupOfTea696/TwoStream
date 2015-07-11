@@ -14,7 +14,8 @@ namespace App\Ws\Controllers;
 
 use App\Ws\Controllers\Controller;
 
-class ChatController extends Controller {
+class ChatController extends Controller
+{
     
     /**
      * Connect the user to given chatroom
@@ -37,10 +38,6 @@ WsRoute::subscribe('chat/room/{id}', 'ChatController@roomConnect');
 ```
 
 _**Note:** All controllers should extend the base `Ws\Controller` class, not Laravel's base Controller class!_
-
-## Controller Middleware
-
-Not yet implemented. Will come in last beta release.
 
 ## Special Controllers
 

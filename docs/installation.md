@@ -23,8 +23,7 @@ Before you start, you will have to add the repository below to your composer.jso
 You can install TwoStream by simply requiring the package with [Composer][composer] inside your projects root. To do so, run the following commands:
 
 ```bash
-$ composer require cupoftea/twostream ~0.3.0-beta
-$ composer update
+$ composer require cupoftea/twostream ~1.0
 ```
 
 ### Setting up TwoStream
@@ -66,7 +65,7 @@ Though this step is optional, I do recommend adding the following Facade's in yo
 	],
 ```
 
-Lastly, you will need to run the `twostream:install` command to publish and configure the required files.
+Lastly, you will need to run the `twostream:install` command to publish and configure the required files. You won't be able to access any TwoStream functionality before you run this command.
 
 ```bash
 $ php artisan twostream:install
