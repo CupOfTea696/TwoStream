@@ -38,6 +38,9 @@ navigation:
         url: "responses"
       - name: Services
         type: category
+      - name: Error Handling
+        type: page
+        url: "events"
       - name: Events
         type: page
         url: "events"
