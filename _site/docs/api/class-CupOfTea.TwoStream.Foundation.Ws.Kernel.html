@@ -68,6 +68,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-CupOfTea.TwoStream.Contracts.Exceptions.html">
+							Exceptions						</a>
+							</li>
+					<li>
 						<a href="namespace-CupOfTea.TwoStream.Contracts.Routing.html">
 							Routing						</a>
 							</li>
@@ -81,8 +85,22 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-CupOfTea.TwoStream.Exception.html">
-							Exception						</a>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.html">
+							Cookie<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.Middleware.html">
+							Middleware						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Events.html">
+							Events						</a>
+							</li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Exceptions.html">
+							Exceptions						</a>
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Facades.html">
@@ -118,9 +136,14 @@
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Session.html">
-							Session						</a>
+							Session<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Session.Middleware.html">
+							Middleware						</a>
 							</li>
-								</ul></li></ul></li>
+								</ul></li></ul></li></ul></li>
 			</ul>
 		</div>
 
@@ -171,7 +194,7 @@
 		<b>Namespace:</b> <a href="namespace-CupOfTea.html">CupOfTea</a>\<a href="namespace-CupOfTea.TwoStream.html">TwoStream</a>\<a href="namespace-CupOfTea.TwoStream.Foundation.html">Foundation</a>\<a href="namespace-CupOfTea.TwoStream.Foundation.Ws.html">Ws</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#14-204" title="Go to source code">Foundation/Ws/Kernel.php</a>
+			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#20-212" title="Go to source code">Foundation/Ws/Kernel.php</a>
 		<br>
 	</div>
 
@@ -191,7 +214,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#45-59" title="Go to source code">__construct</a>( <span>Illuminate\Contracts\Foundation\Application <var>$app</var></span>, <span><code><a href="class-CupOfTea.TwoStream.Routing.WsRouter.html">CupOfTea\TwoStream\Routing\WsRouter</a></code> <var>$router</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#51-66" title="Go to source code">__construct</a>( <span>Illuminate\Contracts\Foundation\Application <var>$app</var></span>, <span><code><a href="class-CupOfTea.TwoStream.Routing.WsRouter.html">CupOfTea\TwoStream\Routing\WsRouter</a></code> <var>$router</var></span> )</code>
 
 			<div class="description short">
 				<p>Create a new HTTP kernel instance.</p>
@@ -220,14 +243,14 @@
 
 			<td class="attributes"><code>
 				 public 
-				Illuminate\Http\Response
+				mixed
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_handle">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#61-77" title="Go to source code">handle</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#68-98" title="Go to source code">handle</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Handle an incoming HTTP request.</p>
@@ -245,9 +268,13 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Http\Response
+						mixed
 					</div>
 
+					<h4>Throws</h4>
+					<div class="list">
+						Exception
+					</div>
 
 
 
@@ -256,18 +283,47 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="loadAuthManager" id="_loadAuthManager">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_loadAuthManager">#</a>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#100-106" title="Go to source code">loadAuthManager</a>( )</code>
+
+			<div class="description short">
+				<p>Load the Auth Manager for the Request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Load the Auth Manager for the Request</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="sendRequestThroughRouter" id="_sendRequestThroughRouter">
 
 			<td class="attributes"><code>
 				 protected 
-				Illuminate\Http\Response
+				mixed
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_sendRequestThroughRouter">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#79-94" title="Go to source code">sendRequestThroughRouter</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#108-123" title="Go to source code">sendRequestThroughRouter</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Send the given request through the middleware / router.</p>
@@ -285,7 +341,7 @@
 
 					<h4>Returns</h4>
 					<div class="list">
-						Illuminate\Http\Response
+						mixed
 					</div>
 
 
@@ -305,7 +361,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_terminate">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#96-113" title="Go to source code">terminate</a>( <span>Illuminate\Http\Request <var>$request</var></span>, <span>Illuminate\Http\Response <var>$response</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#125-142" title="Go to source code">terminate</a>( <span>Illuminate\Http\Request <var>$request</var></span>, <span>mixed <var>$response</var></span> )</code>
 
 			<div class="description short">
 				<p>Call the terminate method on any terminable middleware.</p>
@@ -343,7 +399,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_gatherRouteMiddlewares">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#115-127" title="Go to source code">gatherRouteMiddlewares</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#144-157" title="Go to source code">gatherRouteMiddlewares</a>( <span>Illuminate\Http\Request <var>$request</var></span> )</code>
 
 			<div class="description short">
 				<p>Gather the route middleware for the given request.</p>
@@ -381,7 +437,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_prependMiddleware">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#129-141" title="Go to source code">prependMiddleware</a>( <span>string <var>$middleware</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#159-172" title="Go to source code">prependMiddleware</a>( <span>string <var>$middleware</var></span> )</code>
 
 			<div class="description short">
 				<p>Add a new middleware to beginning of the stack if it does not already exist.</p>
@@ -419,7 +475,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_pushMiddleware">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#143-155" title="Go to source code">pushMiddleware</a>( <span>string <var>$middleware</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#174-187" title="Go to source code">pushMiddleware</a>( <span>string <var>$middleware</var></span> )</code>
 
 			<div class="description short">
 				<p>Add a new middleware to end of the stack if it does not already exist.</p>
@@ -457,7 +513,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dispatchToRouter">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#157-169" title="Go to source code">dispatchToRouter</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#189-200" title="Go to source code">dispatchToRouter</a>( )</code>
 
 			<div class="description short">
 				<p>Get the route dispatcher callback.</p>
@@ -479,80 +535,6 @@
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="reportException" id="_reportException">
-
-			<td class="attributes"><code>
-				 protected 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_reportException">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#171-180" title="Go to source code">reportException</a>( <span>Exception <var>$e</var></span> )</code>
-
-			<div class="description short">
-				<p>Report the exception to the exception handler.</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Report the exception to the exception handler.</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$e</var></dt>
-						<dd></dd>
-					</dl></div>
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="renderException" id="_renderException">
-
-			<td class="attributes"><code>
-				 protected 
-				Symfony\Component\HttpFoundation\Response
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_renderException">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#182-192" title="Go to source code">renderException</a>( <span>Illuminate\Http\Request <var>$request</var></span>, <span>Exception <var>$e</var></span> )</code>
-
-			<div class="description short">
-				<p>Render the exception to a response.</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Render the exception to a response.</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$request</var></dt>
-						<dd></dd>
-						<dt><var>$e</var></dt>
-						<dd></dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						Symfony\Component\HttpFoundation\Response
-					</div>
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="getApplication" id="_getApplication">
 
 			<td class="attributes"><code>
@@ -564,7 +546,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getApplication">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#194-202" title="Go to source code">getApplication</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#202-210" title="Go to source code">getApplication</a>( )</code>
 
 			<div class="description short">
 				<p>Get the Laravel application instance.</p>
@@ -611,7 +593,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#17-22" title="Go to source code"><var>$app</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#23-28" title="Go to source code"><var>$app</var></a>
 
 				<div class="description short">
 					<p>The application implementation.</p>
@@ -636,7 +618,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#24-29" title="Go to source code"><var>$router</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#30-35" title="Go to source code"><var>$router</var></a>
 
 				<div class="description short">
 					<p>The router instance.</p>
@@ -661,7 +643,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#31-36" title="Go to source code"><var>$middleware</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#37-42" title="Go to source code"><var>$middleware</var></a>
 
 				<div class="description short">
 					<p>The application's middleware stack.</p>
@@ -686,7 +668,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#38-43" title="Go to source code"><var>$routeMiddleware</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Foundation.Ws.Kernel.html#44-49" title="Go to source code"><var>$routeMiddleware</var></a>
 
 				<div class="description short">
 					<p>The application's route middleware.</p>

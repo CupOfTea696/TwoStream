@@ -68,6 +68,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-CupOfTea.TwoStream.Contracts.Exceptions.html">
+							Exceptions						</a>
+							</li>
+					<li>
 						<a href="namespace-CupOfTea.TwoStream.Contracts.Routing.html">
 							Routing						</a>
 							</li>
@@ -81,8 +85,22 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-CupOfTea.TwoStream.Exception.html">
-							Exception						</a>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.html">
+							Cookie<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.Middleware.html">
+							Middleware						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Events.html">
+							Events						</a>
+							</li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Exceptions.html">
+							Exceptions						</a>
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Facades.html">
@@ -118,9 +136,14 @@
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Session.html">
-							Session						</a>
+							Session<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Session.Middleware.html">
+							Middleware						</a>
 							</li>
-								</ul></li></ul></li>
+								</ul></li></ul></li></ul></li>
 			</ul>
 		</div>
 
@@ -130,6 +153,7 @@
 			<ul>
 				<li class="active"><a href="class-CupOfTea.TwoStream.Install.html">Install</a></li>
 				<li><a href="class-CupOfTea.TwoStream.Server.html">Server</a></li>
+				<li><a href="class-CupOfTea.TwoStream.Stop.html">Stop</a></li>
 				<li><a href="class-CupOfTea.TwoStream.TwoStream.html">TwoStream</a></li>
 				<li><a href="class-CupOfTea.TwoStream.TwoStreamServiceProvider.html">TwoStreamServiceProvider</a></li>
 			</ul>
@@ -162,6 +186,8 @@ Illuminate\Console\Command
 			<a href="class-CupOfTea.TwoStream.Console.Command.html"><span>CupOfTea\TwoStream\Console\Command</span></a>
 			
 			
+			 uses 
+					<a href="class-CupOfTea.TwoStream.Console.Writer.html"><span>CupOfTea\TwoStream\Console\Writer</span></a>
 			
 		</dd>
 		<dd style="padding-left:60px">
@@ -185,7 +211,7 @@ Illuminate\Console\Command
 		<b>Namespace:</b> <a href="namespace-CupOfTea.html">CupOfTea</a>\<a href="namespace-CupOfTea.TwoStream.html">TwoStream</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Install.html#13-108" title="Go to source code">Install.php</a>
+			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Install.html#13-111" title="Go to source code">Install.php</a>
 		<br>
 	</div>
 
@@ -268,7 +294,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_install">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Install.html#70-106" title="Go to source code">install</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Install.html#70-109" title="Go to source code">install</a>( )</code>
 
 			<div class="description short">
 				<p>Install the TwoStream package</p>
@@ -292,15 +318,21 @@ Illuminate\Console\Command
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-CupOfTea.TwoStream.Console.Command.html#methods">CupOfTea\TwoStream\Console\Command</a></h3></div>
 			<p class="elementList">
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_call">call()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_comment">comment()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_error">error()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_info">info()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_line">line()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_question">question()</a></code>
+				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_call">call()</a></code>
 			</p>
 		</div>
 
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-CupOfTea.TwoStream.Console.Writer.html#methods">CupOfTea\TwoStream\Console\Writer</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_comment">comment()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_error">error()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_info">info()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_level">level()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_line">line()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_question">question()</a></code>
+			</p>
+		</div>
 
 
 
@@ -313,27 +345,27 @@ Illuminate\Console\Command
 		<div class="panel panel-default">
             <div class="panel-heading"><h2>Properties summary</h2></div>
 			<table class="summary table table-bordered table-striped properties" id="properties">
-		<tr data-order="name" id="$name">
+		<tr data-order="signature" id="$signature">
 			<td class="attributes"><code>
 				protected  
 				string
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Install.html#16-21" title="Go to source code"><var>$name</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Install.html#16-21" title="Go to source code"><var>$signature</var></a>
 
 				<div class="description short">
-					<p>The console command name.</p>
+					<p>The name and signature of the console command.</p>
 				</div>
 
 				<div class="description detailed hidden">
-					<p>The console command name.</p>
+					<p>The name and signature of the console command.</p>
 
 				</div>
 			</td>
 			<td class="value">
 				<div>
-					<a href="#$name" class="anchor">#</a>
+					<a href="#$signature" class="anchor">#</a>
 					<code><span class="php-quote">'twostream:install'</span></code>
 				</div>
 			</td>

@@ -68,6 +68,10 @@
 						</a>
 							<ul>
 					<li>
+						<a href="namespace-CupOfTea.TwoStream.Contracts.Exceptions.html">
+							Exceptions						</a>
+							</li>
+					<li>
 						<a href="namespace-CupOfTea.TwoStream.Contracts.Routing.html">
 							Routing						</a>
 							</li>
@@ -81,8 +85,22 @@
 							</li>
 								</ul></li>
 					<li>
-						<a href="namespace-CupOfTea.TwoStream.Exception.html">
-							Exception						</a>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.html">
+							Cookie<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Cookie.Middleware.html">
+							Middleware						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Events.html">
+							Events						</a>
+							</li>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Exceptions.html">
+							Exceptions						</a>
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Facades.html">
@@ -118,9 +136,14 @@
 							</li>
 					<li>
 						<a href="namespace-CupOfTea.TwoStream.Session.html">
-							Session						</a>
+							Session<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-CupOfTea.TwoStream.Session.Middleware.html">
+							Middleware						</a>
 							</li>
-								</ul></li></ul></li>
+								</ul></li></ul></li></ul></li>
 			</ul>
 		</div>
 
@@ -130,6 +153,7 @@
 			<ul>
 				<li><a href="class-CupOfTea.TwoStream.Install.html">Install</a></li>
 				<li class="active"><a href="class-CupOfTea.TwoStream.Server.html">Server</a></li>
+				<li><a href="class-CupOfTea.TwoStream.Stop.html">Stop</a></li>
 				<li><a href="class-CupOfTea.TwoStream.TwoStream.html">TwoStream</a></li>
 				<li><a href="class-CupOfTea.TwoStream.TwoStreamServiceProvider.html">TwoStreamServiceProvider</a></li>
 			</ul>
@@ -162,6 +186,8 @@ Illuminate\Console\Command
 			<a href="class-CupOfTea.TwoStream.Console.Command.html"><span>CupOfTea\TwoStream\Console\Command</span></a>
 			
 			
+			 uses 
+					<a href="class-CupOfTea.TwoStream.Console.Writer.html"><span>CupOfTea\TwoStream\Console\Writer</span></a>
 			
 		</dd>
 		<dd style="padding-left:60px">
@@ -188,7 +214,7 @@ Illuminate\Console\Command
 		<b>Namespace:</b> <a href="namespace-CupOfTea.html">CupOfTea</a>\<a href="namespace-CupOfTea.TwoStream.html">TwoStream</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Server.html#27-295" title="Go to source code">Server.php</a>
+			<b>Located at</b> <a href="source-class-CupOfTea.TwoStream.Server.html#29-344" title="Go to source code">Server.php</a>
 		<br>
 	</div>
 
@@ -208,7 +234,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#76-91" title="Go to source code">__construct</a>( <span>Illuminate\Foundation\Application <var>$app</var></span> )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#118-130" title="Go to source code">__construct</a>( <span>Illuminate\Foundation\Application <var>$app</var></span> )</code>
 
 			<div class="description short">
 				<p>Create a new server command instance.</p>
@@ -242,7 +268,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_fire">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#93-107" title="Go to source code">fire</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#132-148" title="Go to source code">fire</a>( )</code>
 
 			<div class="description short">
 				<p>Fire the command</p>
@@ -271,7 +297,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_start">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#109-117" title="Go to source code">start</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#150-158" title="Go to source code">start</a>( )</code>
 
 			<div class="description short">
 				<p>Start the WAMP Server</p>
@@ -300,7 +326,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_boot">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#119-139" title="Go to source code">boot</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#160-182" title="Go to source code">boot</a>( )</code>
 
 			<div class="description short">
 				<p>Build the WAMP Server</p>
@@ -333,7 +359,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getSession">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#141-149" title="Go to source code">getSession</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#184-192" title="Go to source code">getSession</a>( )</code>
 
 			<div class="description short">
 				<p>Get the Session Driver</p>
@@ -366,7 +392,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_buildKernel">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#151-164" title="Go to source code">buildKernel</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#194-207" title="Go to source code">buildKernel</a>( )</code>
 
 			<div class="description short">
 				<p>Build the Server's Kernel</p>
@@ -399,7 +425,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_buildDispatcher">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#166-174" title="Go to source code">buildDispatcher</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#209-222" title="Go to source code">buildDispatcher</a>( )</code>
 
 			<div class="description short">
 				<p>Build the Server's Dispatcher</p>
@@ -432,7 +458,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createLoop">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#176-184" title="Go to source code">createLoop</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#224-232" title="Go to source code">createLoop</a>( )</code>
 
 			<div class="description short">
 				<p>Create the Server's EventLoop</p>
@@ -465,7 +491,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_bootWsServer">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#186-197" title="Go to source code">bootWsServer</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#234-245" title="Go to source code">bootWsServer</a>( )</code>
 
 			<div class="description short">
 				<p>Build the WebSocket Server</p>
@@ -498,7 +524,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_bootHttpServer">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#199-215" title="Go to source code">bootHttpServer</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#247-263" title="Go to source code">bootHttpServer</a>( )</code>
 
 			<div class="description short">
 				<p>Build the Http Server</p>
@@ -531,7 +557,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enablePush">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#217-237" title="Go to source code">enablePush</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#265-285" title="Go to source code">enablePush</a>( )</code>
 
 			<div class="description short">
 				<p>Enable the option to push messages from
@@ -562,7 +588,7 @@ the Server to the client</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_allowFlash">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#239-257" title="Go to source code">allowFlash</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#287-305" title="Go to source code">allowFlash</a>( )</code>
 
 			<div class="description short">
 				<p>Allow Flash sockets to connect to our server.
@@ -595,7 +621,7 @@ the flashpolicy</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getOptions">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#259-273" title="Go to source code">getOptions</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#307-321" title="Go to source code">getOptions</a>( )</code>
 
 			<div class="description short">
 				<p>Get the console command options.</p>
@@ -628,7 +654,7 @@ the flashpolicy</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_isInstalled">#</a>
-			<code><a href="source-class-CupOfTea.TwoStream.Server.html#275-293" title="Go to source code">isInstalled</a>( )</code>
+			<code><a href="source-class-CupOfTea.TwoStream.Server.html#323-342" title="Go to source code">isInstalled</a>( )</code>
 
 			<div class="description short">
 				<p>Check if the TwoStream Package is installed</p>
@@ -656,15 +682,21 @@ the flashpolicy</p>
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-CupOfTea.TwoStream.Console.Command.html#methods">CupOfTea\TwoStream\Console\Command</a></h3></div>
 			<p class="elementList">
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_call">call()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_comment">comment()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_error">error()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_info">info()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_line">line()</a></code>, 
-				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_question">question()</a></code>
+				<code><a href="class-CupOfTea.TwoStream.Console.Command.html#_call">call()</a></code>
 			</p>
 		</div>
 
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods used from <a href="class-CupOfTea.TwoStream.Console.Writer.html#methods">CupOfTea\TwoStream\Console\Writer</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_comment">comment()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_error">error()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_info">info()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_level">level()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_line">line()</a></code>, 
+				<code><a href="class-CupOfTea.TwoStream.Console.Writer.html#_question">question()</a></code>
+			</p>
+		</div>
 
 
 
@@ -679,7 +711,7 @@ the flashpolicy</p>
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-class-CupOfTea.TwoStream.Server.html#32-37" title="Go to source code"><b>IP</b></a>
+						<a href="source-class-CupOfTea.TwoStream.Server.html#34-39" title="Go to source code"><b>IP</b></a>
 					</code>
 
 					<div class="description short">
@@ -707,7 +739,7 @@ the flashpolicy</p>
 				<td class="attributes"><code>string</code></td>
 				<td class="name">
 					<code>
-						<a href="source-class-CupOfTea.TwoStream.Server.html#39-44" title="Go to source code"><b>SOCKET_PULL_ID</b></a>
+						<a href="source-class-CupOfTea.TwoStream.Server.html#41-46" title="Go to source code"><b>SOCKET_PULL_ID</b></a>
 					</code>
 
 					<div class="description short">
@@ -746,7 +778,7 @@ the flashpolicy</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#46-51" title="Go to source code"><var>$name</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#48-53" title="Go to source code"><var>$name</var></a>
 
 				<div class="description short">
 					<p>The console command name.</p>
@@ -771,7 +803,7 @@ the flashpolicy</p>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#53-58" title="Go to source code"><var>$description</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#55-60" title="Go to source code"><var>$description</var></a>
 
 				<div class="description short">
 					<p>The console command description.</p>
@@ -792,18 +824,18 @@ the flashpolicy</p>
 		<tr data-order="app" id="$app">
 			<td class="attributes"><code>
 				protected  
-				
+				Illuminate\Foundation\Application
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#60" title="Go to source code"><var>$app</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#62-67" title="Go to source code"><var>$app</var></a>
 
 				<div class="description short">
-					
+					<p>The Application instance.</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>The Application instance.</p>
 
 				</div>
 			</td>
@@ -817,18 +849,18 @@ the flashpolicy</p>
 		<tr data-order="out" id="$out">
 			<td class="attributes"><code>
 				protected  
-				
+				<code><a href="class-CupOfTea.TwoStream.Console.Output.html">CupOfTea\TwoStream\Console\Output</a></code>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#62" title="Go to source code"><var>$out</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#69-74" title="Go to source code"><var>$out</var></a>
 
 				<div class="description short">
-					
+					<p>The Application Output.</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>The Application Output.</p>
 
 				</div>
 			</td>
@@ -842,18 +874,18 @@ the flashpolicy</p>
 		<tr data-order="Kernel" id="$Kernel">
 			<td class="attributes"><code>
 				protected  
-				
+				<code><a href="class-CupOfTea.TwoStream.Contracts.Ws.Kernel.html">CupOfTea\TwoStream\Contracts\Ws\Kernel</a></code>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#64" title="Go to source code"><var>$Kernel</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#76-81" title="Go to source code"><var>$Kernel</var></a>
 
 				<div class="description short">
-					
+					<p>The Application Kernel</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>The Application Kernel</p>
 
 				</div>
 			</td>
@@ -867,18 +899,18 @@ the flashpolicy</p>
 		<tr data-order="Dispatcher" id="$Dispatcher">
 			<td class="attributes"><code>
 				protected  
-				
+				<code><a href="class-CupOfTea.TwoStream.Server.Dispatcher.html">CupOfTea\TwoStream\Server\Dispatcher</a></code>
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#66" title="Go to source code"><var>$Dispatcher</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#83-88" title="Go to source code"><var>$Dispatcher</var></a>
 
 				<div class="description short">
-					
+					<p>The WebSocket server Dispatcher</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>The WebSocket server Dispatcher</p>
 
 				</div>
 			</td>
@@ -892,18 +924,18 @@ the flashpolicy</p>
 		<tr data-order="loop" id="$loop">
 			<td class="attributes"><code>
 				protected  
-				
+				React\EventLoop\LibEventLoop
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#68" title="Go to source code"><var>$loop</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#90-95" title="Go to source code"><var>$loop</var></a>
 
 				<div class="description short">
-					
+					<p>The loop</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>The loop</p>
 
 				</div>
 			</td>
@@ -917,18 +949,18 @@ the flashpolicy</p>
 		<tr data-order="Ws" id="$Ws">
 			<td class="attributes"><code>
 				protected  
-				
+				React\Socket\Server
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#70" title="Go to source code"><var>$Ws</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#97-102" title="Go to source code"><var>$Ws</var></a>
 
 				<div class="description short">
-					
+					<p>The WebSocket server.</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>The WebSocket server.</p>
 
 				</div>
 			</td>
@@ -942,18 +974,18 @@ the flashpolicy</p>
 		<tr data-order="server" id="$server">
 			<td class="attributes"><code>
 				protected  
-				
+				Ratchet\Server\IoServer
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#72" title="Go to source code"><var>$server</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#104-109" title="Go to source code"><var>$server</var></a>
 
 				<div class="description short">
-					
+					<p>The IO Server</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>The IO Server</p>
 
 				</div>
 			</td>
@@ -967,18 +999,18 @@ the flashpolicy</p>
 		<tr data-order="pull" id="$pull">
 			<td class="attributes"><code>
 				protected  
-				
+				ZMQSocket
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-CupOfTea.TwoStream.Server.html#74" title="Go to source code"><var>$pull</var></a>
+					<a href="source-class-CupOfTea.TwoStream.Server.html#111-116" title="Go to source code"><var>$pull</var></a>
 
 				<div class="description short">
-					
+					<p>ZMQ Pull Socket.</p>
 				</div>
 
 				<div class="description detailed hidden">
-					
+					<p>ZMQ Pull Socket.</p>
 
 				</div>
 			</td>
