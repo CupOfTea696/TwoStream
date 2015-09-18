@@ -25,24 +25,11 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     public function boot(WsRouter $router)
     {
-        $this->setRootControllerNamespace();
         if ($this->app->routesAreCached()) {
             $this->loadCachedRoutes();
         } else {
             $this->loadRoutes();
         }
-    }
-    
-    /**
-     * Set the root controller namespace for the application.
-     *
-     * @return void
-     */
-    protected function setRootControllerNamespace()
-    {
-        if (is_null($this->namespace)) return;
-        $this->app[UrlGenerator::class]
-                        ->setRootControllerNamespace($this->namespace);
     }
     
     /**
@@ -80,6 +67,19 @@ class WsRouteServiceProvider extends ServiceProvider
         $router->group(['namespace' => $this->namespace], function($router) use ($path)
         {
             require $path;
+        });
+    }
+    
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \CupOfTea\TwoStream\Routing\WsRouter  $router
+     * @return void
+     */
+    public function map(WsRouter $router)
+    {
+        $router->group(['namespace' => $this->namespace], function($router) {
+            require app_path('Ws/routes.php');
         });
     }
     

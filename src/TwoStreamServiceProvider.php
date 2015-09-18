@@ -80,19 +80,6 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
     }
     
     /**
-     * Define the routes for the application.
-     *
-     * @param  \CupOfTea\TwoStream\Routing\WsRouter  $router
-     * @return void
-     */
-    public function map(WsRouter $router)
-    {
-        $router->group(['namespace' => $this->namespace], function($router) {
-            require app_path('Ws/routes.php');
-        });
-    }
-    
-    /**
      * Register the service provider.
      *
      * @return void
