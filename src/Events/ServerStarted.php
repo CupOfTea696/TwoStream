@@ -2,7 +2,6 @@
 
 class ServerStarted
 {
-    
     /**
      * Port on which the WebSocket Server is listening.
      *
@@ -20,5 +19,4 @@ class ServerStarted
     {
         $this->port = $port;
     }
-    
 }

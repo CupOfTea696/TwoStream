@@ -4,7 +4,6 @@ use Exception;
 
 class InvalidRecipientException extends Exception
 {
-    
     /**
      * {@inheritdoc}
      */
@@ -12,5 +11,4 @@ class InvalidRecipientException extends Exception
     {
         parent::__construct('Invalid recipient: ' . $recipient, $code, $previous);
     }
-    
 }

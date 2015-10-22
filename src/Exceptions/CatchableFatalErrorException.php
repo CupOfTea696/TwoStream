@@ -4,7 +4,6 @@ use Exception;
 
 class CatchableFatalErrorException extends Exception
 {
-    
     /**
      * {@inheritdoc}
      */
@@ -14,5 +13,4 @@ class CatchableFatalErrorException extends Exception
         
         parent::__construct($msg, $code, $previous);
     }
-    
 }

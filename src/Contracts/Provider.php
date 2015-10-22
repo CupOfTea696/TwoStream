@@ -2,9 +2,8 @@
 
 interface Provider
 {
-    
     /**
-     * Push a message to a client
+     * Push a message to a client.
      *
      * @param string $topic
      * @param string|array $data
@@ -12,5 +11,4 @@ interface Provider
      * @return void
      */
     public function push($topic, $data, $recipient = 'all');
-    
 }
