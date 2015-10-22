@@ -4,7 +4,6 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class Output extends ConsoleOutput
 {
-    
     /**
      * String prepended to the Console output.
      *
@@ -29,7 +28,7 @@ class Output extends ConsoleOutput
     }
     
     /**
-     * Set the output's indentation level
+     * Set the output's indentation level.
      *
      * @param  int $level
      * @return \CupOfTea\TwoStream\Console\Output
@@ -44,5 +43,4 @@ class Output extends ConsoleOutput
         
         return $this;
     }
-    
 }

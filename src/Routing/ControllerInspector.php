@@ -4,12 +4,10 @@ use Illuminate\Routing\ControllerInspector as LaravelControllerInspector;
 
 class ControllerInspector extends LaravelControllerInspector
 {
-    
     /**
      * {@inheritdoc}
      */
     protected $verbs = [
-		'call', 'publish', 'subscribe', 'unsubscribe',
-	];
-    
+        'call', 'publish', 'subscribe', 'unsubscribe',
+    ];
 }

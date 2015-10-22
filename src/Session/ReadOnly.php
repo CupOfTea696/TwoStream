@@ -4,13 +4,12 @@ use CupOfTea\TwoStream\Contracts\Session\ReadOnly as ReadOnlyContract;
 
 class ReadOnly implements ReadOnlyContract
 {
-    
     /**
      * The session attributes.
      *
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes = [];
     
     /**
      * Session store started status.
@@ -33,7 +32,7 @@ class ReadOnly implements ReadOnlyContract
     }
     
     /**
-     * Store the Session data in the ReadOnly Session and lock it
+     * Store the Session data in the ReadOnly Session and lock it.
      *
      * @param  array $attributes
      * @param  string|null $id
@@ -41,8 +40,9 @@ class ReadOnly implements ReadOnlyContract
      */
     public function initialize($attributes, $id = null)
     {
-        if($this->started)
+        if ($this->started) {
             return $this;
+        }
         
         $this->id = $id ?: $this->id;
         $this->attributes = $attributes;
@@ -116,7 +116,7 @@ class ReadOnly implements ReadOnlyContract
      */
     public function getOldInput($key = null, $default = null)
     {
-        $input = $this->get('_old_input', array());
+        $input = $this->get('_old_input', []);
         
         // Input that is flashed to the session can be easily retrieved by the
         // developer, making repopulating old forms and the like much more
@@ -169,5 +169,4 @@ class ReadOnly implements ReadOnlyContract
     {
         return $this->get('_previous.url');
     }
-    
 }

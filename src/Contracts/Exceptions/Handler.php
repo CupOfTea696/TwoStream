@@ -1,14 +1,11 @@
 <?php namespace CupOfTea\TwoStream\Contracts\Exceptions;
 
 use Exception;
-
 use Psr\Log\LoggerInterface;
-
 use CupOfTea\TwoStream\Console\Output;
 
 interface Handler
 {
-    
     /**
      * Create a new exception handler instance.
      *
@@ -19,7 +16,7 @@ interface Handler
     public function __construct(LoggerInterface $log, Output $output);
     
     /**
-     * Report an Exception
+     * Report an Exception.
      *
      * @param  Exception  $e
      * @return null|string|array
@@ -27,11 +24,10 @@ interface Handler
     public function report(Exception $e);
     
     /**
-     * Report an Exception
+     * Report an Exception.
      *
      * @param  Exception  $e
      * @return null|string|array
      */
     public function render(Exception $e);
-    
 }

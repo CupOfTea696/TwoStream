@@ -4,7 +4,6 @@ use Exception;
 
 class SyntaxErrorException extends Exception
 {
-    
     /**
      * {@inheritdoc}
      */
@@ -14,5 +13,4 @@ class SyntaxErrorException extends Exception
         
         parent::__construct($msg, $code, $previous);
     }
-    
 }

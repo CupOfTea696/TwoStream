@@ -2,9 +2,8 @@
 
 trait Writer
 {
-    
     /**
-     * Set the output's indentation level
+     * Set the output's indentation level.
      *
      * @param  int $level
      * @return \CupOfTea\TwoStream\Console\Writer
@@ -39,7 +38,6 @@ trait Writer
      */
     public function line($string, $level = null)
     {
-        
         $this->out->level($level)->writeln($string);
         
         return $this;
@@ -86,5 +84,4 @@ trait Writer
         
         return $this;
     }
-    
 }

@@ -2,13 +2,11 @@
 
 use Exception;
 use TwoStream as TwoStreamFacade;
-
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
 
 class Stop extends Command
 {
-    
     /**
      * The console command name.
      *
@@ -17,7 +15,7 @@ class Stop extends Command
     protected $name = 'twostream:stop';
     
     /**
-     * Console Output
+     * Console Output.
      *
      * @var \CupOfTea\TwoStream\Console\Output
      */
@@ -43,7 +41,7 @@ class Stop extends Command
     }
     
     /**
-     * Fire the command
+     * Fire the command.
      *
      * @return void
      */
@@ -53,7 +51,7 @@ class Stop extends Command
         
         try {
             TwoStreamFacade::stop();
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
     }
-    
 }

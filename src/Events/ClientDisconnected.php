@@ -2,7 +2,6 @@
 
 class ClientDisconnected
 {
-    
     /**
      * Session ID of the Client.
      *
@@ -20,5 +19,4 @@ class ClientDisconnected
     {
         $this->client = $client;
     }
-    
 }

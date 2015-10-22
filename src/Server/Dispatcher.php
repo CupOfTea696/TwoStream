@@ -1,12 +1,10 @@
 <?php namespace CupOfTea\TwoStream\Server;
 
-use Log;
 use Auth;
 use Crypt;
 use Session;
 use Exception;
 use WsSession;
-
 use CupOfTea\Chain\Chain;
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Writer;
@@ -14,30 +12,25 @@ use CupOfTea\TwoStream\Session\ReadOnly;
 use CupOfTea\TwoStream\Events\ServerStopped;
 use CupOfTea\TwoStream\Events\ClientConnected;
 use CupOfTea\TwoStream\Events\ClientDisconnected;
-use CupOfTea\TwoStream\Events\ExceptionWasThrown;
 use CupOfTea\TwoStream\Contracts\Exceptions\Handler;
 use CupOfTea\TwoStream\Exceptions\InvalidRecipientException;
-
 use Illuminate\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
-
 use Ratchet\ConnectionInterface as Connection;
 use Ratchet\Wamp\TopicAccessTrait as TopicAccess;
 use Ratchet\Wamp\WampServerInterface as DispatcherContract;
-
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Dispatcher implements DispatcherContract
 {
-    
     use AppNamespaceDetector, TopicAccess, Writer;
     
-    const WAMP_VERB_CALL        = 'CALL';
-    const WAMP_VERB_PUBLISH     = 'PUBLISH';
-    const WAMP_VERB_SUBSCRIBE   = 'SUBSCRIBE';
+    const WAMP_VERB_CALL = 'CALL';
+    const WAMP_VERB_PUBLISH = 'PUBLISH';
+    const WAMP_VERB_SUBSCRIBE = 'SUBSCRIBE';
     const WAMP_VERB_UNSUBSCRIBE = 'UNSUBSCRIBE';
     
     protected $Session;
@@ -68,12 +61,11 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * Route Topic events to Controller
-     *
+     * Route Topic events to Controller.
      */
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onCall(Connection $connection, $id, $topic, array $params)
     {
@@ -89,7 +81,7 @@ class Dispatcher implements DispatcherContract
         } else {
             $error = array_get($response, 'error');
             
-            if($error) {
+            if ($error) {
                 $connection->callError($id, array_get($response, 'error.domain', $topic), array_get($response, 'error.msg', $error));
             } else {
                 $connection->callResult($id, $response);
@@ -98,7 +90,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onPublish(Connection $connection, $topic, $event, array $exclude, array $eligible)
     {
@@ -117,7 +109,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onSubscribe(Connection $connection, $topic)
     {
@@ -130,7 +122,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onUnSubscribe(Connection $connection, $topic)
     {
@@ -143,13 +135,14 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * Handle Push messages
+     * Handle Push messages.
      *
      * @param string $message
      * @return void
      * @throws \CupOfTea\TwoStream\Exceptions\InvalidRecipientException
      */
-    public function push($message){
+    public function push($message)
+    {
         $message = json_decode($message, true);
         $topic = array_get($this->getTopics(), $message['topic']);
         $data = $message['data'];
@@ -168,7 +161,7 @@ class Dispatcher implements DispatcherContract
             }
         }
         
-        if (!$topic){
+        if (! $topic) {
             return;
         }
         
@@ -192,7 +185,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * Handle Request
+     * Handle Request.
      *
      * @param \Ratchet\ConnectionInterface $connection
      * @param \Illuminate\Http\Request $request
@@ -206,7 +199,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * Send Response
+     * Send Response.
      *
      * @param \Illuminate\Http\Response $response
      * @param \Ratchet\ConnectionInterface $connection
@@ -226,8 +219,8 @@ class Dispatcher implements DispatcherContract
         if ($recipient == 'all') {
             $topic->broadcast($data);
         } elseif ($recipient == 'except') {
-            foreach($topic->getIterator() as $client) {
-                if($client->session != $connection->session) {
+            foreach ($topic->getIterator() as $client) {
+                if ($client->session != $connection->session) {
                     $client->event($topic->getId(), $data);
                 }
             }
@@ -251,12 +244,11 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * Handle Connection events
-     *
+     * Handle Connection events.
      */
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onOpen(Connection $connection)
     {
@@ -272,7 +264,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onClose(Connection $connection)
     {
@@ -283,7 +275,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onError(Connection $connection, Exception $e)
     {
@@ -306,7 +298,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * Load the Session data and store it into a Read-Only Session
+     * Load the Session data and store it into a Read-Only Session.
      *
      * @param \Ratchet\ConnectionInterface $connection
      * @return void
@@ -327,7 +319,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * Build an \Illuminate\Http\Request object
+     * Build an \Illuminate\Http\Request object.
      *
      * @param string $verb
      * @param \Ratchet\ConnectionInterface $connection
@@ -361,7 +353,7 @@ class Dispatcher implements DispatcherContract
     }
     
     /**
-     * Get the Session ID from the Cookie
+     * Get the Session ID from the Cookie.
      *
      * @param \Ratchet\ConnectionInterface $connection
      * @return string
@@ -421,5 +413,4 @@ class Dispatcher implements DispatcherContract
             $this->topic = ['topic' => $topic, 'call_id' => $call_id];
         }
     }
-    
 }
