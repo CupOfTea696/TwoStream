@@ -1,6 +1,6 @@
 <?php namespace CupOfTea\TwoStream;
 
-/**                                                                                      **
+/*                                                                                      **
  *                                 `.-/++ossssssssoo+/:-.`                                *
  *                            `-/osyyhhhhhhhhhhhhhhhhhhyyyo+-.                            *
  *                         ./oyyhhhhhhhhhhhhhhhhhhhhhhhhhhhhhys/-`                        *
@@ -41,35 +41,31 @@
 
 use App;
 use ZMQ;
-use Route;
-use Request;
 use ZMQContext;
-
 use CupOfTea\Package\Package;
 use CupOfTea\TwoStream\Exceptions\TwoStreamException;
 use CupOfTea\TwoStream\Contracts\Provider as ProviderContract;
 
 class TwoStream implements ProviderContract
 {
-    
     use Package;
     
     /**
-     * Package Name
+     * Package Name.
      *
      * @const string
      */
     const PACKAGE = 'CupOfTea/TwoStream';
     
     /**
-     * Package Version
+     * Package Version.
      *
      * @const string
      */
     const VERSION = '1.0.1';
     
     /**
-     * Socket Pull ID
+     * Socket Pull ID.
      *
      * @const string
      */
@@ -80,7 +76,7 @@ class TwoStream implements ProviderContract
      */
     public function push($topic, $data, $recipient = 'all')
     {
-        if (!config('twostream.push.enabled')) {
+        if (! config('twostream.push.enabled')) {
             throw new TwoStreamException('Push is disabled, please enable it in the twostream configuration before using');
         }
         
@@ -94,7 +90,7 @@ class TwoStream implements ProviderContract
     }
     
     /**
-     * Stop the TwoStream Server
+     * Stop the TwoStream Server.
      *
      * @return void
      */
@@ -104,7 +100,7 @@ class TwoStream implements ProviderContract
             json_encode([
                 'topic' => 'cupoftea/twostream/server/stop',
                 'data' => [
-                    'secret' => config('app.key')
+                    'secret' => config('app.key'),
                 ],
                 'recipient' => 'server',
             ])
@@ -112,7 +108,7 @@ class TwoStream implements ProviderContract
     }
     
     /**
-     * Get ZMQSocket to push messages
+     * Get ZMQSocket to push messages.
      *
      * @return \ZMQSocket
      */
@@ -126,7 +122,7 @@ class TwoStream implements ProviderContract
     }
     
     /**
-     * Connect to socket
+     * Connect to socket.
      *
      * @return \ZMQSocket
      */
@@ -138,5 +134,4 @@ class TwoStream implements ProviderContract
         
         return $this->socket;
     }
-    
 }

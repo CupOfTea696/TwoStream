@@ -1,3 +1,5 @@
 <?php namespace CupOfTea\TwoStream\Events;
 
-class ServerStopped {}
+class ServerStopped
+{
+}

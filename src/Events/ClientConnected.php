@@ -2,7 +2,6 @@
 
 class ClientConnected
 {
-    
     /**
      * Session ID of the Client.
      *
@@ -20,5 +19,4 @@ class ClientConnected
     {
         $this->client = $client;
     }
-    
 }

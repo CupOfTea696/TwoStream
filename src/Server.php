@@ -3,43 +3,36 @@
 use App;
 use ZMQ;
 use Storage;
-
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 use Ratchet\Server\FlashPolicy;
-
 use React\ZMQ\Context as ZMQContext;
 use React\Socket\Server as ReactServer;
 use React\EventLoop\Factory as EventLoopFactory;
-
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
 use CupOfTea\TwoStream\Wamp\WampServer;
 use CupOfTea\TwoStream\Server\Dispatcher;
 use CupOfTea\TwoStream\Contracts\Ws\Kernel;
 use CupOfTea\TwoStream\Events\ServerStarted;
-
 use Illuminate\Session\SessionManager;
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
-
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class Server extends Command
 {
-    
     use AppNamespaceDetector;
     
     /**
-     * Listen IP
+     * Listen IP.
      *
      * @const string
      */
     const IP = '0.0.0.0';
     
     /**
-     * Socket Pull ID
+     * Socket Pull ID.
      *
      * @const string
      */
@@ -74,21 +67,21 @@ class Server extends Command
     protected $out;
     
     /**
-     * The Application Kernel
+     * The Application Kernel.
      *
      * @var \CupOfTea\TwoStream\Contracts\Ws\Kernel
      */
     protected $Kernel;
     
     /**
-     * The WebSocket server Dispatcher
+     * The WebSocket server Dispatcher.
      *
      * @var \CupOfTea\TwoStream\Server\Dispatcher
      */
     protected $Dispatcher;
     
     /**
-     * The loop
+     * The loop.
      *
      * @var \React\EventLoop\LibEventLoop
      */
@@ -102,7 +95,7 @@ class Server extends Command
     protected $Ws;
     
     /**
-     * The IO Server
+     * The IO Server.
      *
      * @var \Ratchet\Server\IoServer
      */
@@ -130,13 +123,13 @@ class Server extends Command
     }
     
     /**
-     * Fire the command
+     * Fire the command.
      *
      * @return void
      */
     public function fire()
     {
-        if (!$this->isInstalled()) {
+        if (! $this->isInstalled()) {
             return $this->error('TwoStream is not installed. Please run twostream:install before attempting to run this command.');
         }
         
@@ -148,7 +141,7 @@ class Server extends Command
     }
     
     /**
-     * Start the WAMP Server
+     * Start the WAMP Server.
      *
      * @return void
      */
@@ -158,7 +151,7 @@ class Server extends Command
     }
     
     /**
-     * Build the WAMP Server
+     * Build the WAMP Server.
      *
      * @return \React\EventLoop\LibEventLoop
      */
@@ -182,7 +175,7 @@ class Server extends Command
     }
     
     /**
-     * Get the Session Driver
+     * Get the Session Driver.
      *
      * @return \Illuminate\Session\SessionInterface
      */
@@ -192,7 +185,7 @@ class Server extends Command
     }
     
     /**
-     * Build the Server's Kernel
+     * Build the Server's Kernel.
      *
      * @return \CupOfTea\TwoStream\Foundation\Ws\Kernel
      */
@@ -207,7 +200,7 @@ class Server extends Command
     }
     
     /**
-     * Build the Server's Dispatcher
+     * Build the Server's Dispatcher.
      *
      * @return \CupOfTea\TwoStream\Server\Dispatcher
      */
@@ -222,7 +215,7 @@ class Server extends Command
     }
     
     /**
-     * Create the Server's EventLoop
+     * Create the Server's EventLoop.
      *
      * @return \React\EventLoop\LibEventLoop
      */
@@ -232,7 +225,7 @@ class Server extends Command
     }
     
     /**
-     * Build the WebSocket Server
+     * Build the WebSocket Server.
      *
      * @return React\Socket\Server
      */
@@ -245,7 +238,7 @@ class Server extends Command
     }
     
     /**
-     * Build the Http Server
+     * Build the Http Server.
      *
      * @return React\Socket\Server
      */
@@ -264,13 +257,13 @@ class Server extends Command
     
     /**
      * Enable the option to push messages from
-     * the Server to the client
+     * the Server to the client.
      *
      * @return void
      */
     protected function enablePush()
     {
-        if (!class_exists('\React\ZMQ\Context')) {
+        if (! class_exists('\React\ZMQ\Context')) {
             $this->error('React/ZMQ dependency is required to enable push. Stopping server.', 1);
             die();
         }
@@ -287,7 +280,7 @@ class Server extends Command
     /**
      * Allow Flash sockets to connect to our server.
      * For this we have to listen on flash.port (843) and return
-     * the flashpolicy
+     * the flashpolicy.
      *
      * @return void
      */
@@ -321,7 +314,7 @@ class Server extends Command
     }
     
     /**
-     * Check if the TwoStream Package is installed
+     * Check if the TwoStream Package is installed.
      *
      * @return bool
      */
@@ -333,12 +326,11 @@ class Server extends Command
         ]);
         
         foreach (TwoStreamServiceProvider::pathsToPublish(strtolower(TwoStream::PACKAGE), 'required') as $required) {
-            if (!$disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required))) {
+            if (! $disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required))) {
                 return false;
             }
         }
         
         return true;
     }
-    
 }

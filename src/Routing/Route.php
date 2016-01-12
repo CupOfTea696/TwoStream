@@ -4,15 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route as LaravelRoute;
 use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
-
 use Composer\Autoload\ClassLoader;
-
 use CupOfTea\TwoStream\Exceptions\SyntaxErrorException;
 use CupOfTea\TwoStream\Exceptions\CatchableFatalErrorException;
 
 class Route extends LaravelRoute
 {
-    
     use AppNamespaceDetector;
     
     /**
@@ -27,7 +24,7 @@ class Route extends LaravelRoute
         $this->container = $this->container ?: new Container;
         
         try {
-            if (!is_string($this->action['uses'])) {
+            if (! is_string($this->action['uses'])) {
                 return $this->runCallable($request);
             }
             
@@ -57,7 +54,7 @@ class Route extends LaravelRoute
     }
     
     /**
-     * Throw recoverable errors as a CatchableFatalErrorException
+     * Throw recoverable errors as a CatchableFatalErrorException.
      *
      * @param  int  $errno
      * @param  string  $errstr
@@ -72,5 +69,4 @@ class Route extends LaravelRoute
             throw new CatchableFatalErrorException($route, $errstr);
         }
     }
-    
 }
