@@ -9,17 +9,17 @@ trait TopicAccessTrait
     protected $topics = [];
     
     /**
-     * Make all Topics available in the WampServerInterface
+     * Make all Topics available in the WampServerInterface.
      *
      * @param array
      * @return void
      */
-    public final function setTopics(&$topics)
+    final public function setTopics(&$topics)
     {
-		$this->topics = &$topics;
-	}
+        $this->topics = &$topics;
+    }
     
-    public final function getTopics()
+    final public function getTopics()
     {
         return $this->topics;
     }
