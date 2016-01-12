@@ -6,7 +6,6 @@ use Storage;
 
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
-use Ratchet\Wamp\WampServer;
 use Ratchet\WebSocket\WsServer;
 use Ratchet\Server\FlashPolicy;
 
@@ -16,6 +15,7 @@ use React\EventLoop\Factory as EventLoopFactory;
 
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
+use CupOfTea\TwoStream\Wamp\WampServer;
 use CupOfTea\TwoStream\Server\Dispatcher;
 use CupOfTea\TwoStream\Contracts\Ws\Kernel;
 use CupOfTea\TwoStream\Events\ServerStarted;
