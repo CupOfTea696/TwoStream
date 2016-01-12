@@ -73,7 +73,9 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         
         $this->namespace = str_replace('{{namespace}}', $this->getAppNamespace(), $this->namespace);
         
-        parent::boot($router);
+        if (! $this->isInstalled()) {
+            parent::boot($router);
+        }
     }
     
     /**
