@@ -8,7 +8,8 @@ class TopicManager extends RatchetTopicManager
     /**
      * {@inheritdoc}
      */
-    public function __construct(WampServerInterface $app) {
+    public function __construct(WampServerInterface $app)
+    {
         $this->app = $app;
         
         if (method_exists($this->app, 'setTopics')) {
@@ -19,7 +20,8 @@ class TopicManager extends RatchetTopicManager
     /**
      * {@inheritdoc}
      */
-    public function onSubscribe(ConnectionInterface $conn, $topic) {
+    public function onSubscribe(ConnectionInterface $conn, $topic)
+    {
         $topicObj = $this->getTopic($topic);
 
         if ($conn->WAMP->subscriptions->contains($topicObj)) {
