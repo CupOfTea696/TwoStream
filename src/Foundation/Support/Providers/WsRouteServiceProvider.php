@@ -88,11 +88,11 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bindShared(WsRouter::class, function ($app) {
+        $this->app->singleton(WsRouter::class, function ($app) {
             return new WsRouter($app->make(Dispatcher::class), $app);
         });
         
-        $this->app->bindShared(Registrar::class, function ($app) {
+        $this->app->singleton(Registrar::class, function ($app) {
             return new WsRouter($app->make(Dispatcher::class), $app);
         });
     }
