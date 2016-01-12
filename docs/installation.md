@@ -9,17 +9,6 @@ To install TwoStream, you will first need to install [Composer][composer] if you
 
 ### Install via Composer
 
-Before you start, you will have to add the repository below to your composer.json, because TwoStream currently depends on a slightly modified version of Ratchet, which I hope will be added in the 4.x release.
-
-```php
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/CupOfTea696/Ratchet"
-        }
-    ],
-```
-
 You can install TwoStream by simply requiring the package with [Composer][composer] inside your projects root. To do so, run the following commands:
 
 ```bash
