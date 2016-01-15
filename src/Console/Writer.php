@@ -22,7 +22,7 @@ trait Writer
      * @param  int     $level
      * @return \CupOfTea\TwoStream\Console\Writer
      */
-    public function info($string, $level = null, $verbosity = null)
+    public function info($string, $level = null)
     {
         $this->out->level($level)->writeln("<info>$string</info>");
         
@@ -36,7 +36,7 @@ trait Writer
      * @param  int     $level
      * @return \CupOfTea\TwoStream\Console\Writer
      */
-    public function line($string, $level = null)
+    public function line($string, $level = null, $verbosity = null)
     {
         $this->out->level($level)->writeln($string);
         
