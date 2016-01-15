@@ -109,13 +109,13 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
             __DIR__ . '/../config/twostream.php', 'twostream'
         );
         
-        $this->app->bindShared(Factory::class, function ($app) {
+        $this->app->singleton(Factory::class, function ($app) {
             $config = array_dot($this->app['config']['twostream']);
             
             return new TwoStream($config);
         });
         
-        $this->app->bindShared(ReadOnly::class, function ($app) {
+        $this->app->singleton(ReadOnly::class, function ($app) {
             return new ReadOnly($this->app['config']['session.cookie']);
         });
     }
