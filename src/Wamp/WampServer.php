@@ -1,5 +1,6 @@
 <?php namespace CupOfTea\TwoStream\Wamp;
 
+use Ratchet\Wamp\ServerProtocol;
 use Ratchet\Wamp\WampServer as RatchetWampServer;
 
 class WampServer extends RatchetWampServer

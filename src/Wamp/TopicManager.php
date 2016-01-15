@@ -1,5 +1,6 @@
 <?php namespace CupOfTea\TwoStream\Wamp;
 
+use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
 use Ratchet\Wamp\TopicManager as RatchetTopicManager;
 
