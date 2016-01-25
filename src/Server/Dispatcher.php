@@ -15,7 +15,6 @@ use CupOfTea\TwoStream\Events\ClientDisconnected;
 use CupOfTea\TwoStream\Contracts\Exceptions\Handler;
 use CupOfTea\TwoStream\Exceptions\InvalidRecipientException;
 use CupOfTea\TwoStream\Wamp\TopicAccessTrait as TopicAccess;
-use Illuminate\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
@@ -373,7 +372,7 @@ class Dispatcher implements DispatcherContract
      */
     protected function getUser(Connection $connection)
     {
-        $recaller = $connection->WebSocket->request->getCookie('remember_' . md5(Guard::class));
+        $recaller = $connection->WebSocket->request->getCookie(Auth::getRecallerName());
         try {
             $recaller = $this->Encrypter->decrypt(urldecode($recaller));
         } catch (Exception $e) {
