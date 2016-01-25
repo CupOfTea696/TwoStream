@@ -373,6 +373,11 @@ class Dispatcher implements DispatcherContract
     protected function getUser(Connection $connection)
     {
         $recaller = $connection->WebSocket->request->getCookie(Auth::getRecallerName());
+        
+        if (! $recaller) {
+            return false;
+        }
+        
         try {
             $recaller = $this->Encrypter->decrypt(urldecode($recaller));
         } catch (Exception $e) {
@@ -380,7 +385,7 @@ class Dispatcher implements DispatcherContract
         }
         
         $id = explode('|', $recaller, 2)[0];
-        $model = config('auth.model');
+        $model = $this->getUserModel();
         
         return $model::find($id) !== null ? $id : false;
     }
@@ -393,7 +398,7 @@ class Dispatcher implements DispatcherContract
      */
     protected function getUserSessionId($user)
     {
-        $model = config('auth.model');
+        $model = $this->getUserModel();
         
         if ($user instanceof $model) {
             return array_get($this->users, $user->getKey(), false);
@@ -411,5 +416,18 @@ class Dispatcher implements DispatcherContract
         } else {
             $this->topic = ['topic' => $topic, 'call_id' => $call_id];
         }
+    }
+    
+    protected function getUserModel()
+    {
+        if ($model = config('auth.model')) {
+            return $model;
+        }
+        
+        $guard = preg_replace('/^remember_(.*)_.*?$/', '$1', Auth::getRecallerName());
+        $provider = config('auth.guards.' . $guard . '.provider');
+        $model = config('auth.providers.' . $provider . '.model');
+        
+        return $model;
     }
 }
