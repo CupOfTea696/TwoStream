@@ -2,7 +2,6 @@
 
 interface ReadOnly
 {
-    
     /**
      * Get the session ID.
      *
@@ -46,5 +45,4 @@ interface ReadOnly
      * @return bool
      */
     public function isStarted();
-    
 }

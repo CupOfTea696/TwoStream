@@ -1,7 +1,7 @@
 <?php namespace CupOfTea\TwoStream\Contracts\Ws;
 
-interface Kernel {
-    
+interface Kernel
+{
     /**
      * Handle an incoming Ws request.
      *
@@ -25,5 +25,4 @@ interface Kernel {
      * @return \Illuminate\Contracts\Foundation\Application
      */
     public function getApplication();
-    
 }

@@ -1,16 +1,13 @@
 <?php namespace CupOfTea\TwoStream\Exceptions;
 
 use Exception;
-
 use Psr\Log\LoggerInterface;
-
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Writer;
 use CupOfTea\TwoStream\Contracts\Exceptions\Handler as HandlerContract;
 
 class Handler implements HandlerContract
 {
-    
     use Writer;
     
     /**
@@ -72,8 +69,8 @@ class Handler implements HandlerContract
             'error' => [
                 'msg' => $e->getMessage(),
                 'domain' => 'php.' . str_replace('\_', '.', snake_case(get_class($e))),
-                'full_error' => $e
-            ]
+                'full_error' => $e,
+            ],
         ];
     }
     
@@ -85,7 +82,7 @@ class Handler implements HandlerContract
      */
     public function shouldReport(Exception $e)
     {
-        return !$this->shouldntReport($e);
+        return ! $this->shouldntReport($e);
     }
     
     /**
@@ -104,5 +101,4 @@ class Handler implements HandlerContract
         
         return false;
     }
-    
 }

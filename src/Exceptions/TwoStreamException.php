@@ -2,4 +2,6 @@
 
 use Exception;
 
-class TwoStreamException extends Exception {}
+class TwoStreamException extends Exception
+{
+}

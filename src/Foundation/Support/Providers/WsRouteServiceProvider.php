@@ -3,13 +3,10 @@
 use CupOfTea\Package\ServiceProvider;
 use CupOfTea\TwoStream\Routing\WsRouter;
 use CupOfTea\TwoStream\Contracts\Routing\Registrar;
-
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Routing\UrlGenerator;
 
 class WsRouteServiceProvider extends ServiceProvider
 {
-    
     /**
      * The controller namespace for the application.
      *
@@ -39,7 +36,7 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     protected function loadCachedRoutes()
     {
-        $this->app->booted(function() {
+        $this->app->booted(function () {
             require $this->app->getCachedRoutesPath();
         });
     }
@@ -63,9 +60,10 @@ class WsRouteServiceProvider extends ServiceProvider
     protected function loadRoutesFrom($path)
     {
         $router = $this->app[WsRouter::class];
-        if (is_null($this->namespace)) return require $path;
-        $router->group(['namespace' => $this->namespace], function($router) use ($path)
-        {
+        if (is_null($this->namespace)) {
+            return require $path;
+        }
+        $router->group(['namespace' => $this->namespace], function ($router) use ($path) {
             require $path;
         });
     }
@@ -78,7 +76,7 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     public function map(WsRouter $router)
     {
-        $router->group(['namespace' => $this->namespace], function($router) {
+        $router->group(['namespace' => $this->namespace], function ($router) {
             require app_path('Ws/routes.php');
         });
     }
@@ -90,13 +88,11 @@ class WsRouteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bindShared(WsRouter::class, function($app)
-        {
+        $this->app->singleton(WsRouter::class, function ($app) {
             return new WsRouter($app->make(Dispatcher::class), $app);
         });
         
-        $this->app->bindShared(Registrar::class, function($app)
-        {
+        $this->app->singleton(Registrar::class, function ($app) {
             return new WsRouter($app->make(Dispatcher::class), $app);
         });
     }
@@ -125,5 +121,4 @@ class WsRouteServiceProvider extends ServiceProvider
     {
         return call_user_func_array([$this->app[WsRouter::class], $method], $parameters);
     }
-    
 }

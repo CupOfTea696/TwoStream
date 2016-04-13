@@ -1,25 +1,19 @@
 <?php namespace CupOfTea\TwoStream\Foundation\Ws;
 
-use Log;
 use Auth;
 use Session;
 use Exception;
-
 use Illuminate\Auth\AuthManager;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\TerminableMiddleware;
-
 use CupOfTea\TwoStream\Routing\WsRouter;
-use CupOfTea\TwoStream\Session\ReadOnlySessionManager;
 use CupOfTea\TwoStream\Contracts\Ws\Kernel as KernelContract;
-
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Kernel implements KernelContract
 {
-    
     /**
      * The application implementation.
      *
@@ -98,7 +92,7 @@ class Kernel implements KernelContract
     }
     
     /**
-     * Load the Auth Manager for the Request
+     * Load the Auth Manager for the Request.
      */
     protected function loadAuthManager()
     {
@@ -193,8 +187,9 @@ class Kernel implements KernelContract
      */
     protected function dispatchToRouter()
     {
-        return function($request) {
+        return function ($request) {
             $this->app->instance('request', $request);
+
             return $this->router->dispatch($request);
         };
     }
@@ -208,5 +203,4 @@ class Kernel implements KernelContract
     {
         return $this->app;
     }
-    
 }

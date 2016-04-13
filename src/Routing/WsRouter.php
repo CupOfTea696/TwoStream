@@ -1,7 +1,6 @@
 <?php namespace CupOfTea\TwoStream\Routing;
 
 use Closure;
-
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
@@ -10,15 +9,11 @@ use Illuminate\Container\Container;
 use Illuminate\Routing\RouteCollection;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Events\Dispatcher;
-
 use CupOfTea\TwoStream\Contracts\Routing\Registrar as RegistrarContract;
-
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class WsRouter implements RegistrarContract
 {
-    
     use Macroable;
     
     /**
@@ -208,7 +203,7 @@ class WsRouter implements RegistrarContract
         // First, we will check to see if a controller prefix has been registered in
         // the route group. If it has, we will need to prefix it before trying to
         // reflect into the class instance and pull out the method for routing.
-        if (!empty($this->groupStack)) {
+        if (! empty($this->groupStack)) {
             $prepended = $this->prependGroupUses($controller);
         }
         $routable = (new ControllerInspector)
@@ -236,7 +231,7 @@ class WsRouter implements RegistrarContract
      */
     protected function registerInspected($route, $controller, $method, &$names)
     {
-        $action = ['uses' => $controller.'@'.$method];
+        $action = ['uses' => $controller . '@' . $method];
         
         // If a given controller method has been named, we will assign the name to the
         // controller action array, which provides for a short-cut to method naming
@@ -254,7 +249,7 @@ class WsRouter implements RegistrarContract
      */
     protected function addFallthroughRoute($controller, $uri)
     {
-        $missing = $this->any($uri.'/{_missing}', $controller.'@missingMethod');
+        $missing = $this->any($uri . '/{_missing}', $controller . '@missingMethod');
         $missing->where('_missing', '(.*)');
     }
     
@@ -284,7 +279,7 @@ class WsRouter implements RegistrarContract
      */
     protected function updateGroupStack(array $attributes)
     {
-        if (!empty($this->groupStack)) {
+        if (! empty($this->groupStack)) {
             $attributes = $this->mergeGroup($attributes, last($this->groupStack));
         }
         $this->groupStack[] = $attributes;
@@ -312,8 +307,11 @@ class WsRouter implements RegistrarContract
     {
         $new['namespace'] = static::formatUsesPrefix($new, $old);
         $new['prefix'] = static::formatGroupPrefix($new, $old);
-        if (isset($new['domain'])) unset($old['domain']);
+        if (isset($new['domain'])) {
+            unset($old['domain']);
+        }
         $new['where'] = array_merge(array_get($old, 'where', []), array_get($new, 'where', []));
+
         return array_merge_recursive(array_except($old, ['namespace', 'prefix', 'where']), $new);
     }
     
@@ -327,10 +325,11 @@ class WsRouter implements RegistrarContract
     protected static function formatUsesPrefix($new, $old)
     {
         if (isset($new['namespace']) && isset($old['namespace'])) {
-            return trim(array_get($old, 'namespace'), '\\').'\\'.trim($new['namespace'], '\\');
+            return trim(array_get($old, 'namespace'), '\\') . '\\' . trim($new['namespace'], '\\');
         } elseif (isset($new['namespace'])) {
             return trim($new['namespace'], '\\');
         }
+        
         return array_get($old, 'namespace');
     }
     
@@ -344,8 +343,9 @@ class WsRouter implements RegistrarContract
     protected static function formatGroupPrefix($new, $old)
     {
         if (isset($new['prefix'])) {
-            return trim(array_get($old, 'prefix'), '/').'/'.trim($new['prefix'], '/');
+            return trim(array_get($old, 'prefix'), '/') . '/' . trim($new['prefix'], '/');
         }
+        
         return array_get($old, 'prefix');
     }
     
@@ -356,10 +356,12 @@ class WsRouter implements RegistrarContract
      */
     public function getLastGroupPrefix()
     {
-        if (!empty($this->groupStack)) {
+        if (! empty($this->groupStack)) {
             $last = end($this->groupStack);
+            
             return isset($last['prefix']) ? $last['prefix'] : '';
         }
+        
         return '';
     }
     
@@ -403,6 +405,7 @@ class WsRouter implements RegistrarContract
             $this->mergeGroupAttributesIntoRoute($route);
         }
         $this->addWhereClausesToRoute($route);
+        
         return $route;
     }
     
@@ -427,7 +430,7 @@ class WsRouter implements RegistrarContract
      */
     protected function prefix($uri)
     {
-        return trim(trim($this->getLastGroupPrefix(), '/').'/'.trim($uri, '/'), '/') ?: '/';
+        return trim(trim($this->getLastGroupPrefix(), '/') . '/' . trim($uri, '/'), '/') ?: '/';
     }
     
     /**
@@ -441,6 +444,7 @@ class WsRouter implements RegistrarContract
         $route->where(
             array_merge($this->patterns, array_get($route->getAction(), 'where', []))
         );
+        
         return $route;
     }
     
@@ -464,7 +468,10 @@ class WsRouter implements RegistrarContract
      */
     protected function actionReferencesController($action)
     {
-        if ($action instanceof Closure) return false;
+        if ($action instanceof Closure) {
+            return false;
+        }
+
         return is_string($action) || is_string(array_get($action, 'uses'));
     }
     
@@ -476,12 +483,14 @@ class WsRouter implements RegistrarContract
      */
     protected function convertToControllerAction($action)
     {
-        if (is_string($action)) $action = ['uses' => $action];
+        if (is_string($action)) {
+            $action = ['uses' => $action];
+        }
         
         // Here we'll merge any group "uses" statement if necessary so that the action
         // has the proper clause for this property. Then we can simply set the name
         // of the controller on the action and return the action array for usage.
-        if (!empty($this->groupStack)) {
+        if (! empty($this->groupStack)) {
             $action['uses'] = $this->prependGroupUses($action['uses']);
         }
         
@@ -489,6 +498,7 @@ class WsRouter implements RegistrarContract
         // have a copy of it for reference if we need it. This can be used while we
         // search for a controller name or do some other type of fetch operation.
         $action['controller'] = $action['uses'];
+        
         return $action;
     }
     
@@ -501,7 +511,8 @@ class WsRouter implements RegistrarContract
     protected function prependGroupUses($uses)
     {
         $group = last($this->groupStack);
-        return isset($group['namespace']) && strpos($uses, '\\') !== 0 ? $group['namespace'].'\\'.$uses : $uses;
+        
+        return isset($group['namespace']) && strpos($uses, '\\') !== 0 ? $group['namespace'] . '\\' . $uses : $uses;
     }
     
     /**
@@ -533,7 +544,7 @@ class WsRouter implements RegistrarContract
         // route resolver on the request so middlewares assigned to the route will
         // receive access to this route instance for checking of the parameters.
         $route = $this->findRoute($request);
-        $request->setRouteResolver(function() use ($route) {
+        $request->setRouteResolver(function () use ($route) {
             return $route;
         });
         $this->events->fire('router.matched', [$route, $request]);
@@ -557,11 +568,11 @@ class WsRouter implements RegistrarContract
     protected function runRouteWithinStack(Route $route, Request $request)
     {
         $middleware = $this->gatherRouteMiddlewares($route);
+        
         return (new Pipeline($this->container))
                         ->send($request)
                         ->through($middleware)
-                        ->then(function($request) use ($route)
-                        {
+                        ->then(function ($request) use ($route) {
                             return $this->prepareResponse(
                                 $request,
                                 $route->run($request)
@@ -577,8 +588,7 @@ class WsRouter implements RegistrarContract
      */
     public function gatherRouteMiddlewares(Route $route)
     {
-        return Collection::make($route->middleware())->map(function($m)
-        {
+        return Collection::make($route->middleware())->map(function ($m) {
             return Collection::make(array_get($this->middleware, $m, $m));
         })->collapse()->all();
     }
@@ -593,6 +603,7 @@ class WsRouter implements RegistrarContract
     {
         $this->current = $route = $this->routes->match($request);
         $this->container->instance('Illuminate\Routing\Route', $route);
+        
         return $this->substituteBindings($route);
     }
     
@@ -609,6 +620,7 @@ class WsRouter implements RegistrarContract
                 $route->setParameter($key, $this->performBinding($key, $value, $route));
             }
         }
+        
         return $route;
     }
     
@@ -656,6 +668,7 @@ class WsRouter implements RegistrarContract
     public function middleware($name, $class)
     {
         $this->middleware[$name] = $class;
+
         return $this;
     }
     
@@ -671,9 +684,10 @@ class WsRouter implements RegistrarContract
      */
     public function model($key, $class, Closure $callback = null)
     {
-        $this->bind($key, function($value) use ($class, $callback)
-        {
-            if (is_null($value)) return;
+        $this->bind($key, function ($value) use ($class, $callback) {
+            if (is_null($value)) {
+                return;
+            }
             
             // For model binders, we will attempt to retrieve the models using the first
             // method on the model instance. If we cannot retrieve the models we'll
@@ -715,14 +729,14 @@ class WsRouter implements RegistrarContract
      */
     public function createClassBinding($binding)
     {
-        return function($value, $route) use ($binding)
-        {
+        return function ($value, $route) use ($binding) {
             // If the binding has an @ sign, we will assume it's being used to delimit
             // the class name from the bind method name. This allows for bindings
             // to run multiple bind methods in a single class for convenience.
             $segments = explode('@', $binding);
             $method = count($segments) == 2 ? $segments[1] : 'bind';
             $callable = [$this->container->make($segments[0]), $method];
+            
             return call_user_func($callable, $value, $route);
         };
     }
@@ -747,8 +761,7 @@ class WsRouter implements RegistrarContract
      */
     public function patterns($patterns)
     {
-        foreach ($patterns as $key => $pattern)
-        {
+        foreach ($patterns as $key => $pattern) {
             $this->pattern($key, $pattern);
         }
     }
@@ -772,7 +785,7 @@ class WsRouter implements RegistrarContract
      */
     public function hasGroupStack()
     {
-        return !empty($this->groupStack);
+        return ! empty($this->groupStack);
     }
     
     /**
@@ -851,6 +864,7 @@ class WsRouter implements RegistrarContract
                 return true;
             }
         }
+        
         return false;
     }
     
@@ -872,8 +886,11 @@ class WsRouter implements RegistrarContract
      */
     public function currentRouteAction()
     {
-        if (!$this->current()) return;
+        if (! $this->current()) {
+            return;
+        }
         $action = $this->current()->getAction();
+        
         return isset($action['controller']) ? $action['controller'] : null;
     }
     
@@ -890,6 +907,7 @@ class WsRouter implements RegistrarContract
                 return true;
             }
         }
+        
         return false;
     }
     
@@ -948,5 +966,4 @@ class WsRouter implements RegistrarContract
     {
         return $this->patterns;
     }
-    
 }

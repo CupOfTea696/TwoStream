@@ -1,7 +1,6 @@
 <?php namespace CupOfTea\TwoStream\Facades;
 
 use Illuminate\Support\Facades\Facade;
-
 use CupOfTea\TwoStream\Contracts\Session\ReadOnly;
 
 /**
@@ -9,12 +8,13 @@ use CupOfTea\TwoStream\Contracts\Session\ReadOnly;
  */
 class WsSession extends Facade
 {
-    
     /**
      * Get the registered name of the component.
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return ReadOnly::class; }
-    
+    protected static function getFacadeAccessor()
+    {
+        return ReadOnly::class;
+    }
 }

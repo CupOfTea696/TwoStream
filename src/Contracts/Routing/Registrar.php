@@ -4,7 +4,6 @@ use Closure;
 
 interface Registrar
 {
-    
     /**
      * Register a new CALL route with the router.
      *
@@ -84,5 +83,4 @@ interface Registrar
      * @return void
      */
     public function filter($name, $callback);
-    
 }

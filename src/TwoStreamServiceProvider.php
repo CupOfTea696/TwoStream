@@ -1,17 +1,14 @@
 <?php namespace CupOfTea\TwoStream;
 
 use Storage;
-
 use CupOfTea\TwoStream\Routing\WsRouter;
 use CupOfTea\TwoStream\Session\ReadOnly;
 use CupOfTea\TwoStream\Contracts\Factory;
 use CupOfTea\TwoStream\Foundation\Support\Providers\WsRouteServiceProvider;
-
 use Illuminate\Console\AppNamespaceDetectorTrait as AppNamespaceDetector;
 
 class TwoStreamServiceProvider extends WsRouteServiceProvider
 {
-    
     use AppNamespaceDetector;
     
     /**
@@ -36,7 +33,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
     protected $files;
     
     /**
-     * Available commands in this package
+     * Available commands in this package.
      *
      * @var array
      */
@@ -76,7 +73,9 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         
         $this->namespace = str_replace('{{namespace}}', $this->getAppNamespace(), $this->namespace);
         
-        parent::boot($router);
+        if ($this->isInstalled()) {
+            parent::boot($router);
+        }
     }
     
     /**
@@ -86,8 +85,8 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
      */
     public function register()
     {
-        if (!$this->isInstalled()) {
-            $this->app['command.twostream.install'] = $this->app->share(function($app) {
+        if (! $this->isInstalled()) {
+            $this->app['command.twostream.install'] = $this->app->share(function ($app) {
                 return new Install($this->getAppNamespace());
             });
             
@@ -96,27 +95,27 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         
         parent::register();
         
-        $this->app['command.twostream.listen'] = $this->app->share(function($app) {
+        $this->app['command.twostream.listen'] = $this->app->share(function ($app) {
             return new Server($app);
         });
         
-        $this->app['command.twostream.stop'] = $this->app->share(function($app) {
+        $this->app['command.twostream.stop'] = $this->app->share(function ($app) {
             return new Stop();
         });
         
         $this->commands($this->commands);
         
         $this->mergeConfigFrom(
-            __DIR__.'/../config/twostream.php', 'twostream'
+            __DIR__ . '/../config/twostream.php', 'twostream'
         );
         
-        $this->app->bindShared(Factory::class, function($app) {
+        $this->app->singleton(Factory::class, function ($app) {
             $config = array_dot($this->app['config']['twostream']);
             
             return new TwoStream($config);
         });
         
-        $this->app->bindShared(ReadOnly::class, function($app) {
+        $this->app->singleton(ReadOnly::class, function ($app) {
             return new ReadOnly($this->app['config']['session.cookie']);
         });
     }
@@ -135,7 +134,7 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
     }
     
     /**
-     * Check if the TwoStream Package is installed
+     * Check if the TwoStream Package is installed.
      *
      * @return bool
      */
@@ -147,12 +146,11 @@ class TwoStreamServiceProvider extends WsRouteServiceProvider
         ]);
         
         foreach ($this->files['required'] as $required) {
-            if (!$disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required))) {
+            if (! $disk->exists(str_replace(['.stub', app_path()], ['.php', ''], $required))) {
                 return false;
             }
         }
         
         return true;
     }
-    
 }

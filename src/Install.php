@@ -2,17 +2,11 @@
 
 use App;
 use Storage;
-
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
-
 use CupOfTea\TwoStream\Console\Output;
 use CupOfTea\TwoStream\Console\Command;
 
 class Install extends Command
 {
-    
     /**
      * The name and signature of the console command.
      *
@@ -28,7 +22,7 @@ class Install extends Command
     protected $appNamespace;
     
     /**
-     * Console Output
+     * Console Output.
      *
      * @var \CupOfTea\TwoStream\Console\Output
      */
@@ -56,7 +50,7 @@ class Install extends Command
     }
     
     /**
-     * Fire the command
+     * Fire the command.
      *
      * @return void
      */
@@ -68,7 +62,7 @@ class Install extends Command
     }
     
     /**
-     * Install the TwoStream package
+     * Install the TwoStream package.
      *
      * @return void
      */
@@ -93,7 +87,7 @@ class Install extends Command
                 $disk->put($required, $file);
             }
             
-            if (!$disk->exists(str_replace('.stub', '.php', $required))) {
+            if (! $disk->exists(str_replace('.stub', '.php', $required))) {
                 $disk->move($required, str_replace('.stub', '.php', $required));
             }
         }
@@ -107,5 +101,4 @@ class Install extends Command
             }
         }
     }
-    
 }
