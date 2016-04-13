@@ -62,7 +62,7 @@ class TwoStream implements ProviderContract
      *
      * @const string
      */
-    const VERSION = '1.0.9';
+    const VERSION = '1.1.0';
     
     /**
      * Socket Pull ID.
