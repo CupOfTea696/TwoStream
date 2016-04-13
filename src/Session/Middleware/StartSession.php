@@ -159,7 +159,6 @@ class StartSession implements TerminableMiddleware
      */
     protected function addCookieToResponse($response, $session)
     {
-        return;
     }
     
     /**
