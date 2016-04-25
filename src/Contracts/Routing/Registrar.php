@@ -58,29 +58,4 @@ interface Registrar
      * @return void
      */
     public function group(array $attributes, Closure $callback);
-    
-    /**
-     * Register a new "before" filter with the router.
-     *
-     * @param  string|callable  $callback
-     * @return void
-     */
-    public function before($callback);
-    
-    /**
-     * Register a new "after" filter with the router.
-     *
-     * @param  string|callable  $callback
-     * @return void
-     */
-    public function after($callback);
-    
-    /**
-     * Register a new filter with the router.
-     *
-     * @param  string  $name
-     * @param  string|callable  $callback
-     * @return void
-     */
-    public function filter($name, $callback);
 }
