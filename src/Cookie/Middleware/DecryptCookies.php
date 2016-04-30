@@ -4,11 +4,10 @@ use Closure;
 use Exception;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
-use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter as EncrypterContract;
 
-class DecryptCookies implements Middleware
+class DecryptCookies
 {
     /**
      * The encrypter instance.
